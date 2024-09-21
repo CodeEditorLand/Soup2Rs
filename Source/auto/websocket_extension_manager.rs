@@ -10,22 +10,22 @@ use std::fmt;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 glib::wrapper! {
-    #[doc(alias = "SoupWebsocketExtensionManager")]
-    pub struct WebsocketExtensionManager(Object<ffi::SoupWebsocketExtensionManager, ffi::SoupWebsocketExtensionManagerClass>) @implements SessionFeature;
+	#[doc(alias = "SoupWebsocketExtensionManager")]
+	pub struct WebsocketExtensionManager(Object<ffi::SoupWebsocketExtensionManager, ffi::SoupWebsocketExtensionManagerClass>) @implements SessionFeature;
 
-    match fn {
-        type_ => || ffi::soup_websocket_extension_manager_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_websocket_extension_manager_get_type(),
+	}
 }
 
 #[cfg(not(any(feature = "v2_24", feature = "dox")))]
 glib::wrapper! {
-    #[doc(alias = "SoupWebsocketExtensionManager")]
-    pub struct WebsocketExtensionManager(Object<ffi::SoupWebsocketExtensionManager, ffi::SoupWebsocketExtensionManagerClass>);
+	#[doc(alias = "SoupWebsocketExtensionManager")]
+	pub struct WebsocketExtensionManager(Object<ffi::SoupWebsocketExtensionManager, ffi::SoupWebsocketExtensionManagerClass>);
 
-    match fn {
-        type_ => || ffi::soup_websocket_extension_manager_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_websocket_extension_manager_get_type(),
+	}
 }
 
 impl WebsocketExtensionManager {}
@@ -33,7 +33,7 @@ impl WebsocketExtensionManager {}
 pub const NONE_WEBSOCKET_EXTENSION_MANAGER: Option<&WebsocketExtensionManager> = None;
 
 impl fmt::Display for WebsocketExtensionManager {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("WebsocketExtensionManager")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("WebsocketExtensionManager")
+	}
 }

@@ -6,18 +6,18 @@ use crate::Auth;
 use std::fmt;
 
 glib::wrapper! {
-    #[doc(alias = "SoupAuthDigest")]
-    pub struct AuthDigest(Object<ffi::SoupAuthDigest>) @extends Auth;
+	#[doc(alias = "SoupAuthDigest")]
+	pub struct AuthDigest(Object<ffi::SoupAuthDigest>) @extends Auth;
 
-    match fn {
-        type_ => || ffi::soup_auth_digest_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_auth_digest_get_type(),
+	}
 }
 
 impl AuthDigest {}
 
 impl fmt::Display for AuthDigest {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AuthDigest")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("AuthDigest")
+	}
 }

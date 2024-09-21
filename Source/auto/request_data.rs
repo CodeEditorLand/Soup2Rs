@@ -10,22 +10,22 @@ use std::fmt;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 glib::wrapper! {
-    #[doc(alias = "SoupRequestData")]
-    pub struct RequestData(Object<ffi::SoupRequestData, ffi::SoupRequestDataClass>) @extends Request;
+	#[doc(alias = "SoupRequestData")]
+	pub struct RequestData(Object<ffi::SoupRequestData, ffi::SoupRequestDataClass>) @extends Request;
 
-    match fn {
-        type_ => || ffi::soup_request_data_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_request_data_get_type(),
+	}
 }
 
 #[cfg(not(any(feature = "v2_42", feature = "dox")))]
 glib::wrapper! {
-    #[doc(alias = "SoupRequestData")]
-    pub struct RequestData(Object<ffi::SoupRequestData, ffi::SoupRequestDataClass>);
+	#[doc(alias = "SoupRequestData")]
+	pub struct RequestData(Object<ffi::SoupRequestData, ffi::SoupRequestDataClass>);
 
-    match fn {
-        type_ => || ffi::soup_request_data_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_request_data_get_type(),
+	}
 }
 
 impl RequestData {}
@@ -33,7 +33,7 @@ impl RequestData {}
 pub const NONE_REQUEST_DATA: Option<&RequestData> = None;
 
 impl fmt::Display for RequestData {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RequestData")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("RequestData")
+	}
 }

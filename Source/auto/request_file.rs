@@ -14,46 +14,44 @@ use std::fmt;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 glib::wrapper! {
-    #[doc(alias = "SoupRequestFile")]
-    pub struct RequestFile(Object<ffi::SoupRequestFile, ffi::SoupRequestFileClass>) @extends Request;
+	#[doc(alias = "SoupRequestFile")]
+	pub struct RequestFile(Object<ffi::SoupRequestFile, ffi::SoupRequestFileClass>) @extends Request;
 
-    match fn {
-        type_ => || ffi::soup_request_file_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_request_file_get_type(),
+	}
 }
 
 #[cfg(not(any(feature = "v2_42", feature = "dox")))]
 glib::wrapper! {
-    #[doc(alias = "SoupRequestFile")]
-    pub struct RequestFile(Object<ffi::SoupRequestFile, ffi::SoupRequestFileClass>);
+	#[doc(alias = "SoupRequestFile")]
+	pub struct RequestFile(Object<ffi::SoupRequestFile, ffi::SoupRequestFileClass>);
 
-    match fn {
-        type_ => || ffi::soup_request_file_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_request_file_get_type(),
+	}
 }
 
 pub const NONE_REQUEST_FILE: Option<&RequestFile> = None;
 
 pub trait RequestFileExt: 'static {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
-    #[doc(alias = "soup_request_file_get_file")]
-    #[doc(alias = "get_file")]
-    fn file(&self) -> Option<gio::File>;
+	#[cfg(any(feature = "v2_40", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
+	#[doc(alias = "soup_request_file_get_file")]
+	#[doc(alias = "get_file")]
+	fn file(&self) -> Option<gio::File>;
 }
 
 impl<O: IsA<RequestFile>> RequestFileExt for O {
-    #[cfg(any(feature = "v2_40", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
-    fn file(&self) -> Option<gio::File> {
-        unsafe {
-            from_glib_full(ffi::soup_request_file_get_file(self.as_ref().to_glib_none().0))
-        }
-    }
+	#[cfg(any(feature = "v2_40", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
+	fn file(&self) -> Option<gio::File> {
+		unsafe { from_glib_full(ffi::soup_request_file_get_file(self.as_ref().to_glib_none().0)) }
+	}
 }
 
 impl fmt::Display for RequestFile {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("RequestFile")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("RequestFile")
+	}
 }

@@ -9,10 +9,10 @@ mod auth;
 pub use self::auth::{Auth, NONE_AUTH};
 
 mod auth_basic;
-pub use self::auth_basic::{AuthBasic};
+pub use self::auth_basic::AuthBasic;
 
 mod auth_digest;
-pub use self::auth_digest::{AuthDigest};
+pub use self::auth_digest::AuthDigest;
 
 mod auth_domain;
 pub use self::auth_domain::{AuthDomain, NONE_AUTH_DOMAIN};
@@ -27,10 +27,10 @@ mod auth_manager;
 pub use self::auth_manager::{AuthManager, NONE_AUTH_MANAGER};
 
 mod auth_ntlm;
-pub use self::auth_ntlm::{AuthNTLM};
+pub use self::auth_ntlm::AuthNTLM;
 
 mod auth_negotiate;
-pub use self::auth_negotiate::{AuthNegotiate};
+pub use self::auth_negotiate::AuthNegotiate;
 
 mod cache;
 pub use self::cache::{Cache, NONE_CACHE};
@@ -136,10 +136,14 @@ pub use self::websocket_extension::{WebsocketExtension, NONE_WEBSOCKET_EXTENSION
 mod websocket_extension_deflate;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-pub use self::websocket_extension_deflate::{WebsocketExtensionDeflate, NONE_WEBSOCKET_EXTENSION_DEFLATE};
+pub use self::websocket_extension_deflate::{
+	WebsocketExtensionDeflate, NONE_WEBSOCKET_EXTENSION_DEFLATE,
+};
 
 mod websocket_extension_manager;
-pub use self::websocket_extension_manager::{WebsocketExtensionManager, NONE_WEBSOCKET_EXTENSION_MANAGER};
+pub use self::websocket_extension_manager::{
+	WebsocketExtensionManager, NONE_WEBSOCKET_EXTENSION_MANAGER,
+};
 
 mod buffer;
 pub use self::buffer::Buffer;
@@ -181,32 +185,18 @@ mod uri;
 pub use self::uri::URI;
 
 mod enums;
-pub use self::enums::AddressFamily;
-pub use self::enums::CacheResponse;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 pub use self::enums::CacheType;
-pub use self::enums::ConnectionState;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 pub use self::enums::CookieJarAcceptPolicy;
-pub use self::enums::DateFormat;
-pub use self::enums::Encoding;
-pub use self::enums::HTTPVersion;
-pub use self::enums::KnownStatusCode;
-pub use self::enums::LoggerLogLevel;
-pub use self::enums::MemoryUse;
-pub use self::enums::MessageHeadersType;
-pub use self::enums::MessagePriority;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 pub use self::enums::RequestError;
-pub use self::enums::RequesterError;
 #[cfg(any(feature = "v2_70", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 pub use self::enums::SameSitePolicy;
-pub use self::enums::SocketIOStatus;
-pub use self::enums::Status;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 pub use self::enums::TLDError;
@@ -225,56 +215,30 @@ pub use self::enums::WebsocketError;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 pub use self::enums::WebsocketState;
-pub use self::enums::XMLRPCError;
-pub use self::enums::XMLRPCFault;
+pub use self::enums::{
+	AddressFamily, CacheResponse, ConnectionState, DateFormat, Encoding, HTTPVersion,
+	KnownStatusCode, LoggerLogLevel, MemoryUse, MessageHeadersType, MessagePriority,
+	RequesterError, SocketIOStatus, Status, XMLRPCError, XMLRPCFault,
+};
 
 mod flags;
-pub use self::flags::Cacheability;
-pub use self::flags::Expectation;
-pub use self::flags::MessageFlags;
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 pub use self::flags::ServerListenOptions;
+pub use self::flags::{Cacheability, Expectation, MessageFlags};
 
 pub mod functions;
 
 mod constants;
-pub use self::constants::ADDRESS_FAMILY;
-pub use self::constants::ADDRESS_NAME;
-pub use self::constants::ADDRESS_PHYSICAL;
-pub use self::constants::ADDRESS_PORT;
-pub use self::constants::ADDRESS_PROTOCOL;
-pub use self::constants::ADDRESS_SOCKADDR;
-pub use self::constants::AUTH_DOMAIN_ADD_PATH;
-pub use self::constants::AUTH_DOMAIN_BASIC_AUTH_CALLBACK;
-pub use self::constants::AUTH_DOMAIN_BASIC_AUTH_DATA;
-pub use self::constants::AUTH_DOMAIN_DIGEST_AUTH_CALLBACK;
-pub use self::constants::AUTH_DOMAIN_DIGEST_AUTH_DATA;
-pub use self::constants::AUTH_DOMAIN_FILTER;
-pub use self::constants::AUTH_DOMAIN_FILTER_DATA;
-pub use self::constants::AUTH_DOMAIN_GENERIC_AUTH_CALLBACK;
-pub use self::constants::AUTH_DOMAIN_GENERIC_AUTH_DATA;
-pub use self::constants::AUTH_DOMAIN_PROXY;
-pub use self::constants::AUTH_DOMAIN_REALM;
-pub use self::constants::AUTH_DOMAIN_REMOVE_PATH;
-pub use self::constants::AUTH_HOST;
-pub use self::constants::AUTH_IS_AUTHENTICATED;
-pub use self::constants::AUTH_IS_FOR_PROXY;
-pub use self::constants::AUTH_REALM;
-pub use self::constants::AUTH_SCHEME_NAME;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 pub use self::constants::COOKIE_JAR_ACCEPT_POLICY;
-pub use self::constants::COOKIE_JAR_DB_FILENAME;
-pub use self::constants::COOKIE_JAR_READ_ONLY;
-pub use self::constants::COOKIE_JAR_TEXT_FILENAME;
 #[cfg(any(feature = "v2_26", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 pub use self::constants::FORM_MIME_TYPE_MULTIPART;
 #[cfg(any(feature = "v2_26", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 pub use self::constants::FORM_MIME_TYPE_URLENCODED;
-pub use self::constants::HSTS_ENFORCER_DB_FILENAME;
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 pub use self::constants::LOGGER_LEVEL;
@@ -284,34 +248,21 @@ pub use self::constants::LOGGER_MAX_BODY_SIZE;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 pub use self::constants::MESSAGE_FIRST_PARTY;
-pub use self::constants::MESSAGE_FLAGS;
-pub use self::constants::MESSAGE_HTTP_VERSION;
-pub use self::constants::MESSAGE_IS_TOP_LEVEL_NAVIGATION;
-pub use self::constants::MESSAGE_METHOD;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::constants::MESSAGE_PRIORITY;
-pub use self::constants::MESSAGE_REASON_PHRASE;
-pub use self::constants::MESSAGE_REQUEST_BODY;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::constants::MESSAGE_REQUEST_BODY_DATA;
-pub use self::constants::MESSAGE_REQUEST_HEADERS;
-pub use self::constants::MESSAGE_RESPONSE_BODY;
 #[cfg(any(feature = "v2_46", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 pub use self::constants::MESSAGE_RESPONSE_BODY_DATA;
-pub use self::constants::MESSAGE_RESPONSE_HEADERS;
-pub use self::constants::MESSAGE_SERVER_SIDE;
-pub use self::constants::MESSAGE_SITE_FOR_COOKIES;
-pub use self::constants::MESSAGE_STATUS_CODE;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 pub use self::constants::MESSAGE_TLS_CERTIFICATE;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 pub use self::constants::MESSAGE_TLS_ERRORS;
-pub use self::constants::MESSAGE_URI;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 pub use self::constants::REQUEST_SESSION;
@@ -321,22 +272,15 @@ pub use self::constants::REQUEST_URI;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 pub use self::constants::SERVER_ADD_WEBSOCKET_EXTENSION;
-pub use self::constants::SERVER_ASYNC_CONTEXT;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::constants::SERVER_HTTPS_ALIASES;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 pub use self::constants::SERVER_HTTP_ALIASES;
-pub use self::constants::SERVER_INTERFACE;
-pub use self::constants::SERVER_PORT;
-pub use self::constants::SERVER_RAW_PATHS;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 pub use self::constants::SERVER_REMOVE_WEBSOCKET_EXTENSION;
-pub use self::constants::SERVER_SERVER_HEADER;
-pub use self::constants::SERVER_SSL_CERT_FILE;
-pub use self::constants::SERVER_SSL_KEY_FILE;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SERVER_TLS_CERTIFICATE;
@@ -352,7 +296,6 @@ pub use self::constants::SESSION_ADD_FEATURE;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 pub use self::constants::SESSION_ADD_FEATURE_BY_TYPE;
-pub use self::constants::SESSION_ASYNC_CONTEXT;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SESSION_HTTPS_ALIASES;
@@ -365,91 +308,81 @@ pub use self::constants::SESSION_IDLE_TIMEOUT;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 pub use self::constants::SESSION_LOCAL_ADDRESS;
-pub use self::constants::SESSION_MAX_CONNS;
-pub use self::constants::SESSION_MAX_CONNS_PER_HOST;
-pub use self::constants::SESSION_PROXY_RESOLVER;
-pub use self::constants::SESSION_PROXY_URI;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 pub use self::constants::SESSION_REMOVE_FEATURE_BY_TYPE;
-pub use self::constants::SESSION_SSL_CA_FILE;
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 pub use self::constants::SESSION_SSL_STRICT;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SESSION_SSL_USE_SYSTEM_CA_FILE;
-pub use self::constants::SESSION_TIMEOUT;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SESSION_TLS_DATABASE;
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 pub use self::constants::SESSION_TLS_INTERACTION;
-pub use self::constants::SESSION_USER_AGENT;
-pub use self::constants::SESSION_USE_NTLM;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SESSION_USE_THREAD_CONTEXT;
-pub use self::constants::SOCKET_ASYNC_CONTEXT;
-pub use self::constants::SOCKET_FLAG_NONBLOCKING;
-pub use self::constants::SOCKET_IS_SERVER;
-pub use self::constants::SOCKET_LOCAL_ADDRESS;
-pub use self::constants::SOCKET_REMOTE_ADDRESS;
-pub use self::constants::SOCKET_SSL_CREDENTIALS;
-pub use self::constants::SOCKET_SSL_FALLBACK;
-pub use self::constants::SOCKET_SSL_STRICT;
-pub use self::constants::SOCKET_TIMEOUT;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 pub use self::constants::SOCKET_TLS_CERTIFICATE;
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 pub use self::constants::SOCKET_TLS_ERRORS;
-pub use self::constants::SOCKET_TRUSTED_CERTIFICATE;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SOCKET_USE_THREAD_CONTEXT;
+pub use self::constants::{
+	ADDRESS_FAMILY, ADDRESS_NAME, ADDRESS_PHYSICAL, ADDRESS_PORT, ADDRESS_PROTOCOL,
+	ADDRESS_SOCKADDR, AUTH_DOMAIN_ADD_PATH, AUTH_DOMAIN_BASIC_AUTH_CALLBACK,
+	AUTH_DOMAIN_BASIC_AUTH_DATA, AUTH_DOMAIN_DIGEST_AUTH_CALLBACK, AUTH_DOMAIN_DIGEST_AUTH_DATA,
+	AUTH_DOMAIN_FILTER, AUTH_DOMAIN_FILTER_DATA, AUTH_DOMAIN_GENERIC_AUTH_CALLBACK,
+	AUTH_DOMAIN_GENERIC_AUTH_DATA, AUTH_DOMAIN_PROXY, AUTH_DOMAIN_REALM, AUTH_DOMAIN_REMOVE_PATH,
+	AUTH_HOST, AUTH_IS_AUTHENTICATED, AUTH_IS_FOR_PROXY, AUTH_REALM, AUTH_SCHEME_NAME,
+	COOKIE_JAR_DB_FILENAME, COOKIE_JAR_READ_ONLY, COOKIE_JAR_TEXT_FILENAME,
+	HSTS_ENFORCER_DB_FILENAME, MESSAGE_FLAGS, MESSAGE_HTTP_VERSION,
+	MESSAGE_IS_TOP_LEVEL_NAVIGATION, MESSAGE_METHOD, MESSAGE_REASON_PHRASE, MESSAGE_REQUEST_BODY,
+	MESSAGE_REQUEST_HEADERS, MESSAGE_RESPONSE_BODY, MESSAGE_RESPONSE_HEADERS, MESSAGE_SERVER_SIDE,
+	MESSAGE_SITE_FOR_COOKIES, MESSAGE_STATUS_CODE, MESSAGE_URI, SERVER_ASYNC_CONTEXT,
+	SERVER_INTERFACE, SERVER_PORT, SERVER_RAW_PATHS, SERVER_SERVER_HEADER, SERVER_SSL_CERT_FILE,
+	SERVER_SSL_KEY_FILE, SESSION_ASYNC_CONTEXT, SESSION_MAX_CONNS, SESSION_MAX_CONNS_PER_HOST,
+	SESSION_PROXY_RESOLVER, SESSION_PROXY_URI, SESSION_SSL_CA_FILE, SESSION_TIMEOUT,
+	SESSION_USER_AGENT, SESSION_USE_NTLM, SOCKET_ASYNC_CONTEXT, SOCKET_FLAG_NONBLOCKING,
+	SOCKET_IS_SERVER, SOCKET_LOCAL_ADDRESS, SOCKET_REMOTE_ADDRESS, SOCKET_SSL_CREDENTIALS,
+	SOCKET_SSL_FALLBACK, SOCKET_SSL_STRICT, SOCKET_TIMEOUT, SOCKET_TRUSTED_CERTIFICATE,
+};
 
 #[doc(hidden)]
 pub mod traits {
-    pub use super::address::AddressExt;
-    pub use super::auth::AuthExt;
-    pub use super::auth_domain::AuthDomainExt;
-    pub use super::auth_domain_basic::AuthDomainBasicExt;
-    pub use super::auth_domain_digest::AuthDomainDigestExt;
-    pub use super::auth_manager::AuthManagerExt;
-    pub use super::cache::CacheExt;
-    pub use super::content_sniffer::ContentSnifferExt;
-    pub use super::cookie_jar::CookieJarExt;
-    pub use super::cookie_jar_db::CookieJarDBExt;
-    pub use super::cookie_jar_text::CookieJarTextExt;
-    #[cfg(any(feature = "v2_68", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-    pub use super::hsts_enforcer::HSTSEnforcerExt;
-    #[cfg(any(feature = "v2_68", feature = "dox"))]
-    #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-    pub use super::hsts_enforcer_db::HSTSEnforcerDBExt;
-    pub use super::logger::LoggerExt;
-    pub use super::message::MessageExt;
-    pub use super::multipart_input_stream::MultipartInputStreamExt;
-    pub use super::proxy_resolver_default::ProxyResolverDefaultExt;
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-    pub use super::request::RequestExt;
-    pub use super::request_file::RequestFileExt;
-    #[cfg(any(feature = "v2_42", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-    pub use super::request_http::RequestHTTPExt;
-    pub use super::requester::RequesterExt;
-    pub use super::server::ServerExt;
-    pub use super::session::SessionExt;
-    #[cfg(any(feature = "v2_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-    pub use super::session_feature::SessionFeatureExt;
-    pub use super::socket::SocketExt;
-    #[cfg(any(feature = "v2_50", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-    pub use super::websocket_connection::WebsocketConnectionExt;
-    pub use super::websocket_extension::WebsocketExtensionExt;
+	#[cfg(any(feature = "v2_68", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
+	pub use super::hsts_enforcer::HSTSEnforcerExt;
+	#[cfg(any(feature = "v2_68", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
+	pub use super::hsts_enforcer_db::HSTSEnforcerDBExt;
+	#[cfg(any(feature = "v2_42", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
+	pub use super::request::RequestExt;
+	#[cfg(any(feature = "v2_42", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
+	pub use super::request_http::RequestHTTPExt;
+	#[cfg(any(feature = "v2_24", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
+	pub use super::session_feature::SessionFeatureExt;
+	#[cfg(any(feature = "v2_50", feature = "dox"))]
+	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
+	pub use super::websocket_connection::WebsocketConnectionExt;
+	pub use super::{
+		address::AddressExt, auth::AuthExt, auth_domain::AuthDomainExt,
+		auth_domain_basic::AuthDomainBasicExt, auth_domain_digest::AuthDomainDigestExt,
+		auth_manager::AuthManagerExt, cache::CacheExt, content_sniffer::ContentSnifferExt,
+		cookie_jar::CookieJarExt, cookie_jar_db::CookieJarDBExt, cookie_jar_text::CookieJarTextExt,
+		logger::LoggerExt, message::MessageExt, multipart_input_stream::MultipartInputStreamExt,
+		proxy_resolver_default::ProxyResolverDefaultExt, request_file::RequestFileExt,
+		requester::RequesterExt, server::ServerExt, session::SessionExt, socket::SocketExt,
+		websocket_extension::WebsocketExtensionExt,
+	};
 }

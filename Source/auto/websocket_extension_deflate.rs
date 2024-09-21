@@ -6,12 +6,12 @@ use crate::WebsocketExtension;
 use std::fmt;
 
 glib::wrapper! {
-    #[doc(alias = "SoupWebsocketExtensionDeflate")]
-    pub struct WebsocketExtensionDeflate(Object<ffi::SoupWebsocketExtensionDeflate, ffi::SoupWebsocketExtensionDeflateClass>) @extends WebsocketExtension;
+	#[doc(alias = "SoupWebsocketExtensionDeflate")]
+	pub struct WebsocketExtensionDeflate(Object<ffi::SoupWebsocketExtensionDeflate, ffi::SoupWebsocketExtensionDeflateClass>) @extends WebsocketExtension;
 
-    match fn {
-        type_ => || ffi::soup_websocket_extension_deflate_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_websocket_extension_deflate_get_type(),
+	}
 }
 
 impl WebsocketExtensionDeflate {}
@@ -19,7 +19,7 @@ impl WebsocketExtensionDeflate {}
 pub const NONE_WEBSOCKET_EXTENSION_DEFLATE: Option<&WebsocketExtensionDeflate> = None;
 
 impl fmt::Display for WebsocketExtensionDeflate {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("WebsocketExtensionDeflate")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("WebsocketExtensionDeflate")
+	}
 }

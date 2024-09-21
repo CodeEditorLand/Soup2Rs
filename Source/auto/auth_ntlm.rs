@@ -6,18 +6,18 @@ use crate::Auth;
 use std::fmt;
 
 glib::wrapper! {
-    #[doc(alias = "SoupAuthNTLM")]
-    pub struct AuthNTLM(Object<ffi::SoupAuthNTLM>) @extends Auth;
+	#[doc(alias = "SoupAuthNTLM")]
+	pub struct AuthNTLM(Object<ffi::SoupAuthNTLM>) @extends Auth;
 
-    match fn {
-        type_ => || ffi::soup_auth_ntlm_get_type(),
-    }
+	match fn {
+		type_ => || ffi::soup_auth_ntlm_get_type(),
+	}
 }
 
 impl AuthNTLM {}
 
 impl fmt::Display for AuthNTLM {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AuthNTLM")
-    }
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		f.write_str("AuthNTLM")
+	}
 }
