@@ -2,8 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Auth;
 use std::fmt;
+
+use crate::Auth;
 
 glib::wrapper! {
 	#[doc(alias = "SoupAuthNTLM")]
@@ -17,7 +18,7 @@ glib::wrapper! {
 impl AuthNTLM {}
 
 impl fmt::Display for AuthNTLM {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("AuthNTLM")
 	}
 }

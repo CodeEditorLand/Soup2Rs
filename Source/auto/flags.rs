@@ -2,13 +2,15 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use std::fmt;
+
 use bitflags::bitflags;
 use glib::{
 	translate::*,
 	value::{FromValue, ToValue},
-	StaticType, Type,
+	StaticType,
+	Type,
 };
-use std::fmt;
 
 bitflags! {
 	#[doc(alias = "SoupCacheability")]
@@ -25,7 +27,7 @@ bitflags! {
 }
 
 impl fmt::Display for Cacheability {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		<Self as fmt::Debug>::fmt(self, f)
 	}
 }
@@ -34,14 +36,12 @@ impl fmt::Display for Cacheability {
 impl IntoGlib for Cacheability {
 	type GlibType = ffi::SoupCacheability;
 
-	fn into_glib(self) -> ffi::SoupCacheability {
-		self.bits()
-	}
+	fn into_glib(self) -> ffi::SoupCacheability { self.bits() }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupCacheability> for Cacheability {
-	unsafe fn from_glib(value: ffi::SoupCacheability) -> Self {
+	unsafe fn from_glib(value:ffi::SoupCacheability) -> Self {
 		crate::skip_assert_initialized!();
 		Self::from_bits_truncate(value)
 	}
@@ -60,7 +60,7 @@ impl glib::value::ValueType for Cacheability {
 unsafe impl<'a> FromValue<'a> for Cacheability {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
@@ -70,14 +70,15 @@ impl ToValue for Cacheability {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_flags(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 bitflags! {
@@ -91,7 +92,7 @@ bitflags! {
 }
 
 impl fmt::Display for Expectation {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		<Self as fmt::Debug>::fmt(self, f)
 	}
 }
@@ -100,14 +101,12 @@ impl fmt::Display for Expectation {
 impl IntoGlib for Expectation {
 	type GlibType = ffi::SoupExpectation;
 
-	fn into_glib(self) -> ffi::SoupExpectation {
-		self.bits()
-	}
+	fn into_glib(self) -> ffi::SoupExpectation { self.bits() }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupExpectation> for Expectation {
-	unsafe fn from_glib(value: ffi::SoupExpectation) -> Self {
+	unsafe fn from_glib(value:ffi::SoupExpectation) -> Self {
 		crate::skip_assert_initialized!();
 		Self::from_bits_truncate(value)
 	}
@@ -126,7 +125,7 @@ impl glib::value::ValueType for Expectation {
 unsafe impl<'a> FromValue<'a> for Expectation {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
@@ -136,14 +135,15 @@ impl ToValue for Expectation {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_flags(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 bitflags! {
@@ -171,7 +171,7 @@ bitflags! {
 }
 
 impl fmt::Display for MessageFlags {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		<Self as fmt::Debug>::fmt(self, f)
 	}
 }
@@ -180,14 +180,12 @@ impl fmt::Display for MessageFlags {
 impl IntoGlib for MessageFlags {
 	type GlibType = ffi::SoupMessageFlags;
 
-	fn into_glib(self) -> ffi::SoupMessageFlags {
-		self.bits()
-	}
+	fn into_glib(self) -> ffi::SoupMessageFlags { self.bits() }
 }
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupMessageFlags> for MessageFlags {
-	unsafe fn from_glib(value: ffi::SoupMessageFlags) -> Self {
+	unsafe fn from_glib(value:ffi::SoupMessageFlags) -> Self {
 		crate::skip_assert_initialized!();
 		Self::from_bits_truncate(value)
 	}
@@ -206,7 +204,7 @@ impl glib::value::ValueType for MessageFlags {
 unsafe impl<'a> FromValue<'a> for MessageFlags {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
@@ -216,14 +214,15 @@ impl ToValue for MessageFlags {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_flags(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_48", feature = "dox"))]
@@ -243,7 +242,7 @@ bitflags! {
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 impl fmt::Display for ServerListenOptions {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		<Self as fmt::Debug>::fmt(self, f)
 	}
 }
@@ -254,16 +253,14 @@ impl fmt::Display for ServerListenOptions {
 impl IntoGlib for ServerListenOptions {
 	type GlibType = ffi::SoupServerListenOptions;
 
-	fn into_glib(self) -> ffi::SoupServerListenOptions {
-		self.bits()
-	}
+	fn into_glib(self) -> ffi::SoupServerListenOptions { self.bits() }
 }
 
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupServerListenOptions> for ServerListenOptions {
-	unsafe fn from_glib(value: ffi::SoupServerListenOptions) -> Self {
+	unsafe fn from_glib(value:ffi::SoupServerListenOptions) -> Self {
 		crate::skip_assert_initialized!();
 		Self::from_bits_truncate(value)
 	}
@@ -288,7 +285,7 @@ impl glib::value::ValueType for ServerListenOptions {
 unsafe impl<'a> FromValue<'a> for ServerListenOptions {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
@@ -300,12 +297,13 @@ impl ToValue for ServerListenOptions {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_flags(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }

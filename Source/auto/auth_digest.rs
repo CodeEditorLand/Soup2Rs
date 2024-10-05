@@ -2,8 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Auth;
 use std::fmt;
+
+use crate::Auth;
 
 glib::wrapper! {
 	#[doc(alias = "SoupAuthDigest")]
@@ -17,7 +18,7 @@ glib::wrapper! {
 impl AuthDigest {}
 
 impl fmt::Display for AuthDigest {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("AuthDigest")
 	}
 }

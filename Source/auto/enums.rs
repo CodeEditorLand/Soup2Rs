@@ -2,13 +2,16 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use std::fmt;
+
 use glib::{
 	error::ErrorDomain,
 	translate::*,
 	value::{FromValue, ToValue},
-	Quark, StaticType, Type,
+	Quark,
+	StaticType,
+	Type,
 };
-use std::fmt;
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
 #[non_exhaustive]
@@ -25,7 +28,7 @@ pub enum AddressFamily {
 }
 
 impl fmt::Display for AddressFamily {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"AddressFamily::{}",
@@ -55,7 +58,7 @@ impl IntoGlib for AddressFamily {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupAddressFamily> for AddressFamily {
-	unsafe fn from_glib(value: ffi::SoupAddressFamily) -> Self {
+	unsafe fn from_glib(value:ffi::SoupAddressFamily) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_ADDRESS_FAMILY_INVALID => Self::Invalid,
@@ -79,7 +82,7 @@ impl glib::value::ValueType for AddressFamily {
 unsafe impl<'a> FromValue<'a> for AddressFamily {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -89,14 +92,15 @@ impl ToValue for AddressFamily {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -114,7 +118,7 @@ pub enum CacheResponse {
 }
 
 impl fmt::Display for CacheResponse {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"CacheResponse::{}",
@@ -144,7 +148,7 @@ impl IntoGlib for CacheResponse {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupCacheResponse> for CacheResponse {
-	unsafe fn from_glib(value: ffi::SoupCacheResponse) -> Self {
+	unsafe fn from_glib(value:ffi::SoupCacheResponse) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_CACHE_RESPONSE_FRESH => Self::Fresh,
@@ -168,7 +172,7 @@ impl glib::value::ValueType for CacheResponse {
 unsafe impl<'a> FromValue<'a> for CacheResponse {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -178,14 +182,15 @@ impl ToValue for CacheResponse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
@@ -205,7 +210,7 @@ pub enum CacheType {
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 impl fmt::Display for CacheType {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"CacheType::{}",
@@ -237,7 +242,7 @@ impl IntoGlib for CacheType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupCacheType> for CacheType {
-	unsafe fn from_glib(value: ffi::SoupCacheType) -> Self {
+	unsafe fn from_glib(value:ffi::SoupCacheType) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_CACHE_SINGLE_USER => Self::SingleUser,
@@ -266,7 +271,7 @@ impl glib::value::ValueType for CacheType {
 unsafe impl<'a> FromValue<'a> for CacheType {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -278,14 +283,15 @@ impl ToValue for CacheType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -309,7 +315,7 @@ pub enum ConnectionState {
 }
 
 impl fmt::Display for ConnectionState {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"ConnectionState::{}",
@@ -336,7 +342,9 @@ impl IntoGlib for ConnectionState {
 			Self::Connecting => ffi::SOUP_CONNECTION_CONNECTING,
 			Self::Idle => ffi::SOUP_CONNECTION_IDLE,
 			Self::InUse => ffi::SOUP_CONNECTION_IN_USE,
-			Self::RemoteDisconnected => ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED,
+			Self::RemoteDisconnected => {
+				ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED
+			},
 			Self::Disconnected => ffi::SOUP_CONNECTION_DISCONNECTED,
 			Self::__Unknown(value) => value,
 		}
@@ -345,14 +353,16 @@ impl IntoGlib for ConnectionState {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupConnectionState> for ConnectionState {
-	unsafe fn from_glib(value: ffi::SoupConnectionState) -> Self {
+	unsafe fn from_glib(value:ffi::SoupConnectionState) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_CONNECTION_NEW => Self::New,
 			ffi::SOUP_CONNECTION_CONNECTING => Self::Connecting,
 			ffi::SOUP_CONNECTION_IDLE => Self::Idle,
 			ffi::SOUP_CONNECTION_IN_USE => Self::InUse,
-			ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED => Self::RemoteDisconnected,
+			ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED => {
+				Self::RemoteDisconnected
+			},
 			ffi::SOUP_CONNECTION_DISCONNECTED => Self::Disconnected,
 			value => Self::__Unknown(value),
 		}
@@ -372,7 +382,7 @@ impl glib::value::ValueType for ConnectionState {
 unsafe impl<'a> FromValue<'a> for ConnectionState {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -382,14 +392,15 @@ impl ToValue for ConnectionState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
@@ -413,7 +424,7 @@ pub enum CookieJarAcceptPolicy {
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl fmt::Display for CookieJarAcceptPolicy {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"CookieJarAcceptPolicy::{}",
@@ -439,7 +450,9 @@ impl IntoGlib for CookieJarAcceptPolicy {
 			Self::Always => ffi::SOUP_COOKIE_JAR_ACCEPT_ALWAYS,
 			Self::Never => ffi::SOUP_COOKIE_JAR_ACCEPT_NEVER,
 			Self::NoThirdParty => ffi::SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY,
-			Self::GrandfatheredThirdParty => ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY,
+			Self::GrandfatheredThirdParty => {
+				ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY
+			},
 			Self::__Unknown(value) => value,
 		}
 	}
@@ -449,13 +462,15 @@ impl IntoGlib for CookieJarAcceptPolicy {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupCookieJarAcceptPolicy> for CookieJarAcceptPolicy {
-	unsafe fn from_glib(value: ffi::SoupCookieJarAcceptPolicy) -> Self {
+	unsafe fn from_glib(value:ffi::SoupCookieJarAcceptPolicy) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_COOKIE_JAR_ACCEPT_ALWAYS => Self::Always,
 			ffi::SOUP_COOKIE_JAR_ACCEPT_NEVER => Self::Never,
 			ffi::SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY => Self::NoThirdParty,
-			ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY => Self::GrandfatheredThirdParty,
+			ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY => {
+				Self::GrandfatheredThirdParty
+			},
 			value => Self::__Unknown(value),
 		}
 	}
@@ -480,7 +495,7 @@ impl glib::value::ValueType for CookieJarAcceptPolicy {
 unsafe impl<'a> FromValue<'a> for CookieJarAcceptPolicy {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -492,14 +507,15 @@ impl ToValue for CookieJarAcceptPolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -523,7 +539,7 @@ pub enum DateFormat {
 }
 
 impl fmt::Display for DateFormat {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"DateFormat::{}",
@@ -559,7 +575,7 @@ impl IntoGlib for DateFormat {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupDateFormat> for DateFormat {
-	unsafe fn from_glib(value: ffi::SoupDateFormat) -> Self {
+	unsafe fn from_glib(value:ffi::SoupDateFormat) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_DATE_HTTP => Self::Http,
@@ -586,7 +602,7 @@ impl glib::value::ValueType for DateFormat {
 unsafe impl<'a> FromValue<'a> for DateFormat {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -596,14 +612,15 @@ impl ToValue for DateFormat {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -627,7 +644,7 @@ pub enum Encoding {
 }
 
 impl fmt::Display for Encoding {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"Encoding::{}",
@@ -663,7 +680,7 @@ impl IntoGlib for Encoding {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupEncoding> for Encoding {
-	unsafe fn from_glib(value: ffi::SoupEncoding) -> Self {
+	unsafe fn from_glib(value:ffi::SoupEncoding) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_ENCODING_UNRECOGNIZED => Self::Unrecognized,
@@ -690,7 +707,7 @@ impl glib::value::ValueType for Encoding {
 unsafe impl<'a> FromValue<'a> for Encoding {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -700,14 +717,15 @@ impl ToValue for Encoding {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -723,7 +741,7 @@ pub enum HTTPVersion {
 }
 
 impl fmt::Display for HTTPVersion {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"HTTPVersion::{}",
@@ -751,7 +769,7 @@ impl IntoGlib for HTTPVersion {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupHTTPVersion> for HTTPVersion {
-	unsafe fn from_glib(value: ffi::SoupHTTPVersion) -> Self {
+	unsafe fn from_glib(value:ffi::SoupHTTPVersion) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_HTTP_1_0 => Self::Http10,
@@ -774,7 +792,7 @@ impl glib::value::ValueType for HTTPVersion {
 unsafe impl<'a> FromValue<'a> for HTTPVersion {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -784,14 +802,15 @@ impl ToValue for HTTPVersion {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -923,7 +942,7 @@ pub enum KnownStatusCode {
 }
 
 impl fmt::Display for KnownStatusCode {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"KnownStatusCode::{}",
@@ -957,7 +976,8 @@ impl fmt::Display for KnownStatusCode {
 				Self::SeeOther => "SeeOther",
 				Self::NotModified => "NotModified",
 				Self::UseProxy => "UseProxy",
-				Self::NotAppearingInThisProtocol => "NotAppearingInThisProtocol",
+				Self::NotAppearingInThisProtocol =>
+					"NotAppearingInThisProtocol",
 				Self::TemporaryRedirect => "TemporaryRedirect",
 				Self::BadRequest => "BadRequest",
 				Self::Unauthorized => "Unauthorized",
@@ -966,7 +986,8 @@ impl fmt::Display for KnownStatusCode {
 				Self::NotFound => "NotFound",
 				Self::MethodNotAllowed => "MethodNotAllowed",
 				Self::NotAcceptable => "NotAcceptable",
-				Self::ProxyAuthenticationRequired => "ProxyAuthenticationRequired",
+				Self::ProxyAuthenticationRequired =>
+					"ProxyAuthenticationRequired",
 				Self::RequestTimeout => "RequestTimeout",
 				Self::Conflict => "Conflict",
 				Self::Gone => "Gone",
@@ -975,7 +996,8 @@ impl fmt::Display for KnownStatusCode {
 				Self::RequestEntityTooLarge => "RequestEntityTooLarge",
 				Self::RequestUriTooLong => "RequestUriTooLong",
 				Self::UnsupportedMediaType => "UnsupportedMediaType",
-				Self::RequestedRangeNotSatisfiable => "RequestedRangeNotSatisfiable",
+				Self::RequestedRangeNotSatisfiable =>
+					"RequestedRangeNotSatisfiable",
 				Self::ExpectationFailed => "ExpectationFailed",
 				Self::UnprocessableEntity => "UnprocessableEntity",
 				Self::Locked => "Locked",
@@ -1003,68 +1025,110 @@ impl IntoGlib for KnownStatusCode {
 			Self::None => ffi::SOUP_KNOWN_STATUS_CODE_NONE,
 			Self::Cancelled => ffi::SOUP_KNOWN_STATUS_CODE_CANCELLED,
 			Self::CantResolve => ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE,
-			Self::CantResolveProxy => ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY,
+			Self::CantResolveProxy => {
+				ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY
+			},
 			Self::CantConnect => ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT,
-			Self::CantConnectProxy => ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY,
+			Self::CantConnectProxy => {
+				ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY
+			},
 			Self::SslFailed => ffi::SOUP_KNOWN_STATUS_CODE_SSL_FAILED,
 			Self::IoError => ffi::SOUP_KNOWN_STATUS_CODE_IO_ERROR,
 			Self::Malformed => ffi::SOUP_KNOWN_STATUS_CODE_MALFORMED,
 			Self::TryAgain => ffi::SOUP_KNOWN_STATUS_CODE_TRY_AGAIN,
-			Self::TooManyRedirects => ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS,
+			Self::TooManyRedirects => {
+				ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS
+			},
 			Self::TlsFailed => ffi::SOUP_KNOWN_STATUS_CODE_TLS_FAILED,
 			Self::Continue => ffi::SOUP_KNOWN_STATUS_CODE_CONTINUE,
-			Self::SwitchingProtocols => ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS,
+			Self::SwitchingProtocols => {
+				ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS
+			},
 			Self::Processing => ffi::SOUP_KNOWN_STATUS_CODE_PROCESSING,
 			Self::Ok => ffi::SOUP_KNOWN_STATUS_CODE_OK,
 			Self::Created => ffi::SOUP_KNOWN_STATUS_CODE_CREATED,
 			Self::Accepted => ffi::SOUP_KNOWN_STATUS_CODE_ACCEPTED,
-			Self::NonAuthoritative => ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE,
+			Self::NonAuthoritative => {
+				ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE
+			},
 			Self::NoContent => ffi::SOUP_KNOWN_STATUS_CODE_NO_CONTENT,
 			Self::ResetContent => ffi::SOUP_KNOWN_STATUS_CODE_RESET_CONTENT,
 			Self::PartialContent => ffi::SOUP_KNOWN_STATUS_CODE_PARTIAL_CONTENT,
 			Self::MultiStatus => ffi::SOUP_KNOWN_STATUS_CODE_MULTI_STATUS,
-			Self::MultipleChoices => ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES,
-			Self::MovedPermanently => ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY,
+			Self::MultipleChoices => {
+				ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES
+			},
+			Self::MovedPermanently => {
+				ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY
+			},
 			Self::Found => ffi::SOUP_KNOWN_STATUS_CODE_FOUND,
 			Self::SeeOther => ffi::SOUP_KNOWN_STATUS_CODE_SEE_OTHER,
 			Self::NotModified => ffi::SOUP_KNOWN_STATUS_CODE_NOT_MODIFIED,
 			Self::UseProxy => ffi::SOUP_KNOWN_STATUS_CODE_USE_PROXY,
 			Self::NotAppearingInThisProtocol => {
 				ffi::SOUP_KNOWN_STATUS_CODE_NOT_APPEARING_IN_THIS_PROTOCOL
-			}
-			Self::TemporaryRedirect => ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT,
+			},
+			Self::TemporaryRedirect => {
+				ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT
+			},
 			Self::BadRequest => ffi::SOUP_KNOWN_STATUS_CODE_BAD_REQUEST,
 			Self::Unauthorized => ffi::SOUP_KNOWN_STATUS_CODE_UNAUTHORIZED,
-			Self::PaymentRequired => ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED,
+			Self::PaymentRequired => {
+				ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED
+			},
 			Self::Forbidden => ffi::SOUP_KNOWN_STATUS_CODE_FORBIDDEN,
 			Self::NotFound => ffi::SOUP_KNOWN_STATUS_CODE_NOT_FOUND,
-			Self::MethodNotAllowed => ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED,
+			Self::MethodNotAllowed => {
+				ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED
+			},
 			Self::NotAcceptable => ffi::SOUP_KNOWN_STATUS_CODE_NOT_ACCEPTABLE,
 			Self::ProxyAuthenticationRequired => {
 				ffi::SOUP_KNOWN_STATUS_CODE_PROXY_AUTHENTICATION_REQUIRED
-			}
+			},
 			Self::RequestTimeout => ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_TIMEOUT,
 			Self::Conflict => ffi::SOUP_KNOWN_STATUS_CODE_CONFLICT,
 			Self::Gone => ffi::SOUP_KNOWN_STATUS_CODE_GONE,
 			Self::LengthRequired => ffi::SOUP_KNOWN_STATUS_CODE_LENGTH_REQUIRED,
-			Self::PreconditionFailed => ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED,
-			Self::RequestEntityTooLarge => ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE,
-			Self::RequestUriTooLong => ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG,
-			Self::UnsupportedMediaType => ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE,
+			Self::PreconditionFailed => {
+				ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED
+			},
+			Self::RequestEntityTooLarge => {
+				ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE
+			},
+			Self::RequestUriTooLong => {
+				ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG
+			},
+			Self::UnsupportedMediaType => {
+				ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE
+			},
 			Self::RequestedRangeNotSatisfiable => {
 				ffi::SOUP_KNOWN_STATUS_CODE_REQUESTED_RANGE_NOT_SATISFIABLE
-			}
-			Self::ExpectationFailed => ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED,
-			Self::UnprocessableEntity => ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY,
+			},
+			Self::ExpectationFailed => {
+				ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED
+			},
+			Self::UnprocessableEntity => {
+				ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY
+			},
 			Self::Locked => ffi::SOUP_KNOWN_STATUS_CODE_LOCKED,
-			Self::FailedDependency => ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY,
-			Self::InternalServerError => ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR,
+			Self::FailedDependency => {
+				ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY
+			},
+			Self::InternalServerError => {
+				ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR
+			},
 			Self::NotImplemented => ffi::SOUP_KNOWN_STATUS_CODE_NOT_IMPLEMENTED,
 			Self::BadGateway => ffi::SOUP_KNOWN_STATUS_CODE_BAD_GATEWAY,
-			Self::ServiceUnavailable => ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE,
+			Self::ServiceUnavailable => {
+				ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE
+			},
 			Self::GatewayTimeout => ffi::SOUP_KNOWN_STATUS_CODE_GATEWAY_TIMEOUT,
-			Self::HttpVersionNotSupported => ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED,
-			Self::InsufficientStorage => ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE,
+			Self::HttpVersionNotSupported => {
+				ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED
+			},
+			Self::InsufficientStorage => {
+				ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE
+			},
 			Self::NotExtended => ffi::SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED,
 			Self::__Unknown(value) => value,
 		}
@@ -1073,74 +1137,116 @@ impl IntoGlib for KnownStatusCode {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
-	unsafe fn from_glib(value: ffi::SoupKnownStatusCode) -> Self {
+	unsafe fn from_glib(value:ffi::SoupKnownStatusCode) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_KNOWN_STATUS_CODE_NONE => Self::None,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANCELLED => Self::Cancelled,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE => Self::CantResolve,
-			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY => Self::CantResolveProxy,
+			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY => {
+				Self::CantResolveProxy
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT => Self::CantConnect,
-			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY => Self::CantConnectProxy,
+			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY => {
+				Self::CantConnectProxy
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_SSL_FAILED => Self::SslFailed,
 			ffi::SOUP_KNOWN_STATUS_CODE_IO_ERROR => Self::IoError,
 			ffi::SOUP_KNOWN_STATUS_CODE_MALFORMED => Self::Malformed,
 			ffi::SOUP_KNOWN_STATUS_CODE_TRY_AGAIN => Self::TryAgain,
-			ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS => Self::TooManyRedirects,
+			ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS => {
+				Self::TooManyRedirects
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_TLS_FAILED => Self::TlsFailed,
 			ffi::SOUP_KNOWN_STATUS_CODE_CONTINUE => Self::Continue,
-			ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS => Self::SwitchingProtocols,
+			ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS => {
+				Self::SwitchingProtocols
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_PROCESSING => Self::Processing,
 			ffi::SOUP_KNOWN_STATUS_CODE_OK => Self::Ok,
 			ffi::SOUP_KNOWN_STATUS_CODE_CREATED => Self::Created,
 			ffi::SOUP_KNOWN_STATUS_CODE_ACCEPTED => Self::Accepted,
-			ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE => Self::NonAuthoritative,
+			ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE => {
+				Self::NonAuthoritative
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_NO_CONTENT => Self::NoContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_RESET_CONTENT => Self::ResetContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_PARTIAL_CONTENT => Self::PartialContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_MULTI_STATUS => Self::MultiStatus,
-			ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES => Self::MultipleChoices,
-			ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY => Self::MovedPermanently,
+			ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES => {
+				Self::MultipleChoices
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY => {
+				Self::MovedPermanently
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_FOUND => Self::Found,
 			ffi::SOUP_KNOWN_STATUS_CODE_SEE_OTHER => Self::SeeOther,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_MODIFIED => Self::NotModified,
 			ffi::SOUP_KNOWN_STATUS_CODE_USE_PROXY => Self::UseProxy,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_APPEARING_IN_THIS_PROTOCOL => {
 				Self::NotAppearingInThisProtocol
-			}
-			ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT => Self::TemporaryRedirect,
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT => {
+				Self::TemporaryRedirect
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_BAD_REQUEST => Self::BadRequest,
 			ffi::SOUP_KNOWN_STATUS_CODE_UNAUTHORIZED => Self::Unauthorized,
-			ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED => Self::PaymentRequired,
+			ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED => {
+				Self::PaymentRequired
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_FORBIDDEN => Self::Forbidden,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_FOUND => Self::NotFound,
-			ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED => Self::MethodNotAllowed,
+			ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED => {
+				Self::MethodNotAllowed
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_ACCEPTABLE => Self::NotAcceptable,
 			ffi::SOUP_KNOWN_STATUS_CODE_PROXY_AUTHENTICATION_REQUIRED => {
 				Self::ProxyAuthenticationRequired
-			}
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_TIMEOUT => Self::RequestTimeout,
 			ffi::SOUP_KNOWN_STATUS_CODE_CONFLICT => Self::Conflict,
 			ffi::SOUP_KNOWN_STATUS_CODE_GONE => Self::Gone,
 			ffi::SOUP_KNOWN_STATUS_CODE_LENGTH_REQUIRED => Self::LengthRequired,
-			ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED => Self::PreconditionFailed,
-			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE => Self::RequestEntityTooLarge,
-			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG => Self::RequestUriTooLong,
-			ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE => Self::UnsupportedMediaType,
+			ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED => {
+				Self::PreconditionFailed
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE => {
+				Self::RequestEntityTooLarge
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG => {
+				Self::RequestUriTooLong
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE => {
+				Self::UnsupportedMediaType
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_REQUESTED_RANGE_NOT_SATISFIABLE => {
 				Self::RequestedRangeNotSatisfiable
-			}
-			ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED => Self::ExpectationFailed,
-			ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY => Self::UnprocessableEntity,
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED => {
+				Self::ExpectationFailed
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY => {
+				Self::UnprocessableEntity
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_LOCKED => Self::Locked,
-			ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY => Self::FailedDependency,
-			ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR => Self::InternalServerError,
+			ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY => {
+				Self::FailedDependency
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR => {
+				Self::InternalServerError
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_IMPLEMENTED => Self::NotImplemented,
 			ffi::SOUP_KNOWN_STATUS_CODE_BAD_GATEWAY => Self::BadGateway,
-			ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE => Self::ServiceUnavailable,
+			ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE => {
+				Self::ServiceUnavailable
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_GATEWAY_TIMEOUT => Self::GatewayTimeout,
-			ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED => Self::HttpVersionNotSupported,
-			ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE => Self::InsufficientStorage,
+			ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED => {
+				Self::HttpVersionNotSupported
+			},
+			ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE => {
+				Self::InsufficientStorage
+			},
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED => Self::NotExtended,
 			value => Self::__Unknown(value),
 		}
@@ -1160,7 +1266,7 @@ impl glib::value::ValueType for KnownStatusCode {
 unsafe impl<'a> FromValue<'a> for KnownStatusCode {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1170,14 +1276,15 @@ impl ToValue for KnownStatusCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1197,7 +1304,7 @@ pub enum LoggerLogLevel {
 }
 
 impl fmt::Display for LoggerLogLevel {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"LoggerLogLevel::{}",
@@ -1229,7 +1336,7 @@ impl IntoGlib for LoggerLogLevel {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupLoggerLogLevel> for LoggerLogLevel {
-	unsafe fn from_glib(value: ffi::SoupLoggerLogLevel) -> Self {
+	unsafe fn from_glib(value:ffi::SoupLoggerLogLevel) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_LOGGER_LOG_NONE => Self::None,
@@ -1254,7 +1361,7 @@ impl glib::value::ValueType for LoggerLogLevel {
 unsafe impl<'a> FromValue<'a> for LoggerLogLevel {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1264,14 +1371,15 @@ impl ToValue for LoggerLogLevel {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1291,7 +1399,7 @@ pub enum MemoryUse {
 }
 
 impl fmt::Display for MemoryUse {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"MemoryUse::{}",
@@ -1323,7 +1431,7 @@ impl IntoGlib for MemoryUse {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupMemoryUse> for MemoryUse {
-	unsafe fn from_glib(value: ffi::SoupMemoryUse) -> Self {
+	unsafe fn from_glib(value:ffi::SoupMemoryUse) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_MEMORY_STATIC => Self::Static,
@@ -1348,7 +1456,7 @@ impl glib::value::ValueType for MemoryUse {
 unsafe impl<'a> FromValue<'a> for MemoryUse {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1358,14 +1466,15 @@ impl ToValue for MemoryUse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1383,7 +1492,7 @@ pub enum MessageHeadersType {
 }
 
 impl fmt::Display for MessageHeadersType {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"MessageHeadersType::{}",
@@ -1413,7 +1522,7 @@ impl IntoGlib for MessageHeadersType {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupMessageHeadersType> for MessageHeadersType {
-	unsafe fn from_glib(value: ffi::SoupMessageHeadersType) -> Self {
+	unsafe fn from_glib(value:ffi::SoupMessageHeadersType) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_MESSAGE_HEADERS_REQUEST => Self::Request,
@@ -1437,7 +1546,7 @@ impl glib::value::ValueType for MessageHeadersType {
 unsafe impl<'a> FromValue<'a> for MessageHeadersType {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1447,14 +1556,15 @@ impl ToValue for MessageHeadersType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1476,7 +1586,7 @@ pub enum MessagePriority {
 }
 
 impl fmt::Display for MessagePriority {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"MessagePriority::{}",
@@ -1510,7 +1620,7 @@ impl IntoGlib for MessagePriority {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupMessagePriority> for MessagePriority {
-	unsafe fn from_glib(value: ffi::SoupMessagePriority) -> Self {
+	unsafe fn from_glib(value:ffi::SoupMessagePriority) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_MESSAGE_PRIORITY_VERY_LOW => Self::VeryLow,
@@ -1536,7 +1646,7 @@ impl glib::value::ValueType for MessagePriority {
 unsafe impl<'a> FromValue<'a> for MessagePriority {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1546,14 +1656,15 @@ impl ToValue for MessagePriority {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
@@ -1577,7 +1688,7 @@ pub enum RequestError {
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 impl fmt::Display for RequestError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"RequestError::{}",
@@ -1601,7 +1712,9 @@ impl IntoGlib for RequestError {
 	fn into_glib(self) -> ffi::SoupRequestError {
 		match self {
 			Self::BadUri => ffi::SOUP_REQUEST_ERROR_BAD_URI,
-			Self::UnsupportedUriScheme => ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME,
+			Self::UnsupportedUriScheme => {
+				ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME
+			},
 			Self::Parsing => ffi::SOUP_REQUEST_ERROR_PARSING,
 			Self::Encoding => ffi::SOUP_REQUEST_ERROR_ENCODING,
 			Self::__Unknown(value) => value,
@@ -1613,11 +1726,13 @@ impl IntoGlib for RequestError {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupRequestError> for RequestError {
-	unsafe fn from_glib(value: ffi::SoupRequestError) -> Self {
+	unsafe fn from_glib(value:ffi::SoupRequestError) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Self::BadUri,
-			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
+			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => {
+				Self::UnsupportedUriScheme
+			},
 			ffi::SOUP_REQUEST_ERROR_PARSING => Self::Parsing,
 			ffi::SOUP_REQUEST_ERROR_ENCODING => Self::Encoding,
 			value => Self::__Unknown(value),
@@ -1634,15 +1749,15 @@ impl ErrorDomain for RequestError {
 		unsafe { from_glib(ffi::soup_request_error_quark()) }
 	}
 
-	fn code(self) -> i32 {
-		self.into_glib()
-	}
+	fn code(self) -> i32 { self.into_glib() }
 
-	fn from(code: i32) -> Option<Self> {
+	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Some(Self::BadUri),
-			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
+			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => {
+				Some(Self::UnsupportedUriScheme)
+			},
 			ffi::SOUP_REQUEST_ERROR_PARSING => Some(Self::Parsing),
 			ffi::SOUP_REQUEST_ERROR_ENCODING => Some(Self::Encoding),
 			value => Some(Self::__Unknown(value)),
@@ -1669,7 +1784,7 @@ impl glib::value::ValueType for RequestError {
 unsafe impl<'a> FromValue<'a> for RequestError {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1681,14 +1796,15 @@ impl ToValue for RequestError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1704,7 +1820,7 @@ pub enum RequesterError {
 }
 
 impl fmt::Display for RequesterError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"RequesterError::{}",
@@ -1724,7 +1840,9 @@ impl IntoGlib for RequesterError {
 	fn into_glib(self) -> ffi::SoupRequesterError {
 		match self {
 			Self::BadUri => ffi::SOUP_REQUESTER_ERROR_BAD_URI,
-			Self::UnsupportedUriScheme => ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME,
+			Self::UnsupportedUriScheme => {
+				ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME
+			},
 			Self::__Unknown(value) => value,
 		}
 	}
@@ -1732,11 +1850,13 @@ impl IntoGlib for RequesterError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupRequesterError> for RequesterError {
-	unsafe fn from_glib(value: ffi::SoupRequesterError) -> Self {
+	unsafe fn from_glib(value:ffi::SoupRequesterError) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Self::BadUri,
-			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
+			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => {
+				Self::UnsupportedUriScheme
+			},
 			value => Self::__Unknown(value),
 		}
 	}
@@ -1749,15 +1869,15 @@ impl ErrorDomain for RequesterError {
 		unsafe { from_glib(ffi::soup_requester_error_quark()) }
 	}
 
-	fn code(self) -> i32 {
-		self.into_glib()
-	}
+	fn code(self) -> i32 { self.into_glib() }
 
-	fn from(code: i32) -> Option<Self> {
+	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Some(Self::BadUri),
-			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
+			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => {
+				Some(Self::UnsupportedUriScheme)
+			},
 			value => Some(Self::__Unknown(value)),
 		}
 	}
@@ -1776,7 +1896,7 @@ impl glib::value::ValueType for RequesterError {
 unsafe impl<'a> FromValue<'a> for RequesterError {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1786,14 +1906,15 @@ impl ToValue for RequesterError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_70", feature = "dox"))]
@@ -1815,7 +1936,7 @@ pub enum SameSitePolicy {
 #[cfg(any(feature = "v2_70", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 impl fmt::Display for SameSitePolicy {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"SameSitePolicy::{}",
@@ -1849,7 +1970,7 @@ impl IntoGlib for SameSitePolicy {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupSameSitePolicy> for SameSitePolicy {
-	unsafe fn from_glib(value: ffi::SoupSameSitePolicy) -> Self {
+	unsafe fn from_glib(value:ffi::SoupSameSitePolicy) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_SAME_SITE_POLICY_NONE => Self::None,
@@ -1879,7 +2000,7 @@ impl glib::value::ValueType for SameSitePolicy {
 unsafe impl<'a> FromValue<'a> for SameSitePolicy {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1891,14 +2012,15 @@ impl ToValue for SameSitePolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -1918,7 +2040,7 @@ pub enum SocketIOStatus {
 }
 
 impl fmt::Display for SocketIOStatus {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"SocketIOStatus::{}",
@@ -1950,7 +2072,7 @@ impl IntoGlib for SocketIOStatus {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupSocketIOStatus> for SocketIOStatus {
-	unsafe fn from_glib(value: ffi::SoupSocketIOStatus) -> Self {
+	unsafe fn from_glib(value:ffi::SoupSocketIOStatus) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_SOCKET_OK => Self::Ok,
@@ -1975,7 +2097,7 @@ impl glib::value::ValueType for SocketIOStatus {
 unsafe impl<'a> FromValue<'a> for SocketIOStatus {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -1985,14 +2107,15 @@ impl ToValue for SocketIOStatus {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -2128,7 +2251,7 @@ pub enum Status {
 impl Status {
 	#[doc(alias = "soup_status_get_phrase")]
 	#[doc(alias = "get_phrase")]
-	pub fn phrase(status_code: u32) -> Option<glib::GString> {
+	pub fn phrase(status_code:u32) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
 		unsafe { from_glib_none(ffi::soup_status_get_phrase(status_code)) }
 	}
@@ -2136,14 +2259,14 @@ impl Status {
 	#[cfg(any(feature = "v2_26", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	#[doc(alias = "soup_status_proxify")]
-	pub fn proxify(status_code: u32) -> u32 {
+	pub fn proxify(status_code:u32) -> u32 {
 		crate::assert_initialized_main_thread!();
 		unsafe { ffi::soup_status_proxify(status_code) }
 	}
 }
 
 impl fmt::Display for Status {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"Status::{}",
@@ -2177,7 +2300,8 @@ impl fmt::Display for Status {
 				Self::SeeOther => "SeeOther",
 				Self::NotModified => "NotModified",
 				Self::UseProxy => "UseProxy",
-				Self::NotAppearingInThisProtocol => "NotAppearingInThisProtocol",
+				Self::NotAppearingInThisProtocol =>
+					"NotAppearingInThisProtocol",
 				Self::TemporaryRedirect => "TemporaryRedirect",
 				Self::PermanentRedirect => "PermanentRedirect",
 				Self::BadRequest => "BadRequest",
@@ -2187,7 +2311,8 @@ impl fmt::Display for Status {
 				Self::NotFound => "NotFound",
 				Self::MethodNotAllowed => "MethodNotAllowed",
 				Self::NotAcceptable => "NotAcceptable",
-				Self::ProxyAuthenticationRequired => "ProxyAuthenticationRequired",
+				Self::ProxyAuthenticationRequired =>
+					"ProxyAuthenticationRequired",
 				Self::RequestTimeout => "RequestTimeout",
 				Self::Conflict => "Conflict",
 				Self::Gone => "Gone",
@@ -2196,7 +2321,8 @@ impl fmt::Display for Status {
 				Self::RequestEntityTooLarge => "RequestEntityTooLarge",
 				Self::RequestUriTooLong => "RequestUriTooLong",
 				Self::UnsupportedMediaType => "UnsupportedMediaType",
-				Self::RequestedRangeNotSatisfiable => "RequestedRangeNotSatisfiable",
+				Self::RequestedRangeNotSatisfiable =>
+					"RequestedRangeNotSatisfiable",
 				Self::ExpectationFailed => "ExpectationFailed",
 				Self::UnprocessableEntity => "UnprocessableEntity",
 				Self::Locked => "Locked",
@@ -2250,7 +2376,9 @@ impl IntoGlib for Status {
 			Self::SeeOther => ffi::SOUP_STATUS_SEE_OTHER,
 			Self::NotModified => ffi::SOUP_STATUS_NOT_MODIFIED,
 			Self::UseProxy => ffi::SOUP_STATUS_USE_PROXY,
-			Self::NotAppearingInThisProtocol => ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL,
+			Self::NotAppearingInThisProtocol => {
+				ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL
+			},
 			Self::TemporaryRedirect => ffi::SOUP_STATUS_TEMPORARY_REDIRECT,
 			Self::PermanentRedirect => ffi::SOUP_STATUS_PERMANENT_REDIRECT,
 			Self::BadRequest => ffi::SOUP_STATUS_BAD_REQUEST,
@@ -2260,16 +2388,24 @@ impl IntoGlib for Status {
 			Self::NotFound => ffi::SOUP_STATUS_NOT_FOUND,
 			Self::MethodNotAllowed => ffi::SOUP_STATUS_METHOD_NOT_ALLOWED,
 			Self::NotAcceptable => ffi::SOUP_STATUS_NOT_ACCEPTABLE,
-			Self::ProxyAuthenticationRequired => ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED,
+			Self::ProxyAuthenticationRequired => {
+				ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED
+			},
 			Self::RequestTimeout => ffi::SOUP_STATUS_REQUEST_TIMEOUT,
 			Self::Conflict => ffi::SOUP_STATUS_CONFLICT,
 			Self::Gone => ffi::SOUP_STATUS_GONE,
 			Self::LengthRequired => ffi::SOUP_STATUS_LENGTH_REQUIRED,
 			Self::PreconditionFailed => ffi::SOUP_STATUS_PRECONDITION_FAILED,
-			Self::RequestEntityTooLarge => ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE,
+			Self::RequestEntityTooLarge => {
+				ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE
+			},
 			Self::RequestUriTooLong => ffi::SOUP_STATUS_REQUEST_URI_TOO_LONG,
-			Self::UnsupportedMediaType => ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE,
-			Self::RequestedRangeNotSatisfiable => ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE,
+			Self::UnsupportedMediaType => {
+				ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE
+			},
+			Self::RequestedRangeNotSatisfiable => {
+				ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE
+			},
 			Self::ExpectationFailed => ffi::SOUP_STATUS_EXPECTATION_FAILED,
 			Self::UnprocessableEntity => ffi::SOUP_STATUS_UNPROCESSABLE_ENTITY,
 			Self::Locked => ffi::SOUP_STATUS_LOCKED,
@@ -2279,7 +2415,9 @@ impl IntoGlib for Status {
 			Self::BadGateway => ffi::SOUP_STATUS_BAD_GATEWAY,
 			Self::ServiceUnavailable => ffi::SOUP_STATUS_SERVICE_UNAVAILABLE,
 			Self::GatewayTimeout => ffi::SOUP_STATUS_GATEWAY_TIMEOUT,
-			Self::HttpVersionNotSupported => ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED,
+			Self::HttpVersionNotSupported => {
+				ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED
+			},
 			Self::InsufficientStorage => ffi::SOUP_STATUS_INSUFFICIENT_STORAGE,
 			Self::NotExtended => ffi::SOUP_STATUS_NOT_EXTENDED,
 			Self::__Unknown(value) => value,
@@ -2289,7 +2427,7 @@ impl IntoGlib for Status {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupStatus> for Status {
-	unsafe fn from_glib(value: ffi::SoupStatus) -> Self {
+	unsafe fn from_glib(value:ffi::SoupStatus) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_STATUS_NONE => Self::None,
@@ -2321,7 +2459,9 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_SEE_OTHER => Self::SeeOther,
 			ffi::SOUP_STATUS_NOT_MODIFIED => Self::NotModified,
 			ffi::SOUP_STATUS_USE_PROXY => Self::UseProxy,
-			ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL => Self::NotAppearingInThisProtocol,
+			ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL => {
+				Self::NotAppearingInThisProtocol
+			},
 			ffi::SOUP_STATUS_TEMPORARY_REDIRECT => Self::TemporaryRedirect,
 			ffi::SOUP_STATUS_PERMANENT_REDIRECT => Self::PermanentRedirect,
 			ffi::SOUP_STATUS_BAD_REQUEST => Self::BadRequest,
@@ -2331,16 +2471,24 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_NOT_FOUND => Self::NotFound,
 			ffi::SOUP_STATUS_METHOD_NOT_ALLOWED => Self::MethodNotAllowed,
 			ffi::SOUP_STATUS_NOT_ACCEPTABLE => Self::NotAcceptable,
-			ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED => Self::ProxyAuthenticationRequired,
+			ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED => {
+				Self::ProxyAuthenticationRequired
+			},
 			ffi::SOUP_STATUS_REQUEST_TIMEOUT => Self::RequestTimeout,
 			ffi::SOUP_STATUS_CONFLICT => Self::Conflict,
 			ffi::SOUP_STATUS_GONE => Self::Gone,
 			ffi::SOUP_STATUS_LENGTH_REQUIRED => Self::LengthRequired,
 			ffi::SOUP_STATUS_PRECONDITION_FAILED => Self::PreconditionFailed,
-			ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE => Self::RequestEntityTooLarge,
+			ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE => {
+				Self::RequestEntityTooLarge
+			},
 			ffi::SOUP_STATUS_REQUEST_URI_TOO_LONG => Self::RequestUriTooLong,
-			ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE => Self::UnsupportedMediaType,
-			ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE => Self::RequestedRangeNotSatisfiable,
+			ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE => {
+				Self::UnsupportedMediaType
+			},
+			ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE => {
+				Self::RequestedRangeNotSatisfiable
+			},
 			ffi::SOUP_STATUS_EXPECTATION_FAILED => Self::ExpectationFailed,
 			ffi::SOUP_STATUS_UNPROCESSABLE_ENTITY => Self::UnprocessableEntity,
 			ffi::SOUP_STATUS_LOCKED => Self::Locked,
@@ -2350,7 +2498,9 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_BAD_GATEWAY => Self::BadGateway,
 			ffi::SOUP_STATUS_SERVICE_UNAVAILABLE => Self::ServiceUnavailable,
 			ffi::SOUP_STATUS_GATEWAY_TIMEOUT => Self::GatewayTimeout,
-			ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED => Self::HttpVersionNotSupported,
+			ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED => {
+				Self::HttpVersionNotSupported
+			},
 			ffi::SOUP_STATUS_INSUFFICIENT_STORAGE => Self::InsufficientStorage,
 			ffi::SOUP_STATUS_NOT_EXTENDED => Self::NotExtended,
 			value => Self::__Unknown(value),
@@ -2371,7 +2521,7 @@ impl glib::value::ValueType for Status {
 unsafe impl<'a> FromValue<'a> for Status {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2381,14 +2531,15 @@ impl ToValue for Status {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -2414,7 +2565,7 @@ pub enum TLDError {
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 impl fmt::Display for TLDError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"TLDError::{}",
@@ -2452,7 +2603,7 @@ impl IntoGlib for TLDError {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupTLDError> for TLDError {
-	unsafe fn from_glib(value: ffi::SoupTLDError) -> Self {
+	unsafe fn from_glib(value:ffi::SoupTLDError) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_TLD_ERROR_INVALID_HOSTNAME => Self::InvalidHostname,
@@ -2474,16 +2625,16 @@ impl ErrorDomain for TLDError {
 		unsafe { from_glib(ffi::soup_tld_error_quark()) }
 	}
 
-	fn code(self) -> i32 {
-		self.into_glib()
-	}
+	fn code(self) -> i32 { self.into_glib() }
 
-	fn from(code: i32) -> Option<Self> {
+	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_TLD_ERROR_INVALID_HOSTNAME => Some(Self::InvalidHostname),
 			ffi::SOUP_TLD_ERROR_IS_IP_ADDRESS => Some(Self::IsIpAddress),
-			ffi::SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS => Some(Self::NotEnoughDomains),
+			ffi::SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS => {
+				Some(Self::NotEnoughDomains)
+			},
 			ffi::SOUP_TLD_ERROR_NO_BASE_DOMAIN => Some(Self::NoBaseDomain),
 			ffi::SOUP_TLD_ERROR_NO_PSL_DATA => Some(Self::NoPslData),
 			value => Some(Self::__Unknown(value)),
@@ -2510,7 +2661,7 @@ impl glib::value::ValueType for TLDError {
 unsafe impl<'a> FromValue<'a> for TLDError {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2522,14 +2673,15 @@ impl ToValue for TLDError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -2569,7 +2721,7 @@ pub enum WebsocketCloseCode {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl fmt::Display for WebsocketCloseCode {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"WebsocketCloseCode::{}",
@@ -2621,7 +2773,7 @@ impl IntoGlib for WebsocketCloseCode {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupWebsocketCloseCode> for WebsocketCloseCode {
-	unsafe fn from_glib(value: ffi::SoupWebsocketCloseCode) -> Self {
+	unsafe fn from_glib(value:ffi::SoupWebsocketCloseCode) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_WEBSOCKET_CLOSE_NORMAL => Self::Normal,
@@ -2660,7 +2812,7 @@ impl glib::value::ValueType for WebsocketCloseCode {
 unsafe impl<'a> FromValue<'a> for WebsocketCloseCode {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2672,14 +2824,15 @@ impl ToValue for WebsocketCloseCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -2701,7 +2854,7 @@ pub enum WebsocketConnectionType {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl fmt::Display for WebsocketConnectionType {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"WebsocketConnectionType::{}",
@@ -2735,7 +2888,7 @@ impl IntoGlib for WebsocketConnectionType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupWebsocketConnectionType> for WebsocketConnectionType {
-	unsafe fn from_glib(value: ffi::SoupWebsocketConnectionType) -> Self {
+	unsafe fn from_glib(value:ffi::SoupWebsocketConnectionType) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_WEBSOCKET_CONNECTION_UNKNOWN => Self::Unknown,
@@ -2765,7 +2918,7 @@ impl glib::value::ValueType for WebsocketConnectionType {
 unsafe impl<'a> FromValue<'a> for WebsocketConnectionType {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2777,14 +2930,15 @@ impl ToValue for WebsocketConnectionType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -2804,7 +2958,7 @@ pub enum WebsocketDataType {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl fmt::Display for WebsocketDataType {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"WebsocketDataType::{}",
@@ -2836,7 +2990,7 @@ impl IntoGlib for WebsocketDataType {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupWebsocketDataType> for WebsocketDataType {
-	unsafe fn from_glib(value: ffi::SoupWebsocketDataType) -> Self {
+	unsafe fn from_glib(value:ffi::SoupWebsocketDataType) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_WEBSOCKET_DATA_TEXT => Self::Text,
@@ -2865,7 +3019,7 @@ impl glib::value::ValueType for WebsocketDataType {
 unsafe impl<'a> FromValue<'a> for WebsocketDataType {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2877,14 +3031,15 @@ impl ToValue for WebsocketDataType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -2919,7 +3074,7 @@ impl WebsocketError {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl fmt::Display for WebsocketError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"WebsocketError::{}",
@@ -2955,7 +3110,7 @@ impl IntoGlib for WebsocketError {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupWebsocketError> for WebsocketError {
-	unsafe fn from_glib(value: ffi::SoupWebsocketError) -> Self {
+	unsafe fn from_glib(value:ffi::SoupWebsocketError) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_WEBSOCKET_ERROR_FAILED => Self::Failed,
@@ -2986,7 +3141,7 @@ impl glib::value::ValueType for WebsocketError {
 unsafe impl<'a> FromValue<'a> for WebsocketError {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -2998,14 +3153,15 @@ impl ToValue for WebsocketError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -3027,7 +3183,7 @@ pub enum WebsocketState {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl fmt::Display for WebsocketState {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"WebsocketState::{}",
@@ -3061,7 +3217,7 @@ impl IntoGlib for WebsocketState {
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 #[doc(hidden)]
 impl FromGlib<ffi::SoupWebsocketState> for WebsocketState {
-	unsafe fn from_glib(value: ffi::SoupWebsocketState) -> Self {
+	unsafe fn from_glib(value:ffi::SoupWebsocketState) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_WEBSOCKET_STATE_OPEN => Self::Open,
@@ -3091,7 +3247,7 @@ impl glib::value::ValueType for WebsocketState {
 unsafe impl<'a> FromValue<'a> for WebsocketState {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -3103,14 +3259,15 @@ impl ToValue for WebsocketState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -3126,7 +3283,7 @@ pub enum XMLRPCError {
 }
 
 impl fmt::Display for XMLRPCError {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"XMLRPCError::{}",
@@ -3154,7 +3311,7 @@ impl IntoGlib for XMLRPCError {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupXMLRPCError> for XMLRPCError {
-	unsafe fn from_glib(value: ffi::SoupXMLRPCError) -> Self {
+	unsafe fn from_glib(value:ffi::SoupXMLRPCError) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_XMLRPC_ERROR_ARGUMENTS => Self::Arguments,
@@ -3171,11 +3328,9 @@ impl ErrorDomain for XMLRPCError {
 		unsafe { from_glib(ffi::soup_xmlrpc_error_quark()) }
 	}
 
-	fn code(self) -> i32 {
-		self.into_glib()
-	}
+	fn code(self) -> i32 { self.into_glib() }
 
-	fn from(code: i32) -> Option<Self> {
+	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_XMLRPC_ERROR_ARGUMENTS => Some(Self::Arguments),
@@ -3198,7 +3353,7 @@ impl glib::value::ValueType for XMLRPCError {
 unsafe impl<'a> FromValue<'a> for XMLRPCError {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -3208,14 +3363,15 @@ impl ToValue for XMLRPCError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]
@@ -3226,7 +3382,9 @@ pub enum XMLRPCFault {
 	ParseErrorNotWellFormed,
 	#[doc(alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_UNSUPPORTED_ENCODING")]
 	ParseErrorUnsupportedEncoding,
-	#[doc(alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING")]
+	#[doc(
+		alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING"
+	)]
 	ParseErrorInvalidCharacterForEncoding,
 	#[doc(alias = "SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_XML_RPC")]
 	ServerErrorInvalidXmlRpc,
@@ -3255,19 +3413,23 @@ impl XMLRPCFault {
 }
 
 impl fmt::Display for XMLRPCFault {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		write!(
 			f,
 			"XMLRPCFault::{}",
 			match *self {
 				Self::ParseErrorNotWellFormed => "ParseErrorNotWellFormed",
-				Self::ParseErrorUnsupportedEncoding => "ParseErrorUnsupportedEncoding",
+				Self::ParseErrorUnsupportedEncoding =>
+					"ParseErrorUnsupportedEncoding",
 				Self::ParseErrorInvalidCharacterForEncoding =>
 					"ParseErrorInvalidCharacterForEncoding",
 				Self::ServerErrorInvalidXmlRpc => "ServerErrorInvalidXmlRpc",
-				Self::ServerErrorRequestedMethodNotFound => "ServerErrorRequestedMethodNotFound",
-				Self::ServerErrorInvalidMethodParameters => "ServerErrorInvalidMethodParameters",
-				Self::ServerErrorInternalXmlRpcError => "ServerErrorInternalXmlRpcError",
+				Self::ServerErrorRequestedMethodNotFound =>
+					"ServerErrorRequestedMethodNotFound",
+				Self::ServerErrorInvalidMethodParameters =>
+					"ServerErrorInvalidMethodParameters",
+				Self::ServerErrorInternalXmlRpcError =>
+					"ServerErrorInternalXmlRpcError",
 				Self::ApplicationError => "ApplicationError",
 				Self::SystemError => "SystemError",
 				Self::TransportError => "TransportError",
@@ -3310,7 +3472,7 @@ impl IntoGlib for XMLRPCFault {
 
 #[doc(hidden)]
 impl FromGlib<ffi::SoupXMLRPCFault> for XMLRPCFault {
-	unsafe fn from_glib(value: ffi::SoupXMLRPCFault) -> Self {
+	unsafe fn from_glib(value:ffi::SoupXMLRPCFault) -> Self {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_NOT_WELL_FORMED => Self::ParseErrorNotWellFormed,
@@ -3351,7 +3513,7 @@ impl glib::value::ValueType for XMLRPCFault {
 unsafe impl<'a> FromValue<'a> for XMLRPCFault {
 	type Checker = glib::value::GenericValueTypeChecker<Self>;
 
-	unsafe fn from_value(value: &'a glib::Value) -> Self {
+	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
@@ -3361,12 +3523,13 @@ impl ToValue for XMLRPCFault {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
+			glib::gobject_ffi::g_value_set_enum(
+				value.to_glib_none_mut().0,
+				self.into_glib(),
+			);
 		}
 		value
 	}
 
-	fn value_type(&self) -> glib::Type {
-		Self::static_type()
-	}
+	fn value_type(&self) -> glib::Type { Self::static_type() }
 }

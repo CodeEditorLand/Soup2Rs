@@ -71,10 +71,16 @@ mod message;
 pub use self::message::{Message, NONE_MESSAGE};
 
 mod multipart_input_stream;
-pub use self::multipart_input_stream::{MultipartInputStream, NONE_MULTIPART_INPUT_STREAM};
+pub use self::multipart_input_stream::{
+	MultipartInputStream,
+	NONE_MULTIPART_INPUT_STREAM,
+};
 
 mod proxy_resolver_default;
-pub use self::proxy_resolver_default::{ProxyResolverDefault, NONE_PROXY_RESOLVER_DEFAULT};
+pub use self::proxy_resolver_default::{
+	ProxyResolverDefault,
+	NONE_PROXY_RESOLVER_DEFAULT,
+};
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
@@ -126,10 +132,16 @@ pub use self::socket::{Socket, NONE_SOCKET};
 mod websocket_connection;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-pub use self::websocket_connection::{WebsocketConnection, NONE_WEBSOCKET_CONNECTION};
+pub use self::websocket_connection::{
+	WebsocketConnection,
+	NONE_WEBSOCKET_CONNECTION,
+};
 
 mod websocket_extension;
-pub use self::websocket_extension::{WebsocketExtension, NONE_WEBSOCKET_EXTENSION};
+pub use self::websocket_extension::{
+	WebsocketExtension,
+	NONE_WEBSOCKET_EXTENSION,
+};
 
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
@@ -137,12 +149,14 @@ mod websocket_extension_deflate;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 pub use self::websocket_extension_deflate::{
-	WebsocketExtensionDeflate, NONE_WEBSOCKET_EXTENSION_DEFLATE,
+	WebsocketExtensionDeflate,
+	NONE_WEBSOCKET_EXTENSION_DEFLATE,
 };
 
 mod websocket_extension_manager;
 pub use self::websocket_extension_manager::{
-	WebsocketExtensionManager, NONE_WEBSOCKET_EXTENSION_MANAGER,
+	WebsocketExtensionManager,
+	NONE_WEBSOCKET_EXTENSION_MANAGER,
 };
 
 mod buffer;
@@ -216,9 +230,22 @@ pub use self::enums::WebsocketError;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 pub use self::enums::WebsocketState;
 pub use self::enums::{
-	AddressFamily, CacheResponse, ConnectionState, DateFormat, Encoding, HTTPVersion,
-	KnownStatusCode, LoggerLogLevel, MemoryUse, MessageHeadersType, MessagePriority,
-	RequesterError, SocketIOStatus, Status, XMLRPCError, XMLRPCFault,
+	AddressFamily,
+	CacheResponse,
+	ConnectionState,
+	DateFormat,
+	Encoding,
+	HTTPVersion,
+	KnownStatusCode,
+	LoggerLogLevel,
+	MemoryUse,
+	MessageHeadersType,
+	MessagePriority,
+	RequesterError,
+	SocketIOStatus,
+	Status,
+	XMLRPCError,
+	XMLRPCFault,
 };
 
 mod flags;
@@ -336,23 +363,72 @@ pub use self::constants::SOCKET_TLS_ERRORS;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 pub use self::constants::SOCKET_USE_THREAD_CONTEXT;
 pub use self::constants::{
-	ADDRESS_FAMILY, ADDRESS_NAME, ADDRESS_PHYSICAL, ADDRESS_PORT, ADDRESS_PROTOCOL,
-	ADDRESS_SOCKADDR, AUTH_DOMAIN_ADD_PATH, AUTH_DOMAIN_BASIC_AUTH_CALLBACK,
-	AUTH_DOMAIN_BASIC_AUTH_DATA, AUTH_DOMAIN_DIGEST_AUTH_CALLBACK, AUTH_DOMAIN_DIGEST_AUTH_DATA,
-	AUTH_DOMAIN_FILTER, AUTH_DOMAIN_FILTER_DATA, AUTH_DOMAIN_GENERIC_AUTH_CALLBACK,
-	AUTH_DOMAIN_GENERIC_AUTH_DATA, AUTH_DOMAIN_PROXY, AUTH_DOMAIN_REALM, AUTH_DOMAIN_REMOVE_PATH,
-	AUTH_HOST, AUTH_IS_AUTHENTICATED, AUTH_IS_FOR_PROXY, AUTH_REALM, AUTH_SCHEME_NAME,
-	COOKIE_JAR_DB_FILENAME, COOKIE_JAR_READ_ONLY, COOKIE_JAR_TEXT_FILENAME,
-	HSTS_ENFORCER_DB_FILENAME, MESSAGE_FLAGS, MESSAGE_HTTP_VERSION,
-	MESSAGE_IS_TOP_LEVEL_NAVIGATION, MESSAGE_METHOD, MESSAGE_REASON_PHRASE, MESSAGE_REQUEST_BODY,
-	MESSAGE_REQUEST_HEADERS, MESSAGE_RESPONSE_BODY, MESSAGE_RESPONSE_HEADERS, MESSAGE_SERVER_SIDE,
-	MESSAGE_SITE_FOR_COOKIES, MESSAGE_STATUS_CODE, MESSAGE_URI, SERVER_ASYNC_CONTEXT,
-	SERVER_INTERFACE, SERVER_PORT, SERVER_RAW_PATHS, SERVER_SERVER_HEADER, SERVER_SSL_CERT_FILE,
-	SERVER_SSL_KEY_FILE, SESSION_ASYNC_CONTEXT, SESSION_MAX_CONNS, SESSION_MAX_CONNS_PER_HOST,
-	SESSION_PROXY_RESOLVER, SESSION_PROXY_URI, SESSION_SSL_CA_FILE, SESSION_TIMEOUT,
-	SESSION_USER_AGENT, SESSION_USE_NTLM, SOCKET_ASYNC_CONTEXT, SOCKET_FLAG_NONBLOCKING,
-	SOCKET_IS_SERVER, SOCKET_LOCAL_ADDRESS, SOCKET_REMOTE_ADDRESS, SOCKET_SSL_CREDENTIALS,
-	SOCKET_SSL_FALLBACK, SOCKET_SSL_STRICT, SOCKET_TIMEOUT, SOCKET_TRUSTED_CERTIFICATE,
+	ADDRESS_FAMILY,
+	ADDRESS_NAME,
+	ADDRESS_PHYSICAL,
+	ADDRESS_PORT,
+	ADDRESS_PROTOCOL,
+	ADDRESS_SOCKADDR,
+	AUTH_DOMAIN_ADD_PATH,
+	AUTH_DOMAIN_BASIC_AUTH_CALLBACK,
+	AUTH_DOMAIN_BASIC_AUTH_DATA,
+	AUTH_DOMAIN_DIGEST_AUTH_CALLBACK,
+	AUTH_DOMAIN_DIGEST_AUTH_DATA,
+	AUTH_DOMAIN_FILTER,
+	AUTH_DOMAIN_FILTER_DATA,
+	AUTH_DOMAIN_GENERIC_AUTH_CALLBACK,
+	AUTH_DOMAIN_GENERIC_AUTH_DATA,
+	AUTH_DOMAIN_PROXY,
+	AUTH_DOMAIN_REALM,
+	AUTH_DOMAIN_REMOVE_PATH,
+	AUTH_HOST,
+	AUTH_IS_AUTHENTICATED,
+	AUTH_IS_FOR_PROXY,
+	AUTH_REALM,
+	AUTH_SCHEME_NAME,
+	COOKIE_JAR_DB_FILENAME,
+	COOKIE_JAR_READ_ONLY,
+	COOKIE_JAR_TEXT_FILENAME,
+	HSTS_ENFORCER_DB_FILENAME,
+	MESSAGE_FLAGS,
+	MESSAGE_HTTP_VERSION,
+	MESSAGE_IS_TOP_LEVEL_NAVIGATION,
+	MESSAGE_METHOD,
+	MESSAGE_REASON_PHRASE,
+	MESSAGE_REQUEST_BODY,
+	MESSAGE_REQUEST_HEADERS,
+	MESSAGE_RESPONSE_BODY,
+	MESSAGE_RESPONSE_HEADERS,
+	MESSAGE_SERVER_SIDE,
+	MESSAGE_SITE_FOR_COOKIES,
+	MESSAGE_STATUS_CODE,
+	MESSAGE_URI,
+	SERVER_ASYNC_CONTEXT,
+	SERVER_INTERFACE,
+	SERVER_PORT,
+	SERVER_RAW_PATHS,
+	SERVER_SERVER_HEADER,
+	SERVER_SSL_CERT_FILE,
+	SERVER_SSL_KEY_FILE,
+	SESSION_ASYNC_CONTEXT,
+	SESSION_MAX_CONNS,
+	SESSION_MAX_CONNS_PER_HOST,
+	SESSION_PROXY_RESOLVER,
+	SESSION_PROXY_URI,
+	SESSION_SSL_CA_FILE,
+	SESSION_TIMEOUT,
+	SESSION_USER_AGENT,
+	SESSION_USE_NTLM,
+	SOCKET_ASYNC_CONTEXT,
+	SOCKET_FLAG_NONBLOCKING,
+	SOCKET_IS_SERVER,
+	SOCKET_LOCAL_ADDRESS,
+	SOCKET_REMOTE_ADDRESS,
+	SOCKET_SSL_CREDENTIALS,
+	SOCKET_SSL_FALLBACK,
+	SOCKET_SSL_STRICT,
+	SOCKET_TIMEOUT,
+	SOCKET_TRUSTED_CERTIFICATE,
 };
 
 #[doc(hidden)]
@@ -376,13 +452,26 @@ pub mod traits {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	pub use super::websocket_connection::WebsocketConnectionExt;
 	pub use super::{
-		address::AddressExt, auth::AuthExt, auth_domain::AuthDomainExt,
-		auth_domain_basic::AuthDomainBasicExt, auth_domain_digest::AuthDomainDigestExt,
-		auth_manager::AuthManagerExt, cache::CacheExt, content_sniffer::ContentSnifferExt,
-		cookie_jar::CookieJarExt, cookie_jar_db::CookieJarDBExt, cookie_jar_text::CookieJarTextExt,
-		logger::LoggerExt, message::MessageExt, multipart_input_stream::MultipartInputStreamExt,
-		proxy_resolver_default::ProxyResolverDefaultExt, request_file::RequestFileExt,
-		requester::RequesterExt, server::ServerExt, session::SessionExt, socket::SocketExt,
+		address::AddressExt,
+		auth::AuthExt,
+		auth_domain::AuthDomainExt,
+		auth_domain_basic::AuthDomainBasicExt,
+		auth_domain_digest::AuthDomainDigestExt,
+		auth_manager::AuthManagerExt,
+		cache::CacheExt,
+		content_sniffer::ContentSnifferExt,
+		cookie_jar::CookieJarExt,
+		cookie_jar_db::CookieJarDBExt,
+		cookie_jar_text::CookieJarTextExt,
+		logger::LoggerExt,
+		message::MessageExt,
+		multipart_input_stream::MultipartInputStreamExt,
+		proxy_resolver_default::ProxyResolverDefaultExt,
+		request_file::RequestFileExt,
+		requester::RequesterExt,
+		server::ServerExt,
+		session::SessionExt,
+		socket::SocketExt,
 		websocket_extension::WebsocketExtensionExt,
 	};
 }

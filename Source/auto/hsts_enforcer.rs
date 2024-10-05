@@ -2,16 +2,18 @@
 // from ../gir-files
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-use crate::SessionFeature;
-use crate::{HSTSPolicy, Message};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
+
 use glib::{
 	object::{Cast, IsA},
 	signal::{connect_raw, SignalHandlerId},
 	translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+
+#[cfg(any(feature = "v2_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
+use crate::SessionFeature;
+use crate::{HSTSPolicy, Message};
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
@@ -47,30 +49,28 @@ impl HSTSEnforcer {
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 impl Default for HSTSEnforcer {
-	fn default() -> Self {
-		Self::new()
-	}
+	fn default() -> Self { Self::new() }
 }
 
-pub const NONE_HSTS_ENFORCER: Option<&HSTSEnforcer> = None;
+pub const NONE_HSTS_ENFORCER:Option<&HSTSEnforcer> = None;
 
 pub trait HSTSEnforcerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_get_domains")]
 	#[doc(alias = "get_domains")]
-	fn domains(&self, session_policies: bool) -> Vec<glib::GString>;
+	fn domains(&self, session_policies:bool) -> Vec<glib::GString>;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_get_policies")]
 	#[doc(alias = "get_policies")]
-	fn policies(&self, session_policies: bool) -> Vec<HSTSPolicy>;
+	fn policies(&self, session_policies:bool) -> Vec<HSTSPolicy>;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_has_valid_policy")]
-	fn has_valid_policy(&self, domain: &str) -> bool;
+	fn has_valid_policy(&self, domain:&str) -> bool;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
@@ -80,49 +80,56 @@ pub trait HSTSEnforcerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_set_policy")]
-	fn set_policy(&self, policy: &mut HSTSPolicy);
+	fn set_policy(&self, policy:&mut HSTSPolicy);
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_set_session_policy")]
-	fn set_session_policy(&self, domain: &str, include_subdomains: bool);
+	fn set_session_policy(&self, domain:&str, include_subdomains:bool);
 
 	#[doc(alias = "changed")]
-	fn connect_changed<F: Fn(&Self, &HSTSPolicy, &HSTSPolicy) + 'static>(
+	fn connect_changed<F:Fn(&Self, &HSTSPolicy, &HSTSPolicy) + 'static>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId;
 
 	#[doc(alias = "hsts-enforced")]
-	fn connect_hsts_enforced<F: Fn(&Self, &Message) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 }
 
-impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
+impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn domains(&self, session_policies: bool) -> Vec<glib::GString> {
+	fn domains(&self, session_policies:bool) -> Vec<glib::GString> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(ffi::soup_hsts_enforcer_get_domains(
-				self.as_ref().to_glib_none().0,
-				session_policies.into_glib(),
-			))
+			FromGlibPtrContainer::from_glib_full(
+				ffi::soup_hsts_enforcer_get_domains(
+					self.as_ref().to_glib_none().0,
+					session_policies.into_glib(),
+				),
+			)
 		}
 	}
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn policies(&self, session_policies: bool) -> Vec<HSTSPolicy> {
+	fn policies(&self, session_policies:bool) -> Vec<HSTSPolicy> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(ffi::soup_hsts_enforcer_get_policies(
-				self.as_ref().to_glib_none().0,
-				session_policies.into_glib(),
-			))
+			FromGlibPtrContainer::from_glib_full(
+				ffi::soup_hsts_enforcer_get_policies(
+					self.as_ref().to_glib_none().0,
+					session_policies.into_glib(),
+				),
+			)
 		}
 	}
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn has_valid_policy(&self, domain: &str) -> bool {
+	fn has_valid_policy(&self, domain:&str) -> bool {
 		unsafe {
 			from_glib(ffi::soup_hsts_enforcer_has_valid_policy(
 				self.as_ref().to_glib_none().0,
@@ -134,12 +141,16 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn is_persistent(&self) -> bool {
-		unsafe { from_glib(ffi::soup_hsts_enforcer_is_persistent(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_hsts_enforcer_is_persistent(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn set_policy(&self, policy: &mut HSTSPolicy) {
+	fn set_policy(&self, policy:&mut HSTSPolicy) {
 		unsafe {
 			ffi::soup_hsts_enforcer_set_policy(
 				self.as_ref().to_glib_none().0,
@@ -150,7 +161,7 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn set_session_policy(&self, domain: &str, include_subdomains: bool) {
+	fn set_session_policy(&self, domain:&str, include_subdomains:bool) {
 		unsafe {
 			ffi::soup_hsts_enforcer_set_session_policy(
 				self.as_ref().to_glib_none().0,
@@ -160,20 +171,20 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 		}
 	}
 
-	fn connect_changed<F: Fn(&Self, &HSTSPolicy, &HSTSPolicy) + 'static>(
+	fn connect_changed<F:Fn(&Self, &HSTSPolicy, &HSTSPolicy) + 'static>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId {
 		unsafe extern fn changed_trampoline<
-			P: IsA<HSTSEnforcer>,
-			F: Fn(&P, &HSTSPolicy, &HSTSPolicy) + 'static,
+			P:IsA<HSTSEnforcer>,
+			F:Fn(&P, &HSTSPolicy, &HSTSPolicy) + 'static,
 		>(
-			this: *mut ffi::SoupHSTSEnforcer,
-			old_policy: *mut ffi::SoupHSTSPolicy,
-			new_policy: *mut ffi::SoupHSTSPolicy,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupHSTSEnforcer,
+			old_policy:*mut ffi::SoupHSTSPolicy,
+			new_policy:*mut ffi::SoupHSTSPolicy,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(
 				HSTSEnforcer::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(old_policy),
@@ -181,7 +192,7 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 			)
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"changed\0".as_ptr() as *const _,
@@ -193,20 +204,26 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 		}
 	}
 
-	fn connect_hsts_enforced<F: Fn(&Self, &Message) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn hsts_enforced_trampoline<
-			P: IsA<HSTSEnforcer>,
-			F: Fn(&P, &Message) + 'static,
+			P:IsA<HSTSEnforcer>,
+			F:Fn(&P, &Message) + 'static,
 		>(
-			this: *mut ffi::SoupHSTSEnforcer,
-			message: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupHSTSEnforcer,
+			message:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
-			f(HSTSEnforcer::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(message))
+			let f:&F = &*(f as *const F);
+			f(
+				HSTSEnforcer::from_glib_borrow(this).unsafe_cast_ref(),
+				&from_glib_borrow(message),
+			)
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"hsts-enforced\0".as_ptr() as *const _,
@@ -220,7 +237,7 @@ impl<O: IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 }
 
 impl fmt::Display for HSTSEnforcer {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("HSTSEnforcer")
 	}
 }

@@ -2,13 +2,15 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{AuthDomain, Message};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
+
 use glib::{
 	object::{Cast, IsA},
 	signal::{connect_raw, SignalHandlerId},
 	translate::*,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+
+use crate::{AuthDomain, Message};
 
 glib::wrapper! {
 	#[doc(alias = "SoupAuthDomainDigest")]
@@ -21,12 +23,16 @@ glib::wrapper! {
 
 impl AuthDomainDigest {
 	//#[doc(alias = "soup_auth_domain_digest_new")]
-	//pub fn new(optname1: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainDigest {
+	// pub fn new(optname1: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainDigest {
 	//    unsafe { TODO: call ffi:soup_auth_domain_digest_new() }
 	//}
 
 	#[doc(alias = "soup_auth_domain_digest_encode_password")]
-	pub fn encode_password(username: &str, realm: &str, password: &str) -> Option<glib::GString> {
+	pub fn encode_password(
+		username:&str,
+		realm:&str,
+		password:&str,
+	) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_auth_domain_digest_encode_password(
@@ -38,56 +44,64 @@ impl AuthDomainDigest {
 	}
 }
 
-pub const NONE_AUTH_DOMAIN_DIGEST: Option<&AuthDomainDigest> = None;
+pub const NONE_AUTH_DOMAIN_DIGEST:Option<&AuthDomainDigest> = None;
 
 pub trait AuthDomainDigestExt: 'static {
 	#[doc(alias = "soup_auth_domain_digest_set_auth_callback")]
-	fn set_auth_callback<P: Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static>(
+	fn set_auth_callback<
+		P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
+	>(
 		&self,
-		callback: P,
+		callback:P,
 	);
 
 	//#[doc(alias = "auth-data")]
-	//fn auth_data(&self) -> /*Unimplemented*/Fundamental: Pointer;
+	// fn auth_data(&self) -> /*Unimplemented*/Fundamental: Pointer;
 
 	//#[doc(alias = "auth-data")]
-	//fn set_auth_data(&self, auth_data: /*Unimplemented*/Fundamental: Pointer);
+	// fn set_auth_data(&self, auth_data: /*Unimplemented*/Fundamental:
+	// Pointer);
 
 	#[doc(alias = "auth-data")]
-	fn connect_auth_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 }
 
-impl<O: IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
-	fn set_auth_callback<P: Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static>(
+impl<O:IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
+	fn set_auth_callback<
+		P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
+	>(
 		&self,
-		callback: P,
+		callback:P,
 	) {
-		let callback_data: Box_<P> = Box_::new(callback);
+		let callback_data:Box_<P> = Box_::new(callback);
 		unsafe extern fn callback_func<
-			P: Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
+			P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
 		>(
-			domain: *mut ffi::SoupAuthDomainDigest,
-			msg: *mut ffi::SoupMessage,
-			username: *const libc::c_char,
-			user_data: glib::ffi::gpointer,
+			domain:*mut ffi::SoupAuthDomainDigest,
+			msg:*mut ffi::SoupMessage,
+			username:*const libc::c_char,
+			user_data:glib::ffi::gpointer,
 		) -> *mut libc::c_char {
 			let domain = from_glib_borrow(domain);
 			let msg = from_glib_borrow(msg);
-			let username: Borrowed<glib::GString> = from_glib_borrow(username);
-			let callback: &P = &*(user_data as *mut _);
+			let username:Borrowed<glib::GString> = from_glib_borrow(username);
+			let callback:&P = &*(user_data as *mut _);
 			let res = (*callback)(&domain, &msg, username.as_str());
 			res.to_glib_full()
 		}
 		let callback = Some(callback_func::<P> as _);
 		unsafe extern fn dnotify_func<
-			P: Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
+			P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
 		>(
-			data: glib::ffi::gpointer,
+			data:glib::ffi::gpointer,
 		) {
-			let _callback: Box_<P> = Box_::from_raw(data as *mut _);
+			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
 		let destroy_call3 = Some(dnotify_func::<P> as _);
-		let super_callback0: Box_<P> = callback_data;
+		let super_callback0:Box_<P> = callback_data;
 		unsafe {
 			ffi::soup_auth_domain_digest_set_auth_callback(
 				self.as_ref().to_glib_none().0,
@@ -98,34 +112,40 @@ impl<O: IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
 		}
 	}
 
-	//fn auth_data(&self) -> /*Unimplemented*/Fundamental: Pointer {
+	// fn auth_data(&self) -> /*Unimplemented*/Fundamental: Pointer {
 	//    unsafe {
-	//        let mut value = glib::Value::from_type(</*Unknown type*/ as StaticType>::static_type());
-	//        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"auth-data\0".as_ptr() as *const _, value.to_glib_none_mut().0);
-	//        value.get().expect("Return Value for property `auth-data` getter")
-	//    }
+	//        let mut value = glib::Value::from_type(</*Unknown type*/ as
+	// StaticType>::static_type());
+	//        glib::gobject_ffi::g_object_get_property(self.to_glib_none().0 as
+	// *mut glib::gobject_ffi::GObject, b"auth-data\0".as_ptr() as *const _,
+	// value.to_glib_none_mut().0);        value.get().expect("Return Value for
+	// property `auth-data` getter")    }
 	//}
 
-	//fn set_auth_data(&self, auth_data: /*Unimplemented*/Fundamental: Pointer) {
-	//    unsafe {
-	//        glib::gobject_ffi::g_object_set_property(self.to_glib_none().0 as *mut glib::gobject_ffi::GObject, b"auth-data\0".as_ptr() as *const _, auth_data.to_value().to_glib_none().0);
-	//    }
+	// fn set_auth_data(&self, auth_data: /*Unimplemented*/Fundamental: Pointer)
+	// {    unsafe {
+	//        glib::gobject_ffi::g_object_set_property(self.to_glib_none().0 as
+	// *mut glib::gobject_ffi::GObject, b"auth-data\0".as_ptr() as *const _,
+	// auth_data.to_value().to_glib_none().0);    }
 	//}
 
-	fn connect_auth_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn notify_auth_data_trampoline<
-			P: IsA<AuthDomainDigest>,
-			F: Fn(&P) + 'static,
+			P:IsA<AuthDomainDigest>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupAuthDomainDigest,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupAuthDomainDigest,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(AuthDomainDigest::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::auth-data\0".as_ptr() as *const _,
@@ -139,7 +159,7 @@ impl<O: IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
 }
 
 impl fmt::Display for AuthDomainDigest {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("AuthDomainDigest")
 	}
 }

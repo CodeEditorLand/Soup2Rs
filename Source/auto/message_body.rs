@@ -2,8 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Buffer;
 use glib::translate::*;
+
+use crate::Buffer;
 
 glib::wrapper! {
 	#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -24,7 +25,7 @@ impl MessageBody {
 	}
 
 	#[doc(alias = "soup_message_body_append_buffer")]
-	pub fn append_buffer(&mut self, buffer: &mut Buffer) {
+	pub fn append_buffer(&mut self, buffer:&mut Buffer) {
 		unsafe {
 			ffi::soup_message_body_append_buffer(
 				self.to_glib_none_mut().0,
@@ -36,7 +37,7 @@ impl MessageBody {
 	#[cfg(any(feature = "v2_32", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	#[doc(alias = "soup_message_body_append_take")]
-	pub fn append_take(&mut self, data: &[u8]) {
+	pub fn append_take(&mut self, data:&[u8]) {
 		let length = data.len() as usize;
 		unsafe {
 			ffi::soup_message_body_append_take(
@@ -56,7 +57,11 @@ impl MessageBody {
 
 	#[doc(alias = "soup_message_body_flatten")]
 	pub fn flatten(&mut self) -> Option<Buffer> {
-		unsafe { from_glib_full(ffi::soup_message_body_flatten(self.to_glib_none_mut().0)) }
+		unsafe {
+			from_glib_full(ffi::soup_message_body_flatten(
+				self.to_glib_none_mut().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
@@ -64,30 +69,40 @@ impl MessageBody {
 	#[doc(alias = "soup_message_body_get_accumulate")]
 	#[doc(alias = "get_accumulate")]
 	pub fn is_accumulate(&mut self) -> bool {
-		unsafe { from_glib(ffi::soup_message_body_get_accumulate(self.to_glib_none_mut().0)) }
+		unsafe {
+			from_glib(ffi::soup_message_body_get_accumulate(
+				self.to_glib_none_mut().0,
+			))
+		}
 	}
 
 	#[doc(alias = "soup_message_body_get_chunk")]
 	#[doc(alias = "get_chunk")]
-	pub fn chunk(&mut self, offset: i64) -> Option<Buffer> {
+	pub fn chunk(&mut self, offset:i64) -> Option<Buffer> {
 		unsafe {
-			from_glib_full(ffi::soup_message_body_get_chunk(self.to_glib_none_mut().0, offset))
+			from_glib_full(ffi::soup_message_body_get_chunk(
+				self.to_glib_none_mut().0,
+				offset,
+			))
 		}
 	}
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "soup_message_body_got_chunk")]
-	pub fn got_chunk(&mut self, chunk: &mut Buffer) {
+	pub fn got_chunk(&mut self, chunk:&mut Buffer) {
 		unsafe {
-			ffi::soup_message_body_got_chunk(self.to_glib_none_mut().0, chunk.to_glib_none_mut().0);
+			ffi::soup_message_body_got_chunk(
+				self.to_glib_none_mut().0,
+				chunk.to_glib_none_mut().0,
+			);
 		}
 	}
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "soup_message_body_set_accumulate")]
-	pub fn set_accumulate(&mut self, accumulate: bool) {
+	pub fn set_accumulate(&mut self, accumulate:bool) {
 		unsafe {
 			ffi::soup_message_body_set_accumulate(
 				self.to_glib_none_mut().0,
@@ -106,7 +121,7 @@ impl MessageBody {
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "soup_message_body_wrote_chunk")]
-	pub fn wrote_chunk(&mut self, chunk: &mut Buffer) {
+	pub fn wrote_chunk(&mut self, chunk:&mut Buffer) {
 		unsafe {
 			ffi::soup_message_body_wrote_chunk(
 				self.to_glib_none_mut().0,
@@ -117,7 +132,5 @@ impl MessageBody {
 }
 
 impl Default for MessageBody {
-	fn default() -> Self {
-		Self::new()
-	}
+	fn default() -> Self { Self::new() }
 }

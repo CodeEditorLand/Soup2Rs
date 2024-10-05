@@ -2,21 +2,6 @@
 // from ../gir-files
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_26", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
-use crate::Address;
-#[cfg(any(feature = "v2_42", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-use crate::Request;
-use crate::{
-	Buffer, HTTPVersion, MemoryUse, MessageBody, MessageFlags, MessageHeaders, MessagePriority, URI,
-};
-use glib::{
-	object::{Cast, IsA},
-	signal::{connect_raw, SignalHandlerId},
-	translate::*,
-	StaticType, ToValue,
-};
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 use std::mem;
@@ -24,6 +9,31 @@ use std::mem;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 use std::ptr;
 use std::{boxed::Box as Box_, fmt, mem::transmute};
+
+use glib::{
+	object::{Cast, IsA},
+	signal::{connect_raw, SignalHandlerId},
+	translate::*,
+	StaticType,
+	ToValue,
+};
+
+#[cfg(any(feature = "v2_26", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
+use crate::Address;
+#[cfg(any(feature = "v2_42", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
+use crate::Request;
+use crate::{
+	Buffer,
+	HTTPVersion,
+	MemoryUse,
+	MessageBody,
+	MessageFlags,
+	MessageHeaders,
+	MessagePriority,
+	URI,
+};
 
 glib::wrapper! {
 	#[doc(alias = "SoupMessage")]
@@ -36,7 +46,7 @@ glib::wrapper! {
 
 impl Message {
 	#[doc(alias = "soup_message_new")]
-	pub fn new(method: &str, uri_string: &str) -> Option<Message> {
+	pub fn new(method:&str, uri_string:&str) -> Option<Message> {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_message_new(
@@ -48,7 +58,7 @@ impl Message {
 
 	#[doc(alias = "soup_message_new_from_uri")]
 	#[doc(alias = "new_from_uri")]
-	pub fn from_uri(method: &str, uri: &mut URI) -> Message {
+	pub fn from_uri(method:&str, uri:&mut URI) -> Message {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_message_new_from_uri(
@@ -59,22 +69,26 @@ impl Message {
 	}
 }
 
-pub const NONE_MESSAGE: Option<&Message> = None;
+pub const NONE_MESSAGE:Option<&Message> = None;
 
 pub trait MessageExt: 'static {
 	//#[doc(alias = "soup_message_add_header_handler")]
-	//fn add_header_handler<P: Fn() + 'static>(&self, signal: &str, header: &str, callback: P, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32;
+	// fn add_header_handler<P: Fn() + 'static>(&self, signal: &str, header:
+	// &str, callback: P, user_data: /*Unimplemented*/Option<Fundamental:
+	// Pointer>) -> u32;
 
 	//#[doc(alias = "soup_message_add_status_code_handler")]
-	//fn add_status_code_handler<P: Fn() + 'static>(&self, signal: &str, status_code: u32, callback: P, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32;
+	// fn add_status_code_handler<P: Fn() + 'static>(&self, signal: &str,
+	// status_code: u32, callback: P, user_data:
+	// /*Unimplemented*/Option<Fundamental: Pointer>) -> u32;
 
 	//#[doc(alias = "soup_message_content_sniffed")]
-	//fn content_sniffed(&self, content_type: &str, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 });
+	// fn content_sniffed(&self, content_type: &str, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 });
 
 	#[cfg(any(feature = "v2_28", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
 	#[doc(alias = "soup_message_disable_feature")]
-	fn disable_feature(&self, feature_type: glib::types::Type);
+	fn disable_feature(&self, feature_type:glib::types::Type);
 
 	#[doc(alias = "soup_message_finished")]
 	fn finished(&self);
@@ -103,7 +117,9 @@ pub trait MessageExt: 'static {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "soup_message_get_https_status")]
 	#[doc(alias = "get_https_status")]
-	fn https_status(&self) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)>;
+	fn https_status(
+		&self,
+	) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)>;
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
@@ -131,7 +147,7 @@ pub trait MessageExt: 'static {
 	fn got_body(&self);
 
 	#[doc(alias = "soup_message_got_chunk")]
-	fn got_chunk(&self, chunk: &mut Buffer);
+	fn got_chunk(&self, chunk:&mut Buffer);
 
 	#[doc(alias = "soup_message_got_headers")]
 	fn got_headers(&self);
@@ -142,7 +158,7 @@ pub trait MessageExt: 'static {
 	#[cfg(any(feature = "v2_72", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_72")))]
 	#[doc(alias = "soup_message_is_feature_disabled")]
-	fn is_feature_disabled(&self, feature_type: glib::types::Type) -> bool;
+	fn is_feature_disabled(&self, feature_type:glib::types::Type) -> bool;
 
 	#[doc(alias = "soup_message_is_keepalive")]
 	fn is_keepalive(&self) -> bool;
@@ -153,43 +169,53 @@ pub trait MessageExt: 'static {
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "soup_message_set_first_party")]
-	fn set_first_party(&self, first_party: &mut URI);
+	fn set_first_party(&self, first_party:&mut URI);
 
 	#[doc(alias = "soup_message_set_flags")]
-	fn set_flags(&self, flags: MessageFlags);
+	fn set_flags(&self, flags:MessageFlags);
 
 	#[doc(alias = "soup_message_set_http_version")]
-	fn set_http_version(&self, version: HTTPVersion);
+	fn set_http_version(&self, version:HTTPVersion);
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 	#[doc(alias = "soup_message_set_is_top_level_navigation")]
-	fn set_is_top_level_navigation(&self, is_top_level_navigation: bool);
+	fn set_is_top_level_navigation(&self, is_top_level_navigation:bool);
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	#[doc(alias = "soup_message_set_priority")]
-	fn set_priority(&self, priority: MessagePriority);
+	fn set_priority(&self, priority:MessagePriority);
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "soup_message_set_redirect")]
-	fn set_redirect(&self, status_code: u32, redirect_uri: &str);
+	fn set_redirect(&self, status_code:u32, redirect_uri:&str);
 
 	#[doc(alias = "soup_message_set_request")]
-	fn set_request(&self, content_type: Option<&str>, req_use: MemoryUse, req_body: &[u8]);
+	fn set_request(
+		&self,
+		content_type:Option<&str>,
+		req_use:MemoryUse,
+		req_body:&[u8],
+	);
 
 	#[doc(alias = "soup_message_set_response")]
-	fn set_response(&self, content_type: Option<&str>, resp_use: MemoryUse, resp_body: &[u8]);
+	fn set_response(
+		&self,
+		content_type:Option<&str>,
+		resp_use:MemoryUse,
+		resp_body:&[u8],
+	);
 
 	#[doc(alias = "soup_message_set_status")]
-	fn set_status(&self, status_code: u32);
+	fn set_status(&self, status_code:u32);
 
 	#[doc(alias = "soup_message_set_status_full")]
-	fn set_status_full(&self, status_code: u32, reason_phrase: &str);
+	fn set_status_full(&self, status_code:u32, reason_phrase:&str);
 
 	#[doc(alias = "soup_message_set_uri")]
-	fn set_uri(&self, uri: &mut URI);
+	fn set_uri(&self, uri:&mut URI);
 
 	#[doc(alias = "soup_message_starting")]
 	fn starting(&self);
@@ -198,7 +224,7 @@ pub trait MessageExt: 'static {
 	fn wrote_body(&self);
 
 	#[doc(alias = "soup_message_wrote_body_data")]
-	fn wrote_body_data(&self, chunk: &mut Buffer);
+	fn wrote_body_data(&self, chunk:&mut Buffer);
 
 	#[doc(alias = "soup_message_wrote_chunk")]
 	fn wrote_chunk(&self);
@@ -211,17 +237,17 @@ pub trait MessageExt: 'static {
 
 	fn method(&self) -> Option<glib::GString>;
 
-	fn set_method(&self, method: Option<&str>);
+	fn set_method(&self, method:Option<&str>);
 
 	fn get_property_priority(&self) -> MessagePriority;
 
-	fn set_property_priority(&self, priority: MessagePriority);
+	fn set_property_priority(&self, priority:MessagePriority);
 
 	#[doc(alias = "reason-phrase")]
 	fn reason_phrase(&self) -> Option<glib::GString>;
 
 	#[doc(alias = "reason-phrase")]
-	fn set_reason_phrase(&self, reason_phrase: Option<&str>);
+	fn set_reason_phrase(&self, reason_phrase:Option<&str>);
 
 	#[doc(alias = "request-body")]
 	fn request_body(&self) -> Option<MessageBody>;
@@ -252,13 +278,13 @@ pub trait MessageExt: 'static {
 	fn site_for_cookies(&self) -> Option<URI>;
 
 	#[doc(alias = "site-for-cookies")]
-	fn set_site_for_cookies(&self, site_for_cookies: Option<&URI>);
+	fn set_site_for_cookies(&self, site_for_cookies:Option<&URI>);
 
 	#[doc(alias = "status-code")]
 	fn status_code(&self) -> u32;
 
 	#[doc(alias = "status-code")]
-	fn set_status_code(&self, status_code: u32);
+	fn set_status_code(&self, status_code:u32);
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
@@ -268,7 +294,10 @@ pub trait MessageExt: 'static {
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-certificate")]
-	fn set_tls_certificate<P: IsA<gio::TlsCertificate>>(&self, tls_certificate: Option<&P>);
+	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(
+		&self,
+		tls_certificate:Option<&P>,
+	);
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
@@ -278,147 +307,225 @@ pub trait MessageExt: 'static {
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-errors")]
-	fn set_tls_errors(&self, tls_errors: gio::TlsCertificateFlags);
+	fn set_tls_errors(&self, tls_errors:gio::TlsCertificateFlags);
 
 	//#[cfg(any(feature = "v2_28", feature = "dox"))]
 	//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
 	//#[doc(alias = "content-sniffed")]
-	//fn connect_content_sniffed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId;
+	// fn connect_content_sniffed<Unsupported or ignored types>(&self, f: F) ->
+	// SignalHandlerId;
 
 	#[doc(alias = "finished")]
-	fn connect_finished<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_finished<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "got-body")]
-	fn connect_got_body<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_got_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "got-chunk")]
-	fn connect_got_chunk<F: Fn(&Self, &Buffer) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "got-headers")]
-	fn connect_got_headers<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_got_headers<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "got-informational")]
-	fn connect_got_informational<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_got_informational<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "network-event")]
-	fn connect_network_event<F: Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static>(
+	fn connect_network_event<
+		F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static,
+	>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId;
 
 	#[doc(alias = "restarted")]
-	fn connect_restarted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_restarted<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	#[doc(alias = "starting")]
-	fn connect_starting<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_starting<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-body")]
-	fn connect_wrote_body<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_wrote_body<F:Fn(&Self) + 'static>(&self, f:F)
+	-> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "wrote-body-data")]
-	fn connect_wrote_body_data<F: Fn(&Self, &Buffer) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-chunk")]
-	fn connect_wrote_chunk<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-headers")]
-	fn connect_wrote_headers<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_wrote_headers<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-informational")]
-	fn connect_wrote_informational<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_wrote_informational<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "first-party")]
-	fn connect_first_party_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_first_party_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "flags")]
-	fn connect_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_flags_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "http-version")]
-	fn connect_http_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_http_version_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 	#[doc(alias = "is-top-level-navigation")]
-	fn connect_is_top_level_navigation_notify<F: Fn(&Self) + 'static>(
+	fn connect_is_top_level_navigation_notify<F:Fn(&Self) + 'static>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId;
 
 	#[doc(alias = "method")]
-	fn connect_method_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_method_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "priority")]
-	fn connect_priority_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_priority_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "reason-phrase")]
-	fn connect_reason_phrase_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "request-body")]
-	fn connect_request_body_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_request_body_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	#[doc(alias = "request-body-data")]
-	fn connect_request_body_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "request-headers")]
-	fn connect_request_headers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "response-body")]
-	fn connect_response_body_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_response_body_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	#[doc(alias = "response-body-data")]
-	fn connect_response_body_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "response-headers")]
-	fn connect_response_headers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "site-for-cookies")]
-	fn connect_site_for_cookies_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "status-code")]
-	fn connect_status_code_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_status_code_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-certificate")]
-	fn connect_tls_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-errors")]
-	fn connect_tls_errors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "uri")]
-	fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_uri_notify<F:Fn(&Self) + 'static>(&self, f:F)
+	-> SignalHandlerId;
 }
 
-impl<O: IsA<Message>> MessageExt for O {
-	//fn add_header_handler<P: Fn() + 'static>(&self, signal: &str, header: &str, callback: P, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-	//    unsafe { TODO: call ffi:soup_message_add_header_handler() }
+impl<O:IsA<Message>> MessageExt for O {
+	// fn add_header_handler<P: Fn() + 'static>(&self, signal: &str, header:
+	// &str, callback: P, user_data: /*Unimplemented*/Option<Fundamental:
+	// Pointer>) -> u32 {    unsafe { TODO: call
+	// ffi:soup_message_add_header_handler() }
 	//}
 
-	//fn add_status_code_handler<P: Fn() + 'static>(&self, signal: &str, status_code: u32, callback: P, user_data: /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {
-	//    unsafe { TODO: call ffi:soup_message_add_status_code_handler() }
+	// fn add_status_code_handler<P: Fn() + 'static>(&self, signal: &str,
+	// status_code: u32, callback: P, user_data:
+	// /*Unimplemented*/Option<Fundamental: Pointer>) -> u32 {    unsafe {
+	// TODO: call ffi:soup_message_add_status_code_handler() }
 	//}
 
-	//fn content_sniffed(&self, content_type: &str, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 }) {
+	// fn content_sniffed(&self, content_type: &str, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 }) {
 	//    unsafe { TODO: call ffi:soup_message_content_sniffed() }
 	//}
 
 	#[cfg(any(feature = "v2_28", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
-	fn disable_feature(&self, feature_type: glib::types::Type) {
+	fn disable_feature(&self, feature_type:glib::types::Type) {
 		unsafe {
 			ffi::soup_message_disable_feature(
 				self.as_ref().to_glib_none().0,
@@ -436,26 +543,44 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg(any(feature = "v2_26", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	fn address(&self) -> Option<Address> {
-		unsafe { from_glib_none(ffi::soup_message_get_address(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_none(ffi::soup_message_get_address(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn first_party(&self) -> Option<URI> {
-		unsafe { from_glib_none(ffi::soup_message_get_first_party(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_none(ffi::soup_message_get_first_party(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn flags(&self) -> MessageFlags {
-		unsafe { from_glib(ffi::soup_message_get_flags(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_message_get_flags(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn http_version(&self) -> HTTPVersion {
-		unsafe { from_glib(ffi::soup_message_get_http_version(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_message_get_http_version(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn https_status(&self) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)> {
+	fn https_status(
+		&self,
+	) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)> {
 		unsafe {
 			let mut certificate = ptr::null_mut();
 			let mut errors = mem::MaybeUninit::uninit();
@@ -477,26 +602,38 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 	fn is_top_level_navigation(&self) -> bool {
 		unsafe {
-			from_glib(ffi::soup_message_get_is_top_level_navigation(self.as_ref().to_glib_none().0))
+			from_glib(ffi::soup_message_get_is_top_level_navigation(
+				self.as_ref().to_glib_none().0,
+			))
 		}
 	}
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	fn priority(&self) -> MessagePriority {
-		unsafe { from_glib(ffi::soup_message_get_priority(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_message_get_priority(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	fn soup_request(&self) -> Option<Request> {
 		unsafe {
-			from_glib_none(ffi::soup_message_get_soup_request(self.as_ref().to_glib_none().0))
+			from_glib_none(ffi::soup_message_get_soup_request(
+				self.as_ref().to_glib_none().0,
+			))
 		}
 	}
 
 	fn uri(&self) -> Option<URI> {
-		unsafe { from_glib_none(ffi::soup_message_get_uri(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_none(ffi::soup_message_get_uri(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn got_body(&self) {
@@ -505,9 +642,12 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn got_chunk(&self, chunk: &mut Buffer) {
+	fn got_chunk(&self, chunk:&mut Buffer) {
 		unsafe {
-			ffi::soup_message_got_chunk(self.as_ref().to_glib_none().0, chunk.to_glib_none_mut().0);
+			ffi::soup_message_got_chunk(
+				self.as_ref().to_glib_none().0,
+				chunk.to_glib_none_mut().0,
+			);
 		}
 	}
 
@@ -525,7 +665,7 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_72", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_72")))]
-	fn is_feature_disabled(&self, feature_type: glib::types::Type) -> bool {
+	fn is_feature_disabled(&self, feature_type:glib::types::Type) -> bool {
 		unsafe {
 			from_glib(ffi::soup_message_is_feature_disabled(
 				self.as_ref().to_glib_none().0,
@@ -535,7 +675,11 @@ impl<O: IsA<Message>> MessageExt for O {
 	}
 
 	fn is_keepalive(&self) -> bool {
-		unsafe { from_glib(ffi::soup_message_is_keepalive(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_message_is_keepalive(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn restarted(&self) {
@@ -546,7 +690,7 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn set_first_party(&self, first_party: &mut URI) {
+	fn set_first_party(&self, first_party:&mut URI) {
 		unsafe {
 			ffi::soup_message_set_first_party(
 				self.as_ref().to_glib_none().0,
@@ -555,21 +699,27 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_flags(&self, flags: MessageFlags) {
+	fn set_flags(&self, flags:MessageFlags) {
 		unsafe {
-			ffi::soup_message_set_flags(self.as_ref().to_glib_none().0, flags.into_glib());
+			ffi::soup_message_set_flags(
+				self.as_ref().to_glib_none().0,
+				flags.into_glib(),
+			);
 		}
 	}
 
-	fn set_http_version(&self, version: HTTPVersion) {
+	fn set_http_version(&self, version:HTTPVersion) {
 		unsafe {
-			ffi::soup_message_set_http_version(self.as_ref().to_glib_none().0, version.into_glib());
+			ffi::soup_message_set_http_version(
+				self.as_ref().to_glib_none().0,
+				version.into_glib(),
+			);
 		}
 	}
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
-	fn set_is_top_level_navigation(&self, is_top_level_navigation: bool) {
+	fn set_is_top_level_navigation(&self, is_top_level_navigation:bool) {
 		unsafe {
 			ffi::soup_message_set_is_top_level_navigation(
 				self.as_ref().to_glib_none().0,
@@ -580,15 +730,18 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-	fn set_priority(&self, priority: MessagePriority) {
+	fn set_priority(&self, priority:MessagePriority) {
 		unsafe {
-			ffi::soup_message_set_priority(self.as_ref().to_glib_none().0, priority.into_glib());
+			ffi::soup_message_set_priority(
+				self.as_ref().to_glib_none().0,
+				priority.into_glib(),
+			);
 		}
 	}
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn set_redirect(&self, status_code: u32, redirect_uri: &str) {
+	fn set_redirect(&self, status_code:u32, redirect_uri:&str) {
 		unsafe {
 			ffi::soup_message_set_redirect(
 				self.as_ref().to_glib_none().0,
@@ -598,7 +751,12 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_request(&self, content_type: Option<&str>, req_use: MemoryUse, req_body: &[u8]) {
+	fn set_request(
+		&self,
+		content_type:Option<&str>,
+		req_use:MemoryUse,
+		req_body:&[u8],
+	) {
 		let req_length = req_body.len() as usize;
 		unsafe {
 			ffi::soup_message_set_request(
@@ -611,7 +769,12 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_response(&self, content_type: Option<&str>, resp_use: MemoryUse, resp_body: &[u8]) {
+	fn set_response(
+		&self,
+		content_type:Option<&str>,
+		resp_use:MemoryUse,
+		resp_body:&[u8],
+	) {
 		let resp_length = resp_body.len() as usize;
 		unsafe {
 			ffi::soup_message_set_response(
@@ -624,13 +787,16 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_status(&self, status_code: u32) {
+	fn set_status(&self, status_code:u32) {
 		unsafe {
-			ffi::soup_message_set_status(self.as_ref().to_glib_none().0, status_code);
+			ffi::soup_message_set_status(
+				self.as_ref().to_glib_none().0,
+				status_code,
+			);
 		}
 	}
 
-	fn set_status_full(&self, status_code: u32, reason_phrase: &str) {
+	fn set_status_full(&self, status_code:u32, reason_phrase:&str) {
 		unsafe {
 			ffi::soup_message_set_status_full(
 				self.as_ref().to_glib_none().0,
@@ -640,9 +806,12 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_uri(&self, uri: &mut URI) {
+	fn set_uri(&self, uri:&mut URI) {
 		unsafe {
-			ffi::soup_message_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none_mut().0);
+			ffi::soup_message_set_uri(
+				self.as_ref().to_glib_none().0,
+				uri.to_glib_none_mut().0,
+			);
 		}
 	}
 
@@ -658,7 +827,7 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn wrote_body_data(&self, chunk: &mut Buffer) {
+	fn wrote_body_data(&self, chunk:&mut Buffer) {
 		unsafe {
 			ffi::soup_message_wrote_body_data(
 				self.as_ref().to_glib_none().0,
@@ -681,13 +850,17 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn wrote_informational(&self) {
 		unsafe {
-			ffi::soup_message_wrote_informational(self.as_ref().to_glib_none().0);
+			ffi::soup_message_wrote_informational(
+				self.as_ref().to_glib_none().0,
+			);
 		}
 	}
 
 	fn method(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::GString as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"method\0".as_ptr() as *const _,
@@ -697,7 +870,7 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_method(&self, method: Option<&str>) {
+	fn set_method(&self, method:Option<&str>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -709,7 +882,9 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn get_property_priority(&self) -> MessagePriority {
 		unsafe {
-			let mut value = glib::Value::from_type(<MessagePriority as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<MessagePriority as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"priority\0".as_ptr() as *const _,
@@ -719,7 +894,7 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_property_priority(&self, priority: MessagePriority) {
+	fn set_property_priority(&self, priority:MessagePriority) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -731,17 +906,21 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn reason_phrase(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::GString as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"reason-phrase\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `reason-phrase` getter")
+			value
+				.get()
+				.expect("Return Value for property `reason-phrase` getter")
 		}
 	}
 
-	fn set_reason_phrase(&self, reason_phrase: Option<&str>) {
+	fn set_reason_phrase(&self, reason_phrase:Option<&str>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -753,13 +932,17 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn request_body(&self) -> Option<MessageBody> {
 		unsafe {
-			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<MessageBody as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `request-body` getter")
+			value
+				.get()
+				.expect("Return Value for property `request-body` getter")
 		}
 	}
 
@@ -767,37 +950,49 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	fn request_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::Bytes as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `request-body-data` getter")
+			value
+				.get()
+				.expect("Return Value for property `request-body-data` getter")
 		}
 	}
 
 	fn request_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
-			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<MessageHeaders as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `request-headers` getter")
+			value
+				.get()
+				.expect("Return Value for property `request-headers` getter")
 		}
 	}
 
 	fn response_body(&self) -> Option<MessageBody> {
 		unsafe {
-			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<MessageBody as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `response-body` getter")
+			value
+				.get()
+				.expect("Return Value for property `response-body` getter")
 		}
 	}
 
@@ -805,31 +1000,40 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	fn response_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::Bytes as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `response-body-data` getter")
+			value
+				.get()
+				.expect("Return Value for property `response-body-data` getter")
 		}
 	}
 
 	fn response_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
-			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<MessageHeaders as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `response-headers` getter")
+			value
+				.get()
+				.expect("Return Value for property `response-headers` getter")
 		}
 	}
 
 	fn is_server_side(&self) -> bool {
 		unsafe {
-			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value =
+				glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"server-side\0".as_ptr() as *const _,
@@ -841,17 +1045,20 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn site_for_cookies(&self) -> Option<URI> {
 		unsafe {
-			let mut value = glib::Value::from_type(<URI as StaticType>::static_type());
+			let mut value =
+				glib::Value::from_type(<URI as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"site-for-cookies\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `site-for-cookies` getter")
+			value
+				.get()
+				.expect("Return Value for property `site-for-cookies` getter")
 		}
 	}
 
-	fn set_site_for_cookies(&self, site_for_cookies: Option<&URI>) {
+	fn set_site_for_cookies(&self, site_for_cookies:Option<&URI>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -863,7 +1070,8 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	fn status_code(&self) -> u32 {
 		unsafe {
-			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
+			let mut value =
+				glib::Value::from_type(<u32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"status-code\0".as_ptr() as *const _,
@@ -873,7 +1081,7 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_status_code(&self, status_code: u32) {
+	fn set_status_code(&self, status_code:u32) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -887,20 +1095,26 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	fn tls_certificate(&self) -> Option<gio::TlsCertificate> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<gio::TlsCertificate as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect("Return Value for property `tls-certificate` getter")
+			value
+				.get()
+				.expect("Return Value for property `tls-certificate` getter")
 		}
 	}
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn set_tls_certificate<P: IsA<gio::TlsCertificate>>(&self, tls_certificate: Option<&P>) {
+	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(
+		&self,
+		tls_certificate:Option<&P>,
+	) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -914,8 +1128,9 @@ impl<O: IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	fn tls_errors(&self) -> gio::TlsCertificateFlags {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<gio::TlsCertificateFlags as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<gio::TlsCertificateFlags as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-errors\0".as_ptr() as *const _,
@@ -927,7 +1142,7 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn set_tls_errors(&self, tls_errors: gio::TlsCertificateFlags) {
+	fn set_tls_errors(&self, tls_errors:gio::TlsCertificateFlags) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -939,20 +1154,24 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	//#[cfg(any(feature = "v2_28", feature = "dox"))]
 	//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
-	//fn connect_content_sniffed<Unsupported or ignored types>(&self, f: F) -> SignalHandlerId {
-	//    Empty ctype params: *.HashTable TypeId { ns_id: 0, id: 28 }/TypeId { ns_id: 0, id: 28 }
+	// fn connect_content_sniffed<Unsupported or ignored types>(&self, f: F) ->
+	// SignalHandlerId {    Empty ctype params: *.HashTable TypeId { ns_id: 0,
+	// id: 28 }/TypeId { ns_id: 0, id: 28 }
 	//}
 
-	fn connect_finished<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn finished_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_finished<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn finished_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"finished\0".as_ptr() as *const _,
@@ -964,16 +1183,19 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_body<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn got_body_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_got_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn got_body_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-body\0".as_ptr() as *const _,
@@ -985,17 +1207,26 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_chunk<F: Fn(&Self, &Buffer) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn got_chunk_trampoline<P: IsA<Message>, F: Fn(&P, &Buffer) + 'static>(
-			this: *mut ffi::SoupMessage,
-			chunk: *mut ffi::SoupBuffer,
-			f: glib::ffi::gpointer,
+	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn got_chunk_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P, &Buffer) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			chunk:*mut ffi::SoupBuffer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
-			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
+			let f:&F = &*(f as *const F);
+			f(
+				Message::from_glib_borrow(this).unsafe_cast_ref(),
+				&from_glib_borrow(chunk),
+			)
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-chunk\0".as_ptr() as *const _,
@@ -1007,16 +1238,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_headers<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn got_headers_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_got_headers<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn got_headers_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-headers\0".as_ptr() as *const _,
@@ -1028,16 +1265,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_informational<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn got_informational_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_got_informational<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn got_informational_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-informational\0".as_ptr() as *const _,
@@ -1051,20 +1294,22 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_network_event<F: Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static>(
+	fn connect_network_event<
+		F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static,
+	>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId {
 		unsafe extern fn network_event_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P, gio::SocketClientEvent, &gio::IOStream) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P, gio::SocketClientEvent, &gio::IOStream) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			event: gio::ffi::GSocketClientEvent,
-			connection: *mut gio::ffi::GIOStream,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			event:gio::ffi::GSocketClientEvent,
+			connection:*mut gio::ffi::GIOStream,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(
 				Message::from_glib_borrow(this).unsafe_cast_ref(),
 				from_glib(event),
@@ -1072,7 +1317,7 @@ impl<O: IsA<Message>> MessageExt for O {
 			)
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"network-event\0".as_ptr() as *const _,
@@ -1084,16 +1329,19 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_restarted<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn restarted_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_restarted<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn restarted_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"restarted\0".as_ptr() as *const _,
@@ -1107,16 +1355,19 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	fn connect_starting<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn starting_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_starting<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn starting_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"starting\0".as_ptr() as *const _,
@@ -1128,16 +1379,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_body<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn wrote_body_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_wrote_body<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn wrote_body_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-body\0".as_ptr() as *const _,
@@ -1151,20 +1408,26 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_wrote_body_data<F: Fn(&Self, &Buffer) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn wrote_body_data_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P, &Buffer) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P, &Buffer) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			chunk: *mut ffi::SoupBuffer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			chunk:*mut ffi::SoupBuffer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
-			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
+			let f:&F = &*(f as *const F);
+			f(
+				Message::from_glib_borrow(this).unsafe_cast_ref(),
+				&from_glib_borrow(chunk),
+			)
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-body-data\0".as_ptr() as *const _,
@@ -1176,16 +1439,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_chunk<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn wrote_chunk_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn wrote_chunk_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-chunk\0".as_ptr() as *const _,
@@ -1197,16 +1466,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_headers<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn wrote_headers_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_wrote_headers<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn wrote_headers_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-headers\0".as_ptr() as *const _,
@@ -1218,16 +1493,22 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_informational<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn wrote_informational_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			f: glib::ffi::gpointer,
+	fn connect_wrote_informational<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn wrote_informational_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-informational\0".as_ptr() as *const _,
@@ -1241,17 +1522,23 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_first_party_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_first_party_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_first_party_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_first_party_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::first-party\0".as_ptr() as *const _,
@@ -1263,17 +1550,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_flags_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_flags_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_flags_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_flags_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::flags\0".as_ptr() as *const _,
@@ -1285,17 +1578,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_http_version_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_http_version_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_http_version_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_http_version_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::http-version\0".as_ptr() as *const _,
@@ -1309,45 +1608,52 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
-	fn connect_is_top_level_navigation_notify<F: Fn(&Self) + 'static>(
+	fn connect_is_top_level_navigation_notify<F:Fn(&Self) + 'static>(
 		&self,
-		f: F,
+		f:F,
 	) -> SignalHandlerId {
 		unsafe extern fn notify_is_top_level_navigation_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-top-level-navigation\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_is_top_level_navigation_trampoline::<Self, F> as *const (),
+					notify_is_top_level_navigation_trampoline::<Self, F>
+						as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_method_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_method_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_method_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_method_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::method\0".as_ptr() as *const _,
@@ -1359,17 +1665,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_priority_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_priority_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_priority_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_priority_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::priority\0".as_ptr() as *const _,
@@ -1381,17 +1693,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_reason_phrase_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_reason_phrase_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_reason_phrase_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::reason-phrase\0".as_ptr() as *const _,
@@ -1403,17 +1721,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_request_body_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_request_body_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_request_body_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_request_body_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-body\0".as_ptr() as *const _,
@@ -1427,20 +1751,23 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-	fn connect_request_body_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn notify_request_body_data_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-body-data\0".as_ptr() as *const _,
@@ -1452,17 +1779,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_request_headers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_request_headers_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_request_headers_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-headers\0".as_ptr() as *const _,
@@ -1474,17 +1807,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_response_body_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_response_body_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_response_body_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_response_body_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-body\0".as_ptr() as *const _,
@@ -1498,45 +1837,52 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-	fn connect_response_body_data_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn notify_response_body_data_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-body-data\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_response_body_data_trampoline::<Self, F> as *const (),
+					notify_response_body_data_trampoline::<Self, F>
+						as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_response_headers_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn notify_response_headers_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-headers\0".as_ptr() as *const _,
@@ -1548,20 +1894,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_site_for_cookies_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
+	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
 		unsafe extern fn notify_site_for_cookies_trampoline<
-			P: IsA<Message>,
-			F: Fn(&P) + 'static,
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
 		>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::site-for-cookies\0".as_ptr() as *const _,
@@ -1573,17 +1922,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_status_code_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_status_code_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_status_code_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_status_code_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::status-code\0".as_ptr() as *const _,
@@ -1597,17 +1952,23 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn connect_tls_certificate_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_tls_certificate_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_tls_certificate_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-certificate\0".as_ptr() as *const _,
@@ -1621,17 +1982,23 @@ impl<O: IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn connect_tls_errors_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_tls_errors_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_tls_errors_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-errors\0".as_ptr() as *const _,
@@ -1643,17 +2010,23 @@ impl<O: IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_uri_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_uri_trampoline<P: IsA<Message>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupMessage,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_uri_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_uri_trampoline<
+			P:IsA<Message>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupMessage,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::uri\0".as_ptr() as *const _,
@@ -1667,7 +2040,7 @@ impl<O: IsA<Message>> MessageExt for O {
 }
 
 impl fmt::Display for Message {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("Message")
 	}
 }

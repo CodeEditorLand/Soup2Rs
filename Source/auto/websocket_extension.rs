@@ -2,14 +2,15 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use glib::object::IsA;
-#[cfg(any(feature = "v2_68", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-use glib::translate::*;
 use std::fmt;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 use std::ptr;
+
+use glib::object::IsA;
+#[cfg(any(feature = "v2_68", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
+use glib::translate::*;
 
 glib::wrapper! {
 	#[doc(alias = "SoupWebsocketExtension")]
@@ -20,13 +21,15 @@ glib::wrapper! {
 	}
 }
 
-pub const NONE_WEBSOCKET_EXTENSION: Option<&WebsocketExtension> = None;
+pub const NONE_WEBSOCKET_EXTENSION:Option<&WebsocketExtension> = None;
 
 pub trait WebsocketExtensionExt: 'static {
 	//#[cfg(any(feature = "v2_50", feature = "dox"))]
 	//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	//#[doc(alias = "soup_websocket_extension_configure")]
-	//fn configure(&self, connection_type: WebsocketConnectionType, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 }) -> Result<(), glib::Error>;
+	// fn configure(&self, connection_type: WebsocketConnectionType, params:
+	// /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id:
+	// 25 }/TypeId { ns_id: 0, id: 25 }) -> Result<(), glib::Error>;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
@@ -45,8 +48,8 @@ pub trait WebsocketExtensionExt: 'static {
 	#[doc(alias = "soup_websocket_extension_process_incoming_message")]
 	fn process_incoming_message(
 		&self,
-		header: &mut u8,
-		payload: &glib::Bytes,
+		header:&mut u8,
+		payload:&glib::Bytes,
 	) -> Result<glib::Bytes, glib::Error>;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
@@ -54,16 +57,18 @@ pub trait WebsocketExtensionExt: 'static {
 	#[doc(alias = "soup_websocket_extension_process_outgoing_message")]
 	fn process_outgoing_message(
 		&self,
-		header: &mut u8,
-		payload: &glib::Bytes,
+		header:&mut u8,
+		payload:&glib::Bytes,
 	) -> Result<glib::Bytes, glib::Error>;
 }
 
-impl<O: IsA<WebsocketExtension>> WebsocketExtensionExt for O {
+impl<O:IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 	//#[cfg(any(feature = "v2_50", feature = "dox"))]
 	//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	//fn configure(&self, connection_type: WebsocketConnectionType, params: /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id: 25 }/TypeId { ns_id: 0, id: 25 }) -> Result<(), glib::Error> {
-	//    unsafe { TODO: call ffi:soup_websocket_extension_configure() }
+	// fn configure(&self, connection_type: WebsocketConnectionType, params:
+	// /*Unknown conversion*//*Unimplemented*/HashTable TypeId { ns_id: 0, id:
+	// 25 }/TypeId { ns_id: 0, id: 25 }) -> Result<(), glib::Error> {    unsafe
+	// { TODO: call ffi:soup_websocket_extension_configure() }
 	//}
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
@@ -90,8 +95,8 @@ impl<O: IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn process_incoming_message(
 		&self,
-		header: &mut u8,
-		payload: &glib::Bytes,
+		header:&mut u8,
+		payload:&glib::Bytes,
 	) -> Result<glib::Bytes, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
@@ -113,8 +118,8 @@ impl<O: IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn process_outgoing_message(
 		&self,
-		header: &mut u8,
-		payload: &glib::Bytes,
+		header:&mut u8,
+		payload:&glib::Bytes,
 	) -> Result<glib::Bytes, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
@@ -134,7 +139,7 @@ impl<O: IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 }
 
 impl fmt::Display for WebsocketExtension {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("WebsocketExtension")
 	}
 }

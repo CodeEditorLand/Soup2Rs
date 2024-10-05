@@ -2,15 +2,17 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::CookieJar;
-#[cfg(any(feature = "v2_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-use crate::SessionFeature;
+use std::fmt;
+
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 use glib::object::Cast;
 use glib::{object::IsA, translate::*, StaticType};
-use std::fmt;
+
+use crate::CookieJar;
+#[cfg(any(feature = "v2_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
+use crate::SessionFeature;
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
@@ -37,7 +39,7 @@ impl CookieJarDB {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_cookie_jar_db_new")]
-	pub fn new(filename: &str, read_only: bool) -> CookieJarDB {
+	pub fn new(filename:&str, read_only:bool) -> CookieJarDB {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			CookieJar::from_glib_full(ffi::soup_cookie_jar_db_new(
@@ -49,16 +51,18 @@ impl CookieJarDB {
 	}
 }
 
-pub const NONE_COOKIE_JAR_DB: Option<&CookieJarDB> = None;
+pub const NONE_COOKIE_JAR_DB:Option<&CookieJarDB> = None;
 
 pub trait CookieJarDBExt: 'static {
 	fn filename(&self) -> Option<glib::GString>;
 }
 
-impl<O: IsA<CookieJarDB>> CookieJarDBExt for O {
+impl<O:IsA<CookieJarDB>> CookieJarDBExt for O {
 	fn filename(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::GString as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"filename\0".as_ptr() as *const _,
@@ -70,7 +74,7 @@ impl<O: IsA<CookieJarDB>> CookieJarDBExt for O {
 }
 
 impl fmt::Display for CookieJarDB {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("CookieJarDB")
 	}
 }

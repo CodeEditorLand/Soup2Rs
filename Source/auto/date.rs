@@ -2,8 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::DateFormat;
 use glib::translate::*;
+
+use crate::DateFormat;
 
 glib::wrapper! {
 	#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -18,28 +19,43 @@ glib::wrapper! {
 
 impl Date {
 	#[doc(alias = "soup_date_new")]
-	pub fn new(year: i32, month: i32, day: i32, hour: i32, minute: i32, second: i32) -> Date {
+	pub fn new(
+		year:i32,
+		month:i32,
+		day:i32,
+		hour:i32,
+		minute:i32,
+		second:i32,
+	) -> Date {
 		crate::assert_initialized_main_thread!();
-		unsafe { from_glib_full(ffi::soup_date_new(year, month, day, hour, minute, second)) }
+		unsafe {
+			from_glib_full(ffi::soup_date_new(
+				year, month, day, hour, minute, second,
+			))
+		}
 	}
 
 	#[doc(alias = "soup_date_new_from_now")]
 	#[doc(alias = "new_from_now")]
-	pub fn from_now(offset_seconds: i32) -> Date {
+	pub fn from_now(offset_seconds:i32) -> Date {
 		crate::assert_initialized_main_thread!();
 		unsafe { from_glib_full(ffi::soup_date_new_from_now(offset_seconds)) }
 	}
 
 	#[doc(alias = "soup_date_new_from_string")]
 	#[doc(alias = "new_from_string")]
-	pub fn from_string(date_string: &str) -> Option<Date> {
+	pub fn from_string(date_string:&str) -> Option<Date> {
 		crate::assert_initialized_main_thread!();
-		unsafe { from_glib_full(ffi::soup_date_new_from_string(date_string.to_glib_none().0)) }
+		unsafe {
+			from_glib_full(ffi::soup_date_new_from_string(
+				date_string.to_glib_none().0,
+			))
+		}
 	}
 
 	#[doc(alias = "soup_date_new_from_time_t")]
 	#[doc(alias = "new_from_time_t")]
-	pub fn from_time_t(when: libc::c_long) -> Date {
+	pub fn from_time_t(when:libc::c_long) -> Date {
 		crate::assert_initialized_main_thread!();
 		unsafe { from_glib_full(ffi::soup_date_new_from_time_t(when)) }
 	}
@@ -116,9 +132,12 @@ impl Date {
 	}
 
 	#[doc(alias = "soup_date_to_string")]
-	pub fn to_string(&mut self, format: DateFormat) -> Option<glib::GString> {
+	pub fn to_string(&mut self, format:DateFormat) -> Option<glib::GString> {
 		unsafe {
-			from_glib_full(ffi::soup_date_to_string(self.to_glib_none_mut().0, format.into_glib()))
+			from_glib_full(ffi::soup_date_to_string(
+				self.to_glib_none_mut().0,
+				format.into_glib(),
+			))
 		}
 	}
 
@@ -130,7 +149,7 @@ impl Date {
 	//#[cfg(any(feature = "v2_24", feature = "dox"))]
 	//#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	//#[doc(alias = "soup_date_to_timeval")]
-	//pub fn to_timeval(&mut self, time: /*Ignored*/glib::TimeVal) {
+	// pub fn to_timeval(&mut self, time: /*Ignored*/glib::TimeVal) {
 	//    unsafe { TODO: call ffi:soup_date_to_timeval() }
 	//}
 }

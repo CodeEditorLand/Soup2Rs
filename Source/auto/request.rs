@@ -2,9 +2,11 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Session, URI};
-use glib::{object::IsA, translate::*};
 use std::{boxed::Box as Box_, fmt, pin::Pin, ptr};
+
+use glib::{object::IsA, translate::*};
+
+use crate::{Session, URI};
 
 glib::wrapper! {
 	#[doc(alias = "SoupRequest")]
@@ -15,7 +17,7 @@ glib::wrapper! {
 	}
 }
 
-pub const NONE_REQUEST: Option<&Request> = None;
+pub const NONE_REQUEST:Option<&Request> = None;
 
 pub trait RequestExt: 'static {
 	#[doc(alias = "soup_request_get_content_length")]
@@ -37,43 +39,63 @@ pub trait RequestExt: 'static {
 	#[doc(alias = "soup_request_send")]
 	fn send(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
 	) -> Result<gio::InputStream, glib::Error>;
 
 	#[doc(alias = "soup_request_send_async")]
-	fn send_async<P: FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
+	fn send_async<
+		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
+	>(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
-		callback: P,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
+		callback:P,
 	);
 
 	fn send_async_future(
 		&self,
-	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>;
+	) -> Pin<
+		Box_<
+			dyn std::future::Future<
+					Output = Result<gio::InputStream, glib::Error>,
+				> + 'static,
+		>,
+	>;
 }
 
-impl<O: IsA<Request>> RequestExt for O {
+impl<O:IsA<Request>> RequestExt for O {
 	fn content_length(&self) -> i64 {
-		unsafe { ffi::soup_request_get_content_length(self.as_ref().to_glib_none().0) }
+		unsafe {
+			ffi::soup_request_get_content_length(self.as_ref().to_glib_none().0)
+		}
 	}
 
 	fn content_type(&self) -> Option<glib::GString> {
 		unsafe {
-			from_glib_none(ffi::soup_request_get_content_type(self.as_ref().to_glib_none().0))
+			from_glib_none(ffi::soup_request_get_content_type(
+				self.as_ref().to_glib_none().0,
+			))
 		}
 	}
 
 	fn session(&self) -> Option<Session> {
-		unsafe { from_glib_none(ffi::soup_request_get_session(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_none(ffi::soup_request_get_session(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn uri(&self) -> Option<URI> {
-		unsafe { from_glib_none(ffi::soup_request_get_uri(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_none(ffi::soup_request_get_uri(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn send(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
 	) -> Result<gio::InputStream, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
@@ -90,24 +112,33 @@ impl<O: IsA<Request>> RequestExt for O {
 		}
 	}
 
-	fn send_async<P: FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
+	fn send_async<
+		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
+	>(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
-		callback: P,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
+		callback:P,
 	) {
-		let user_data: Box_<P> = Box_::new(callback);
+		let user_data:Box_<P> = Box_::new(callback);
 		unsafe extern fn send_async_trampoline<
-			P: FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
+			P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
 		>(
-			_source_object: *mut glib::gobject_ffi::GObject,
-			res: *mut gio::ffi::GAsyncResult,
-			user_data: glib::ffi::gpointer,
+			_source_object:*mut glib::gobject_ffi::GObject,
+			res:*mut gio::ffi::GAsyncResult,
+			user_data:glib::ffi::gpointer,
 		) {
 			let mut error = ptr::null_mut();
-			let ret = ffi::soup_request_send_finish(_source_object as *mut _, res, &mut error);
-			let result =
-				if error.is_null() { Ok(from_glib_full(ret)) } else { Err(from_glib_full(error)) };
-			let callback: Box_<P> = Box_::from_raw(user_data as *mut _);
+			let ret = ffi::soup_request_send_finish(
+				_source_object as *mut _,
+				res,
+				&mut error,
+			);
+			let result = if error.is_null() {
+				Ok(from_glib_full(ret))
+			} else {
+				Err(from_glib_full(error))
+			};
+			let callback:Box_<P> = Box_::from_raw(user_data as *mut _);
 			callback(result);
 		}
 		let callback = send_async_trampoline::<P>;
@@ -123,8 +154,13 @@ impl<O: IsA<Request>> RequestExt for O {
 
 	fn send_async_future(
 		&self,
-	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>
-	{
+	) -> Pin<
+		Box_<
+			dyn std::future::Future<
+					Output = Result<gio::InputStream, glib::Error>,
+				> + 'static,
+		>,
+	> {
 		Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
 			obj.send_async(Some(cancellable), move |res| {
 				send.resolve(res);
@@ -134,7 +170,7 @@ impl<O: IsA<Request>> RequestExt for O {
 }
 
 impl fmt::Display for Request {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("Request")
 	}
 }

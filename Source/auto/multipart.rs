@@ -2,9 +2,11 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Buffer, MessageBody, MessageHeaders};
-use glib::translate::*;
 use std::ptr;
+
+use glib::translate::*;
+
+use crate::{Buffer, MessageBody, MessageHeaders};
 
 glib::wrapper! {
 	#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
@@ -19,14 +21,19 @@ glib::wrapper! {
 
 impl Multipart {
 	#[doc(alias = "soup_multipart_new")]
-	pub fn new(mime_type: &str) -> Multipart {
+	pub fn new(mime_type:&str) -> Multipart {
 		crate::assert_initialized_main_thread!();
-		unsafe { from_glib_full(ffi::soup_multipart_new(mime_type.to_glib_none().0)) }
+		unsafe {
+			from_glib_full(ffi::soup_multipart_new(mime_type.to_glib_none().0))
+		}
 	}
 
 	#[doc(alias = "soup_multipart_new_from_message")]
 	#[doc(alias = "new_from_message")]
-	pub fn from_message(headers: &mut MessageHeaders, body: &mut MessageBody) -> Option<Multipart> {
+	pub fn from_message(
+		headers:&mut MessageHeaders,
+		body:&mut MessageBody,
+	) -> Option<Multipart> {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_multipart_new_from_message(
@@ -39,10 +46,10 @@ impl Multipart {
 	#[doc(alias = "soup_multipart_append_form_file")]
 	pub fn append_form_file(
 		&mut self,
-		control_name: &str,
-		filename: &str,
-		content_type: &str,
-		body: &mut Buffer,
+		control_name:&str,
+		filename:&str,
+		content_type:&str,
+		body:&mut Buffer,
 	) {
 		unsafe {
 			ffi::soup_multipart_append_form_file(
@@ -56,7 +63,7 @@ impl Multipart {
 	}
 
 	#[doc(alias = "soup_multipart_append_form_string")]
-	pub fn append_form_string(&mut self, control_name: &str, data: &str) {
+	pub fn append_form_string(&mut self, control_name:&str, data:&str) {
 		unsafe {
 			ffi::soup_multipart_append_form_string(
 				self.to_glib_none_mut().0,
@@ -67,7 +74,11 @@ impl Multipart {
 	}
 
 	#[doc(alias = "soup_multipart_append_part")]
-	pub fn append_part(&mut self, headers: &mut MessageHeaders, body: &mut Buffer) {
+	pub fn append_part(
+		&mut self,
+		headers:&mut MessageHeaders,
+		body:&mut Buffer,
+	) {
 		unsafe {
 			ffi::soup_multipart_append_part(
 				self.to_glib_none_mut().0,
@@ -85,7 +96,7 @@ impl Multipart {
 
 	#[doc(alias = "soup_multipart_get_part")]
 	#[doc(alias = "get_part")]
-	pub fn part(&mut self, part: i32) -> Option<(MessageHeaders, Buffer)> {
+	pub fn part(&mut self, part:i32) -> Option<(MessageHeaders, Buffer)> {
 		unsafe {
 			let mut headers = ptr::null_mut();
 			let mut body = ptr::null_mut();
@@ -104,7 +115,11 @@ impl Multipart {
 	}
 
 	#[doc(alias = "soup_multipart_to_message")]
-	pub fn to_message(&mut self, dest_headers: &mut MessageHeaders, dest_body: &mut MessageBody) {
+	pub fn to_message(
+		&mut self,
+		dest_headers:&mut MessageHeaders,
+		dest_body:&mut MessageBody,
+	) {
 		unsafe {
 			ffi::soup_multipart_to_message(
 				self.to_glib_none_mut().0,

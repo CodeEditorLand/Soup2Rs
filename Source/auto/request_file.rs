@@ -2,14 +2,16 @@
 // from ../gir-files
 // DO NOT EDIT
 
-#[cfg(any(feature = "v2_42", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-use crate::Request;
+use std::fmt;
+
 use glib::object::IsA;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 use glib::translate::*;
-use std::fmt;
+
+#[cfg(any(feature = "v2_42", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
+use crate::Request;
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
@@ -32,7 +34,7 @@ glib::wrapper! {
 	}
 }
 
-pub const NONE_REQUEST_FILE: Option<&RequestFile> = None;
+pub const NONE_REQUEST_FILE:Option<&RequestFile> = None;
 
 pub trait RequestFileExt: 'static {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -42,16 +44,20 @@ pub trait RequestFileExt: 'static {
 	fn file(&self) -> Option<gio::File>;
 }
 
-impl<O: IsA<RequestFile>> RequestFileExt for O {
+impl<O:IsA<RequestFile>> RequestFileExt for O {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn file(&self) -> Option<gio::File> {
-		unsafe { from_glib_full(ffi::soup_request_file_get_file(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib_full(ffi::soup_request_file_get_file(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 }
 
 impl fmt::Display for RequestFile {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("RequestFile")
 	}
 }

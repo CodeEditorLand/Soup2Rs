@@ -2,8 +2,9 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::WebsocketExtension;
 use std::fmt;
+
+use crate::WebsocketExtension;
 
 glib::wrapper! {
 	#[doc(alias = "SoupWebsocketExtensionDeflate")]
@@ -16,10 +17,11 @@ glib::wrapper! {
 
 impl WebsocketExtensionDeflate {}
 
-pub const NONE_WEBSOCKET_EXTENSION_DEFLATE: Option<&WebsocketExtensionDeflate> = None;
+pub const NONE_WEBSOCKET_EXTENSION_DEFLATE:Option<&WebsocketExtensionDeflate> =
+	None;
 
 impl fmt::Display for WebsocketExtensionDeflate {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("WebsocketExtensionDeflate")
 	}
 }

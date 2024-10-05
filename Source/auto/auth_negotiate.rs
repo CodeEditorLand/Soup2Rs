@@ -2,11 +2,13 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Auth;
+use std::fmt;
+
 #[cfg(any(feature = "v2_54", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 use glib::translate::*;
-use std::fmt;
+
+use crate::Auth;
 
 glib::wrapper! {
 	#[doc(alias = "SoupAuthNegotiate")]
@@ -28,7 +30,7 @@ impl AuthNegotiate {
 }
 
 impl fmt::Display for AuthNegotiate {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("AuthNegotiate")
 	}
 }

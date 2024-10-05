@@ -2,15 +2,17 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::HSTSEnforcer;
-#[cfg(any(feature = "v2_24", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-use crate::SessionFeature;
+use std::fmt;
+
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 use glib::object::Cast;
 use glib::{object::IsA, translate::*, StaticType};
-use std::fmt;
+
+use crate::HSTSEnforcer;
+#[cfg(any(feature = "v2_24", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
+use crate::SessionFeature;
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
@@ -37,25 +39,29 @@ impl HSTSEnforcerDB {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_hsts_enforcer_db_new")]
-	pub fn new(filename: &str) -> HSTSEnforcerDB {
+	pub fn new(filename:&str) -> HSTSEnforcerDB {
 		crate::assert_initialized_main_thread!();
 		unsafe {
-			HSTSEnforcer::from_glib_full(ffi::soup_hsts_enforcer_db_new(filename.to_glib_none().0))
-				.unsafe_cast()
+			HSTSEnforcer::from_glib_full(ffi::soup_hsts_enforcer_db_new(
+				filename.to_glib_none().0,
+			))
+			.unsafe_cast()
 		}
 	}
 }
 
-pub const NONE_HSTS_ENFORCER_DB: Option<&HSTSEnforcerDB> = None;
+pub const NONE_HSTS_ENFORCER_DB:Option<&HSTSEnforcerDB> = None;
 
 pub trait HSTSEnforcerDBExt: 'static {
 	fn filename(&self) -> Option<glib::GString>;
 }
 
-impl<O: IsA<HSTSEnforcerDB>> HSTSEnforcerDBExt for O {
+impl<O:IsA<HSTSEnforcerDB>> HSTSEnforcerDBExt for O {
 	fn filename(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+			let mut value = glib::Value::from_type(
+				<glib::GString as StaticType>::static_type(),
+			);
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"filename\0".as_ptr() as *const _,
@@ -67,7 +73,7 @@ impl<O: IsA<HSTSEnforcerDB>> HSTSEnforcerDBExt for O {
 }
 
 impl fmt::Display for HSTSEnforcerDB {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("HSTSEnforcerDB")
 	}
 }

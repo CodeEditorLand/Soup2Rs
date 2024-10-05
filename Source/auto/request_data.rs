@@ -2,10 +2,11 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use std::fmt;
+
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 use crate::Request;
-use std::fmt;
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
@@ -30,10 +31,10 @@ glib::wrapper! {
 
 impl RequestData {}
 
-pub const NONE_REQUEST_DATA: Option<&RequestData> = None;
+pub const NONE_REQUEST_DATA:Option<&RequestData> = None;
 
 impl fmt::Display for RequestData {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("RequestData")
 	}
 }

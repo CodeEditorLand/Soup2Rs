@@ -2,6 +2,13 @@
 // from ../gir-files
 // DO NOT EDIT
 
+use std::fmt;
+#[cfg(any(feature = "v2_42", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
+use std::ptr;
+
+use glib::{object::IsA, translate::*};
+
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 use crate::Request;
@@ -11,11 +18,6 @@ use crate::SessionFeature;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 use crate::URI;
-use glib::{object::IsA, translate::*};
-use std::fmt;
-#[cfg(any(feature = "v2_42", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-use std::ptr;
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
@@ -47,29 +49,27 @@ impl Requester {
 }
 
 impl Default for Requester {
-	fn default() -> Self {
-		Self::new()
-	}
+	fn default() -> Self { Self::new() }
 }
 
-pub const NONE_REQUESTER: Option<&Requester> = None;
+pub const NONE_REQUESTER:Option<&Requester> = None;
 
 pub trait RequesterExt: 'static {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_requester_request")]
-	fn request(&self, uri_string: &str) -> Result<Request, glib::Error>;
+	fn request(&self, uri_string:&str) -> Result<Request, glib::Error>;
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_requester_request_uri")]
-	fn request_uri(&self, uri: &mut URI) -> Result<Request, glib::Error>;
+	fn request_uri(&self, uri:&mut URI) -> Result<Request, glib::Error>;
 }
 
-impl<O: IsA<Requester>> RequesterExt for O {
+impl<O:IsA<Requester>> RequesterExt for O {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn request(&self, uri_string: &str) -> Result<Request, glib::Error> {
+	fn request(&self, uri_string:&str) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let ret = ffi::soup_requester_request(
@@ -87,7 +87,7 @@ impl<O: IsA<Requester>> RequesterExt for O {
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn request_uri(&self, uri: &mut URI) -> Result<Request, glib::Error> {
+	fn request_uri(&self, uri:&mut URI) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let ret = ffi::soup_requester_request_uri(
@@ -105,7 +105,7 @@ impl<O: IsA<Requester>> RequesterExt for O {
 }
 
 impl fmt::Display for Requester {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("Requester")
 	}
 }

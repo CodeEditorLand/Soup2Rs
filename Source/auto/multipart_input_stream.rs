@@ -2,15 +2,17 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Message;
-#[cfg(any(feature = "v2_40", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
-use crate::MessageHeaders;
-use glib::{object::IsA, translate::*, StaticType};
 use std::fmt;
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 use std::ptr;
+
+use glib::{object::IsA, translate::*, StaticType};
+
+use crate::Message;
+#[cfg(any(feature = "v2_40", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
+use crate::MessageHeaders;
 
 glib::wrapper! {
 	#[doc(alias = "SoupMultipartInputStream")]
@@ -26,8 +28,8 @@ impl MultipartInputStream {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	#[doc(alias = "soup_multipart_input_stream_new")]
 	pub fn new(
-		msg: &impl IsA<Message>,
-		base_stream: &impl IsA<gio::InputStream>,
+		msg:&impl IsA<Message>,
+		base_stream:&impl IsA<gio::InputStream>,
 	) -> MultipartInputStream {
 		crate::skip_assert_initialized!();
 		unsafe {
@@ -39,7 +41,7 @@ impl MultipartInputStream {
 	}
 }
 
-pub const NONE_MULTIPART_INPUT_STREAM: Option<&MultipartInputStream> = None;
+pub const NONE_MULTIPART_INPUT_STREAM:Option<&MultipartInputStream> = None;
 
 pub trait MultipartInputStreamExt: 'static {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -53,13 +55,13 @@ pub trait MultipartInputStreamExt: 'static {
 	#[doc(alias = "soup_multipart_input_stream_next_part")]
 	fn next_part(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
 	) -> Result<Option<gio::InputStream>, glib::Error>;
 
 	fn message(&self) -> Option<Message>;
 }
 
-impl<O: IsA<MultipartInputStream>> MultipartInputStreamExt for O {
+impl<O:IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn headers(&self) -> Option<MessageHeaders> {
@@ -74,7 +76,7 @@ impl<O: IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn next_part(
 		&self,
-		cancellable: Option<&impl IsA<gio::Cancellable>>,
+		cancellable:Option<&impl IsA<gio::Cancellable>>,
 	) -> Result<Option<gio::InputStream>, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
@@ -93,7 +95,8 @@ impl<O: IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 
 	fn message(&self) -> Option<Message> {
 		unsafe {
-			let mut value = glib::Value::from_type(<Message as StaticType>::static_type());
+			let mut value =
+				glib::Value::from_type(<Message as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"message\0".as_ptr() as *const _,
@@ -105,7 +108,7 @@ impl<O: IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 }
 
 impl fmt::Display for MultipartInputStream {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
 		f.write_str("MultipartInputStream")
 	}
 }

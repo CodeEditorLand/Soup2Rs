@@ -2,14 +2,16 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::{Message, URI};
+use std::{boxed::Box as Box_, fmt, mem::transmute};
+
 use glib::{
 	object::{Cast, IsA},
 	signal::{connect_raw, SignalHandlerId},
 	translate::*,
 	ToValue,
 };
-use std::{boxed::Box as Box_, fmt, mem::transmute};
+
+use crate::{Message, URI};
 
 glib::wrapper! {
 	#[doc(alias = "SoupAuth")]
@@ -23,9 +25,9 @@ glib::wrapper! {
 impl Auth {
 	#[doc(alias = "soup_auth_new")]
 	pub fn new(
-		type_: glib::types::Type,
-		msg: &impl IsA<Message>,
-		auth_header: &str,
+		type_:glib::types::Type,
+		msg:&impl IsA<Message>,
+		auth_header:&str,
 	) -> Option<Auth> {
 		crate::skip_assert_initialized!();
 		unsafe {
@@ -38,11 +40,11 @@ impl Auth {
 	}
 }
 
-pub const NONE_AUTH: Option<&Auth> = None;
+pub const NONE_AUTH:Option<&Auth> = None;
 
 pub trait AuthExt: 'static {
 	#[doc(alias = "soup_auth_authenticate")]
-	fn authenticate(&self, username: &str, password: &str);
+	fn authenticate(&self, username:&str, password:&str);
 
 	#[cfg(any(feature = "v2_54", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
@@ -50,11 +52,12 @@ pub trait AuthExt: 'static {
 	fn can_authenticate(&self) -> bool;
 
 	//#[doc(alias = "soup_auth_free_protection_space")]
-	//fn free_protection_space(&self, space: /*Unimplemented*/&[&Fundamental: Pointer]);
+	// fn free_protection_space(&self, space: /*Unimplemented*/&[&Fundamental:
+	// Pointer]);
 
 	#[doc(alias = "soup_auth_get_authorization")]
 	#[doc(alias = "get_authorization")]
-	fn authorization(&self, msg: &impl IsA<Message>) -> Option<glib::GString>;
+	fn authorization(&self, msg:&impl IsA<Message>) -> Option<glib::GString>;
 
 	#[doc(alias = "soup_auth_get_host")]
 	#[doc(alias = "get_host")]
@@ -66,7 +69,7 @@ pub trait AuthExt: 'static {
 
 	#[doc(alias = "soup_auth_get_protection_space")]
 	#[doc(alias = "get_protection_space")]
-	fn protection_space(&self, source_uri: &mut URI) -> Vec<glib::GString>;
+	fn protection_space(&self, source_uri:&mut URI) -> Vec<glib::GString>;
 
 	#[doc(alias = "soup_auth_get_realm")]
 	#[doc(alias = "get_realm")]
@@ -74,7 +77,7 @@ pub trait AuthExt: 'static {
 
 	#[doc(alias = "soup_auth_get_saved_password")]
 	#[doc(alias = "get_saved_password")]
-	fn saved_password(&self, user: &str) -> Option<glib::GString>;
+	fn saved_password(&self, user:&str) -> Option<glib::GString>;
 
 	#[doc(alias = "soup_auth_get_saved_users")]
 	#[doc(alias = "get_saved_users")]
@@ -85,7 +88,7 @@ pub trait AuthExt: 'static {
 	fn scheme_name(&self) -> Option<glib::GString>;
 
 	#[doc(alias = "soup_auth_has_saved_password")]
-	fn has_saved_password(&self, username: &str, password: &str);
+	fn has_saved_password(&self, username:&str, password:&str);
 
 	#[doc(alias = "soup_auth_is_authenticated")]
 	fn is_authenticated(&self) -> bool;
@@ -96,39 +99,54 @@ pub trait AuthExt: 'static {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_auth_is_ready")]
-	fn is_ready(&self, msg: &impl IsA<Message>) -> bool;
+	fn is_ready(&self, msg:&impl IsA<Message>) -> bool;
 
 	#[doc(alias = "soup_auth_save_password")]
-	fn save_password(&self, username: &str, password: &str);
+	fn save_password(&self, username:&str, password:&str);
 
 	#[doc(alias = "soup_auth_update")]
-	fn update(&self, msg: &impl IsA<Message>, auth_header: &str) -> bool;
+	fn update(&self, msg:&impl IsA<Message>, auth_header:&str) -> bool;
 
-	fn set_host(&self, host: Option<&str>);
+	fn set_host(&self, host:Option<&str>);
 
 	#[doc(alias = "is-for-proxy")]
-	fn set_is_for_proxy(&self, is_for_proxy: bool);
+	fn set_is_for_proxy(&self, is_for_proxy:bool);
 
-	fn set_realm(&self, realm: Option<&str>);
+	fn set_realm(&self, realm:Option<&str>);
 
 	#[doc(alias = "host")]
-	fn connect_host_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_host_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "is-authenticated")]
-	fn connect_is_authenticated_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_is_authenticated_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "is-for-proxy")]
-	fn connect_is_for_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_is_for_proxy_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "realm")]
-	fn connect_realm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_realm_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 
 	#[doc(alias = "scheme-name")]
-	fn connect_scheme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId;
+	fn connect_scheme_name_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId;
 }
 
-impl<O: IsA<Auth>> AuthExt for O {
-	fn authenticate(&self, username: &str, password: &str) {
+impl<O:IsA<Auth>> AuthExt for O {
+	fn authenticate(&self, username:&str, password:&str) {
 		unsafe {
 			ffi::soup_auth_authenticate(
 				self.as_ref().to_glib_none().0,
@@ -141,14 +159,19 @@ impl<O: IsA<Auth>> AuthExt for O {
 	#[cfg(any(feature = "v2_54", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_54")))]
 	fn can_authenticate(&self) -> bool {
-		unsafe { from_glib(ffi::soup_auth_can_authenticate(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_auth_can_authenticate(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
-	//fn free_protection_space(&self, space: /*Unimplemented*/&[&Fundamental: Pointer]) {
-	//    unsafe { TODO: call ffi:soup_auth_free_protection_space() }
+	// fn free_protection_space(&self, space: /*Unimplemented*/&[&Fundamental:
+	// Pointer]) {    unsafe { TODO: call ffi:soup_auth_free_protection_space()
+	// }
 	//}
 
-	fn authorization(&self, msg: &impl IsA<Message>) -> Option<glib::GString> {
+	fn authorization(&self, msg:&impl IsA<Message>) -> Option<glib::GString> {
 		unsafe {
 			from_glib_full(ffi::soup_auth_get_authorization(
 				self.as_ref().to_glib_none().0,
@@ -158,27 +181,41 @@ impl<O: IsA<Auth>> AuthExt for O {
 	}
 
 	fn host(&self) -> Option<glib::GString> {
-		unsafe { from_glib_none(ffi::soup_auth_get_host(self.as_ref().to_glib_none().0)) }
-	}
-
-	fn info(&self) -> Option<glib::GString> {
-		unsafe { from_glib_full(ffi::soup_auth_get_info(self.as_ref().to_glib_none().0)) }
-	}
-
-	fn protection_space(&self, source_uri: &mut URI) -> Vec<glib::GString> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(ffi::soup_auth_get_protection_space(
+			from_glib_none(ffi::soup_auth_get_host(
 				self.as_ref().to_glib_none().0,
-				source_uri.to_glib_none_mut().0,
 			))
 		}
 	}
 
-	fn realm(&self) -> Option<glib::GString> {
-		unsafe { from_glib_none(ffi::soup_auth_get_realm(self.as_ref().to_glib_none().0)) }
+	fn info(&self) -> Option<glib::GString> {
+		unsafe {
+			from_glib_full(ffi::soup_auth_get_info(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
-	fn saved_password(&self, user: &str) -> Option<glib::GString> {
+	fn protection_space(&self, source_uri:&mut URI) -> Vec<glib::GString> {
+		unsafe {
+			FromGlibPtrContainer::from_glib_full(
+				ffi::soup_auth_get_protection_space(
+					self.as_ref().to_glib_none().0,
+					source_uri.to_glib_none_mut().0,
+				),
+			)
+		}
+	}
+
+	fn realm(&self) -> Option<glib::GString> {
+		unsafe {
+			from_glib_none(ffi::soup_auth_get_realm(
+				self.as_ref().to_glib_none().0,
+			))
+		}
+	}
+
+	fn saved_password(&self, user:&str) -> Option<glib::GString> {
 		unsafe {
 			from_glib_none(ffi::soup_auth_get_saved_password(
 				self.as_ref().to_glib_none().0,
@@ -189,17 +226,21 @@ impl<O: IsA<Auth>> AuthExt for O {
 
 	fn saved_users(&self) -> Vec<glib::GString> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(ffi::soup_auth_get_saved_users(
+			FromGlibPtrContainer::from_glib_full(
+				ffi::soup_auth_get_saved_users(self.as_ref().to_glib_none().0),
+			)
+		}
+	}
+
+	fn scheme_name(&self) -> Option<glib::GString> {
+		unsafe {
+			from_glib_none(ffi::soup_auth_get_scheme_name(
 				self.as_ref().to_glib_none().0,
 			))
 		}
 	}
 
-	fn scheme_name(&self) -> Option<glib::GString> {
-		unsafe { from_glib_none(ffi::soup_auth_get_scheme_name(self.as_ref().to_glib_none().0)) }
-	}
-
-	fn has_saved_password(&self, username: &str, password: &str) {
+	fn has_saved_password(&self, username:&str, password:&str) {
 		unsafe {
 			ffi::soup_auth_has_saved_password(
 				self.as_ref().to_glib_none().0,
@@ -210,16 +251,24 @@ impl<O: IsA<Auth>> AuthExt for O {
 	}
 
 	fn is_authenticated(&self) -> bool {
-		unsafe { from_glib(ffi::soup_auth_is_authenticated(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_auth_is_authenticated(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	fn is_for_proxy(&self) -> bool {
-		unsafe { from_glib(ffi::soup_auth_is_for_proxy(self.as_ref().to_glib_none().0)) }
+		unsafe {
+			from_glib(ffi::soup_auth_is_for_proxy(
+				self.as_ref().to_glib_none().0,
+			))
+		}
 	}
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn is_ready(&self, msg: &impl IsA<Message>) -> bool {
+	fn is_ready(&self, msg:&impl IsA<Message>) -> bool {
 		unsafe {
 			from_glib(ffi::soup_auth_is_ready(
 				self.as_ref().to_glib_none().0,
@@ -228,7 +277,7 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn save_password(&self, username: &str, password: &str) {
+	fn save_password(&self, username:&str, password:&str) {
 		unsafe {
 			ffi::soup_auth_save_password(
 				self.as_ref().to_glib_none().0,
@@ -238,7 +287,7 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn update(&self, msg: &impl IsA<Message>, auth_header: &str) -> bool {
+	fn update(&self, msg:&impl IsA<Message>, auth_header:&str) -> bool {
 		unsafe {
 			from_glib(ffi::soup_auth_update(
 				self.as_ref().to_glib_none().0,
@@ -248,7 +297,7 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn set_host(&self, host: Option<&str>) {
+	fn set_host(&self, host:Option<&str>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -258,7 +307,7 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn set_is_for_proxy(&self, is_for_proxy: bool) {
+	fn set_is_for_proxy(&self, is_for_proxy:bool) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -268,7 +317,7 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn set_realm(&self, realm: Option<&str>) {
+	fn set_realm(&self, realm:Option<&str>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -278,17 +327,23 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn connect_host_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_host_trampoline<P: IsA<Auth>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupAuth,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_host_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_host_trampoline<
+			P:IsA<Auth>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupAuth,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::host\0".as_ptr() as *const _,
@@ -300,17 +355,23 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn connect_is_authenticated_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_is_authenticated_trampoline<P: IsA<Auth>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupAuth,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_is_authenticated_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_is_authenticated_trampoline<
+			P:IsA<Auth>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupAuth,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-authenticated\0".as_ptr() as *const _,
@@ -322,17 +383,23 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn connect_is_for_proxy_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_is_for_proxy_trampoline<P: IsA<Auth>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupAuth,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_is_for_proxy_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_is_for_proxy_trampoline<
+			P:IsA<Auth>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupAuth,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-for-proxy\0".as_ptr() as *const _,
@@ -344,17 +411,23 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn connect_realm_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_realm_trampoline<P: IsA<Auth>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupAuth,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_realm_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_realm_trampoline<
+			P:IsA<Auth>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupAuth,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::realm\0".as_ptr() as *const _,
@@ -366,17 +439,23 @@ impl<O: IsA<Auth>> AuthExt for O {
 		}
 	}
 
-	fn connect_scheme_name_notify<F: Fn(&Self) + 'static>(&self, f: F) -> SignalHandlerId {
-		unsafe extern fn notify_scheme_name_trampoline<P: IsA<Auth>, F: Fn(&P) + 'static>(
-			this: *mut ffi::SoupAuth,
-			_param_spec: glib::ffi::gpointer,
-			f: glib::ffi::gpointer,
+	fn connect_scheme_name_notify<F:Fn(&Self) + 'static>(
+		&self,
+		f:F,
+	) -> SignalHandlerId {
+		unsafe extern fn notify_scheme_name_trampoline<
+			P:IsA<Auth>,
+			F:Fn(&P) + 'static,
+		>(
+			this:*mut ffi::SoupAuth,
+			_param_spec:glib::ffi::gpointer,
+			f:glib::ffi::gpointer,
 		) {
-			let f: &F = &*(f as *const F);
+			let f:&F = &*(f as *const F);
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
 		unsafe {
-			let f: Box_<F> = Box_::new(f);
+			let f:Box_<F> = Box_::new(f);
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::scheme-name\0".as_ptr() as *const _,
@@ -390,7 +469,5 @@ impl<O: IsA<Auth>> AuthExt for O {
 }
 
 impl fmt::Display for Auth {
-	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Auth")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Auth") }
 }
