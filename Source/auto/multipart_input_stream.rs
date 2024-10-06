@@ -95,8 +95,7 @@ impl<O:IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 
 	fn message(&self) -> Option<Message> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<Message as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<Message as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"message\0".as_ptr() as *const _,
@@ -108,7 +107,5 @@ impl<O:IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 }
 
 impl fmt::Display for MultipartInputStream {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("MultipartInputStream")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("MultipartInputStream") }
 }

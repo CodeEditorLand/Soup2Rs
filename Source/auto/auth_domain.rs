@@ -36,12 +36,7 @@ pub trait AuthDomainExt: 'static {
 	fn challenge(&self, msg:&impl IsA<Message>);
 
 	#[doc(alias = "soup_auth_domain_check_password")]
-	fn check_password(
-		&self,
-		msg:&impl IsA<Message>,
-		username:&str,
-		password:&str,
-	) -> bool;
+	fn check_password(&self, msg:&impl IsA<Message>, username:&str, password:&str) -> bool;
 
 	#[doc(alias = "soup_auth_domain_covers")]
 	fn covers(&self, msg:&impl IsA<Message>) -> bool;
@@ -54,25 +49,16 @@ pub trait AuthDomainExt: 'static {
 	fn remove_path(&self, path:&str);
 
 	#[doc(alias = "soup_auth_domain_set_filter")]
-	fn set_filter<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
-		&self,
-		filter:P,
-	);
+	fn set_filter<P:Fn(&AuthDomain, &Message) -> bool + 'static>(&self, filter:P);
 
 	#[doc(alias = "soup_auth_domain_set_generic_auth_callback")]
-	fn set_generic_auth_callback<
-		P:Fn(&AuthDomain, &Message, &str) -> bool + 'static,
-	>(
+	fn set_generic_auth_callback<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 		&self,
 		auth_callback:P,
 	);
 
 	#[doc(alias = "soup_auth_domain_try_generic_auth_callback")]
-	fn try_generic_auth_callback(
-		&self,
-		msg:&impl IsA<Message>,
-		username:&str,
-	) -> bool;
+	fn try_generic_auth_callback(&self, msg:&impl IsA<Message>, username:&str) -> bool;
 
 	#[doc(alias = "add-path")]
 	fn set_add_path(&self, add_path:Option<&str>);
@@ -97,28 +83,16 @@ pub trait AuthDomainExt: 'static {
 	fn set_remove_path(&self, remove_path:Option<&str>);
 
 	#[doc(alias = "add-path")]
-	fn connect_add_path_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_add_path_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "filter-data")]
-	fn connect_filter_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_filter_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "generic-auth-data")]
-	fn connect_generic_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_generic_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "remove-path")]
-	fn connect_remove_path_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_remove_path_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<AuthDomain>> AuthDomainExt for O {
@@ -133,10 +107,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 
 	fn add_path(&self, path:&str) {
 		unsafe {
-			ffi::soup_auth_domain_add_path(
-				self.as_ref().to_glib_none().0,
-				path.to_glib_none().0,
-			);
+			ffi::soup_auth_domain_add_path(self.as_ref().to_glib_none().0, path.to_glib_none().0);
 		}
 	}
 
@@ -149,12 +120,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn check_password(
-		&self,
-		msg:&impl IsA<Message>,
-		username:&str,
-		password:&str,
-	) -> bool {
+	fn check_password(&self, msg:&impl IsA<Message>, username:&str, password:&str) -> bool {
 		unsafe {
 			from_glib(ffi::soup_auth_domain_check_password(
 				self.as_ref().to_glib_none().0,
@@ -175,11 +141,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 	}
 
 	fn realm(&self) -> Option<glib::GString> {
-		unsafe {
-			from_glib_none(ffi::soup_auth_domain_get_realm(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_auth_domain_get_realm(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn remove_path(&self, path:&str) {
@@ -191,14 +153,9 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn set_filter<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
-		&self,
-		filter:P,
-	) {
+	fn set_filter<P:Fn(&AuthDomain, &Message) -> bool + 'static>(&self, filter:P) {
 		let filter_data:Box_<P> = Box_::new(filter);
-		unsafe extern fn filter_func<
-			P:Fn(&AuthDomain, &Message) -> bool + 'static,
-		>(
+		unsafe extern fn filter_func<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
 			domain:*mut ffi::SoupAuthDomain,
 			msg:*mut ffi::SoupMessage,
 			user_data:glib::ffi::gpointer,
@@ -210,9 +167,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			res.into_glib()
 		}
 		let filter = Some(filter_func::<P> as _);
-		unsafe extern fn dnotify_func<
-			P:Fn(&AuthDomain, &Message) -> bool + 'static,
-		>(
+		unsafe extern fn dnotify_func<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
@@ -229,16 +184,12 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn set_generic_auth_callback<
-		P:Fn(&AuthDomain, &Message, &str) -> bool + 'static,
-	>(
+	fn set_generic_auth_callback<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 		&self,
 		auth_callback:P,
 	) {
 		let auth_callback_data:Box_<P> = Box_::new(auth_callback);
-		unsafe extern fn auth_callback_func<
-			P:Fn(&AuthDomain, &Message, &str) -> bool + 'static,
-		>(
+		unsafe extern fn auth_callback_func<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 			domain:*mut ffi::SoupAuthDomain,
 			msg:*mut ffi::SoupMessage,
 			username:*const libc::c_char,
@@ -252,9 +203,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			res.into_glib()
 		}
 		let auth_callback = Some(auth_callback_func::<P> as _);
-		unsafe extern fn dnotify_func<
-			P:Fn(&AuthDomain, &Message, &str) -> bool + 'static,
-		>(
+		unsafe extern fn dnotify_func<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
@@ -271,11 +220,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn try_generic_auth_callback(
-		&self,
-		msg:&impl IsA<Message>,
-		username:&str,
-	) -> bool {
+	fn try_generic_auth_callback(&self, msg:&impl IsA<Message>, username:&str) -> bool {
 		unsafe {
 			from_glib(ffi::soup_auth_domain_try_generic_auth_callback(
 				self.as_ref().to_glib_none().0,
@@ -331,8 +276,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 
 	fn is_proxy(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy\0".as_ptr() as *const _,
@@ -352,14 +296,8 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn connect_add_path_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_add_path_trampoline<
-			P:IsA<AuthDomain>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_add_path_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_add_path_trampoline<P:IsA<AuthDomain>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupAuthDomain,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -380,14 +318,8 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn connect_filter_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_filter_data_trampoline<
-			P:IsA<AuthDomain>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_filter_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_filter_data_trampoline<P:IsA<AuthDomain>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupAuthDomain,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -408,10 +340,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn connect_generic_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_generic_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_generic_auth_data_trampoline<
 			P:IsA<AuthDomain>,
 			F:Fn(&P) + 'static,
@@ -436,14 +365,8 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		}
 	}
 
-	fn connect_remove_path_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_remove_path_trampoline<
-			P:IsA<AuthDomain>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_remove_path_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_remove_path_trampoline<P:IsA<AuthDomain>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupAuthDomain,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -466,7 +389,5 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 }
 
 impl fmt::Display for AuthDomain {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthDomain")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthDomain") }
 }

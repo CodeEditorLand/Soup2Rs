@@ -117,9 +117,7 @@ pub trait MessageExt: 'static {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "soup_message_get_https_status")]
 	#[doc(alias = "get_https_status")]
-	fn https_status(
-		&self,
-	) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)>;
+	fn https_status(&self) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)>;
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
@@ -193,20 +191,10 @@ pub trait MessageExt: 'static {
 	fn set_redirect(&self, status_code:u32, redirect_uri:&str);
 
 	#[doc(alias = "soup_message_set_request")]
-	fn set_request(
-		&self,
-		content_type:Option<&str>,
-		req_use:MemoryUse,
-		req_body:&[u8],
-	);
+	fn set_request(&self, content_type:Option<&str>, req_use:MemoryUse, req_body:&[u8]);
 
 	#[doc(alias = "soup_message_set_response")]
-	fn set_response(
-		&self,
-		content_type:Option<&str>,
-		resp_use:MemoryUse,
-		resp_body:&[u8],
-	);
+	fn set_response(&self, content_type:Option<&str>, resp_use:MemoryUse, resp_body:&[u8]);
 
 	#[doc(alias = "soup_message_set_status")]
 	fn set_status(&self, status_code:u32);
@@ -294,10 +282,7 @@ pub trait MessageExt: 'static {
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-certificate")]
-	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(
-		&self,
-		tls_certificate:Option<&P>,
-	);
+	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(&self, tls_certificate:Option<&P>);
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
@@ -322,29 +307,18 @@ pub trait MessageExt: 'static {
 	fn connect_got_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "got-chunk")]
-	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "got-headers")]
-	fn connect_got_headers<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_got_headers<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "got-informational")]
-	fn connect_got_informational<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_got_informational<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "network-event")]
-	fn connect_network_event<
-		F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static,
-	>(
+	fn connect_network_event<F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId;
@@ -358,152 +332,88 @@ pub trait MessageExt: 'static {
 	fn connect_starting<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-body")]
-	fn connect_wrote_body<F:Fn(&Self) + 'static>(&self, f:F)
-	-> SignalHandlerId;
+	fn connect_wrote_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "wrote-body-data")]
-	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-chunk")]
-	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-headers")]
-	fn connect_wrote_headers<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_wrote_headers<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "wrote-informational")]
-	fn connect_wrote_informational<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_wrote_informational<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "first-party")]
-	fn connect_first_party_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_first_party_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "flags")]
-	fn connect_flags_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_flags_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "http-version")]
-	fn connect_http_version_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_http_version_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_70", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 	#[doc(alias = "is-top-level-navigation")]
-	fn connect_is_top_level_navigation_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_is_top_level_navigation_notify<F:Fn(&Self) + 'static>(&self, f:F)
+	-> SignalHandlerId;
 
 	#[doc(alias = "method")]
-	fn connect_method_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_method_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "priority")]
-	fn connect_priority_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_priority_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "reason-phrase")]
-	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "request-body")]
-	fn connect_request_body_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_request_body_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	#[doc(alias = "request-body-data")]
-	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "request-headers")]
-	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "response-body")]
-	fn connect_response_body_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_response_body_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	#[doc(alias = "response-body-data")]
-	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "response-headers")]
-	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "site-for-cookies")]
-	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "status-code")]
-	fn connect_status_code_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_status_code_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-certificate")]
-	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	#[doc(alias = "tls-errors")]
-	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "uri")]
-	fn connect_uri_notify<F:Fn(&Self) + 'static>(&self, f:F)
-	-> SignalHandlerId;
+	fn connect_uri_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<Message>> MessageExt for O {
@@ -543,44 +453,26 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg(any(feature = "v2_26", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	fn address(&self) -> Option<Address> {
-		unsafe {
-			from_glib_none(ffi::soup_message_get_address(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_message_get_address(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn first_party(&self) -> Option<URI> {
-		unsafe {
-			from_glib_none(ffi::soup_message_get_first_party(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_message_get_first_party(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn flags(&self) -> MessageFlags {
-		unsafe {
-			from_glib(ffi::soup_message_get_flags(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_get_flags(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn http_version(&self) -> HTTPVersion {
-		unsafe {
-			from_glib(ffi::soup_message_get_http_version(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_get_http_version(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn https_status(
-		&self,
-	) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)> {
+	fn https_status(&self) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)> {
 		unsafe {
 			let mut certificate = ptr::null_mut();
 			let mut errors = mem::MaybeUninit::uninit();
@@ -590,11 +482,7 @@ impl<O:IsA<Message>> MessageExt for O {
 				errors.as_mut_ptr(),
 			));
 			let errors = errors.assume_init();
-			if ret {
-				Some((from_glib_none(certificate), from_glib(errors)))
-			} else {
-				None
-			}
+			if ret { Some((from_glib_none(certificate), from_glib(errors))) } else { None }
 		}
 	}
 
@@ -602,38 +490,26 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 	fn is_top_level_navigation(&self) -> bool {
 		unsafe {
-			from_glib(ffi::soup_message_get_is_top_level_navigation(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib(ffi::soup_message_get_is_top_level_navigation(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	fn priority(&self) -> MessagePriority {
-		unsafe {
-			from_glib(ffi::soup_message_get_priority(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_get_priority(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	fn soup_request(&self) -> Option<Request> {
 		unsafe {
-			from_glib_none(ffi::soup_message_get_soup_request(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_none(ffi::soup_message_get_soup_request(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	fn uri(&self) -> Option<URI> {
-		unsafe {
-			from_glib_none(ffi::soup_message_get_uri(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_message_get_uri(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn got_body(&self) {
@@ -644,10 +520,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn got_chunk(&self, chunk:&mut Buffer) {
 		unsafe {
-			ffi::soup_message_got_chunk(
-				self.as_ref().to_glib_none().0,
-				chunk.to_glib_none_mut().0,
-			);
+			ffi::soup_message_got_chunk(self.as_ref().to_glib_none().0, chunk.to_glib_none_mut().0);
 		}
 	}
 
@@ -675,11 +548,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	}
 
 	fn is_keepalive(&self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_message_is_keepalive(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_is_keepalive(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn restarted(&self) {
@@ -701,19 +570,13 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn set_flags(&self, flags:MessageFlags) {
 		unsafe {
-			ffi::soup_message_set_flags(
-				self.as_ref().to_glib_none().0,
-				flags.into_glib(),
-			);
+			ffi::soup_message_set_flags(self.as_ref().to_glib_none().0, flags.into_glib());
 		}
 	}
 
 	fn set_http_version(&self, version:HTTPVersion) {
 		unsafe {
-			ffi::soup_message_set_http_version(
-				self.as_ref().to_glib_none().0,
-				version.into_glib(),
-			);
+			ffi::soup_message_set_http_version(self.as_ref().to_glib_none().0, version.into_glib());
 		}
 	}
 
@@ -732,10 +595,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	fn set_priority(&self, priority:MessagePriority) {
 		unsafe {
-			ffi::soup_message_set_priority(
-				self.as_ref().to_glib_none().0,
-				priority.into_glib(),
-			);
+			ffi::soup_message_set_priority(self.as_ref().to_glib_none().0, priority.into_glib());
 		}
 	}
 
@@ -751,12 +611,7 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_request(
-		&self,
-		content_type:Option<&str>,
-		req_use:MemoryUse,
-		req_body:&[u8],
-	) {
+	fn set_request(&self, content_type:Option<&str>, req_use:MemoryUse, req_body:&[u8]) {
 		let req_length = req_body.len() as usize;
 		unsafe {
 			ffi::soup_message_set_request(
@@ -769,12 +624,7 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn set_response(
-		&self,
-		content_type:Option<&str>,
-		resp_use:MemoryUse,
-		resp_body:&[u8],
-	) {
+	fn set_response(&self, content_type:Option<&str>, resp_use:MemoryUse, resp_body:&[u8]) {
 		let resp_length = resp_body.len() as usize;
 		unsafe {
 			ffi::soup_message_set_response(
@@ -789,10 +639,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn set_status(&self, status_code:u32) {
 		unsafe {
-			ffi::soup_message_set_status(
-				self.as_ref().to_glib_none().0,
-				status_code,
-			);
+			ffi::soup_message_set_status(self.as_ref().to_glib_none().0, status_code);
 		}
 	}
 
@@ -808,10 +655,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn set_uri(&self, uri:&mut URI) {
 		unsafe {
-			ffi::soup_message_set_uri(
-				self.as_ref().to_glib_none().0,
-				uri.to_glib_none_mut().0,
-			);
+			ffi::soup_message_set_uri(self.as_ref().to_glib_none().0, uri.to_glib_none_mut().0);
 		}
 	}
 
@@ -850,17 +694,13 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn wrote_informational(&self) {
 		unsafe {
-			ffi::soup_message_wrote_informational(
-				self.as_ref().to_glib_none().0,
-			);
+			ffi::soup_message_wrote_informational(self.as_ref().to_glib_none().0);
 		}
 	}
 
 	fn method(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"method\0".as_ptr() as *const _,
@@ -882,9 +722,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn get_property_priority(&self) -> MessagePriority {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<MessagePriority as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<MessagePriority as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"priority\0".as_ptr() as *const _,
@@ -906,17 +744,13 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn reason_phrase(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"reason-phrase\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `reason-phrase` getter")
+			value.get().expect("Return Value for property `reason-phrase` getter")
 		}
 	}
 
@@ -932,17 +766,13 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn request_body(&self) -> Option<MessageBody> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<MessageBody as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `request-body` getter")
+			value.get().expect("Return Value for property `request-body` getter")
 		}
 	}
 
@@ -950,49 +780,37 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	fn request_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::Bytes as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `request-body-data` getter")
+			value.get().expect("Return Value for property `request-body-data` getter")
 		}
 	}
 
 	fn request_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<MessageHeaders as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `request-headers` getter")
+			value.get().expect("Return Value for property `request-headers` getter")
 		}
 	}
 
 	fn response_body(&self) -> Option<MessageBody> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<MessageBody as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `response-body` getter")
+			value.get().expect("Return Value for property `response-body` getter")
 		}
 	}
 
@@ -1000,40 +818,31 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
 	fn response_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::Bytes as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `response-body-data` getter")
+			value.get().expect("Return Value for property `response-body-data` getter")
 		}
 	}
 
 	fn response_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<MessageHeaders as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `response-headers` getter")
+			value.get().expect("Return Value for property `response-headers` getter")
 		}
 	}
 
 	fn is_server_side(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"server-side\0".as_ptr() as *const _,
@@ -1045,16 +854,13 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn site_for_cookies(&self) -> Option<URI> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<URI as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<URI as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"site-for-cookies\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `site-for-cookies` getter")
+			value.get().expect("Return Value for property `site-for-cookies` getter")
 		}
 	}
 
@@ -1070,8 +876,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn status_code(&self) -> u32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<u32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"status-code\0".as_ptr() as *const _,
@@ -1095,26 +900,20 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	fn tls_certificate(&self) -> Option<gio::TlsCertificate> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::TlsCertificate as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `tls-certificate` getter")
+			value.get().expect("Return Value for property `tls-certificate` getter")
 		}
 	}
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(
-		&self,
-		tls_certificate:Option<&P>,
-	) {
+	fn set_tls_certificate<P:IsA<gio::TlsCertificate>>(&self, tls_certificate:Option<&P>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1128,9 +927,8 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	fn tls_errors(&self) -> gio::TlsCertificateFlags {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::TlsCertificateFlags as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<gio::TlsCertificateFlags as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-errors\0".as_ptr() as *const _,
@@ -1160,10 +958,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	//}
 
 	fn connect_finished<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn finished_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn finished_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1184,10 +979,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	}
 
 	fn connect_got_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn got_body_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn got_body_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1207,23 +999,14 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn got_chunk_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P, &Buffer) + 'static,
-		>(
+	fn connect_got_chunk<F:Fn(&Self, &Buffer) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn got_chunk_trampoline<P:IsA<Message>, F:Fn(&P, &Buffer) + 'static>(
 			this:*mut ffi::SoupMessage,
 			chunk:*mut ffi::SoupBuffer,
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Message::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(chunk),
-			)
+			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1238,14 +1021,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_headers<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn got_headers_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_got_headers<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn got_headers_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1265,14 +1042,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_got_informational<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn got_informational_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_got_informational<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn got_informational_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1294,9 +1065,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_network_event<
-		F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static,
-	>(
+	fn connect_network_event<F:Fn(&Self, gio::SocketClientEvent, &gio::IOStream) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId {
@@ -1330,10 +1099,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	}
 
 	fn connect_restarted<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn restarted_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn restarted_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1356,10 +1122,7 @@ impl<O:IsA<Message>> MessageExt for O {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	fn connect_starting<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn starting_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn starting_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1379,14 +1142,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_body<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn wrote_body_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_wrote_body<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn wrote_body_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1408,23 +1165,14 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn wrote_body_data_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P, &Buffer) + 'static,
-		>(
+	fn connect_wrote_body_data<F:Fn(&Self, &Buffer) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn wrote_body_data_trampoline<P:IsA<Message>, F:Fn(&P, &Buffer) + 'static>(
 			this:*mut ffi::SoupMessage,
 			chunk:*mut ffi::SoupBuffer,
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Message::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(chunk),
-			)
+			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1439,14 +1187,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn wrote_chunk_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_wrote_chunk<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn wrote_chunk_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1466,14 +1208,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_headers<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn wrote_headers_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_wrote_headers<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn wrote_headers_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1493,14 +1229,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_wrote_informational<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn wrote_informational_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_wrote_informational<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn wrote_informational_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
@@ -1522,14 +1252,8 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_first_party_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_first_party_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_first_party_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_first_party_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1550,14 +1274,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_flags_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_flags_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_flags_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_flags_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1578,14 +1296,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_http_version_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_http_version_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_http_version_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_http_version_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1629,22 +1341,15 @@ impl<O:IsA<Message>> MessageExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::is-top-level-navigation\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_is_top_level_navigation_trampoline::<Self, F>
-						as *const (),
+					notify_is_top_level_navigation_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_method_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_method_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_method_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_method_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1665,14 +1370,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_priority_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_priority_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_priority_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_priority_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1693,14 +1392,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_reason_phrase_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_reason_phrase_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_reason_phrase_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1721,14 +1414,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_request_body_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_request_body_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_request_body_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_request_body_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1751,14 +1438,8 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_request_body_data_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_request_body_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_request_body_data_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1779,14 +1460,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_request_headers_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_request_headers_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_request_headers_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1807,14 +1482,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_response_body_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_response_body_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_response_body_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_response_body_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1837,10 +1506,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_46", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_46")))]
-	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_response_body_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_response_body_data_trampoline<
 			P:IsA<Message>,
 			F:Fn(&P) + 'static,
@@ -1858,22 +1524,15 @@ impl<O:IsA<Message>> MessageExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::response-body-data\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_response_body_data_trampoline::<Self, F>
-						as *const (),
+					notify_response_body_data_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_response_headers_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_response_headers_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_response_headers_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1894,14 +1553,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_site_for_cookies_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_site_for_cookies_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_site_for_cookies_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1922,14 +1575,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_status_code_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_status_code_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_status_code_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_status_code_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1952,14 +1599,8 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_tls_certificate_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_tls_certificate_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_tls_certificate_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1982,14 +1623,8 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	#[cfg(any(feature = "v2_34", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
-	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_tls_errors_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_tls_errors_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_tls_errors_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2010,14 +1645,8 @@ impl<O:IsA<Message>> MessageExt for O {
 		}
 	}
 
-	fn connect_uri_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_uri_trampoline<
-			P:IsA<Message>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_uri_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_uri_trampoline<P:IsA<Message>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupMessage,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2040,7 +1669,5 @@ impl<O:IsA<Message>> MessageExt for O {
 }
 
 impl fmt::Display for Message {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Message")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Message") }
 }

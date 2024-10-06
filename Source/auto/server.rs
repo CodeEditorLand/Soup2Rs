@@ -37,7 +37,8 @@ glib::wrapper! {
 
 impl Server {
 	//#[doc(alias = "soup_server_new")]
-	// pub fn new(optname1: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Server> {
+	// pub fn new(optname1: &str, : /*Unknown
+	// conversion*//*Unimplemented*/Fundamental: VarArgs) -> Option<Server> {
 	//    unsafe { TODO: call ffi:soup_server_new() }
 	//}
 }
@@ -80,9 +81,7 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "soup_server_add_websocket_handler")]
-	fn add_websocket_handler<
-		P:Fn(&Server, &WebsocketConnection, &str, &ClientContext) + 'static,
-	>(
+	fn add_websocket_handler<P:Fn(&Server, &WebsocketConnection, &str, &ClientContext) + 'static>(
 		&self,
 		path:Option<&str>,
 		origin:Option<&str>,
@@ -130,29 +129,17 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "soup_server_listen_all")]
-	fn listen_all(
-		&self,
-		port:u32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error>;
+	fn listen_all(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error>;
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "soup_server_listen_fd")]
-	fn listen_fd(
-		&self,
-		fd:i32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error>;
+	fn listen_fd(&self, fd:i32, options:ServerListenOptions) -> Result<(), glib::Error>;
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "soup_server_listen_local")]
-	fn listen_local(
-		&self,
-		port:u32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error>;
+	fn listen_local(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error>;
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
@@ -189,11 +176,7 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "soup_server_set_ssl_cert_file")]
-	fn set_ssl_cert_file(
-		&self,
-		ssl_cert_file:&str,
-		ssl_key_file:&str,
-	) -> Result<(), glib::Error>;
+	fn set_ssl_cert_file(&self, ssl_cert_file:&str, ssl_key_file:&str) -> Result<(), glib::Error>;
 
 	#[doc(alias = "soup_server_unpause_message")]
 	fn unpause_message(&self, msg:&impl IsA<Message>);
@@ -201,10 +184,7 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "add-websocket-extension")]
-	fn set_add_websocket_extension(
-		&self,
-		add_websocket_extension:glib::types::Type,
-	);
+	fn set_add_websocket_extension(&self, add_websocket_extension:glib::types::Type);
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
@@ -234,10 +214,7 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "remove-websocket-extension")]
-	fn set_remove_websocket_extension(
-		&self,
-		remove_websocket_extension:glib::types::Type,
-	);
+	fn set_remove_websocket_extension(&self, remove_websocket_extension:glib::types::Type);
 
 	#[doc(alias = "server-header")]
 	fn server_header(&self) -> Option<glib::GString>;
@@ -257,17 +234,13 @@ pub trait ServerExt: 'static {
 	fn tls_certificate(&self) -> Option<gio::TlsCertificate>;
 
 	#[doc(alias = "request-aborted")]
-	fn connect_request_aborted<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_aborted<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId;
 
 	#[doc(alias = "request-finished")]
-	fn connect_request_finished<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_finished<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId;
@@ -279,9 +252,7 @@ pub trait ServerExt: 'static {
 	) -> SignalHandlerId;
 
 	#[doc(alias = "request-started")]
-	fn connect_request_started<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_started<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId;
@@ -289,26 +260,18 @@ pub trait ServerExt: 'static {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	#[doc(alias = "add-websocket-extension")]
-	fn connect_add_websocket_extension_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_add_websocket_extension_notify<F:Fn(&Self) + 'static>(&self, f:F)
+	-> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	#[doc(alias = "http-aliases")]
-	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	#[doc(alias = "https-aliases")]
-	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
@@ -319,10 +282,7 @@ pub trait ServerExt: 'static {
 	) -> SignalHandlerId;
 
 	#[doc(alias = "server-header")]
-	fn connect_server_header_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_server_header_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<Server>> ServerExt for O {
@@ -442,31 +402,23 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn async_context(&self) -> Option<glib::MainContext> {
 		unsafe {
-			from_glib_none(ffi::soup_server_get_async_context(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_none(ffi::soup_server_get_async_context(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	fn listener(&self) -> Option<Socket> {
+		unsafe { from_glib_none(ffi::soup_server_get_listener(self.as_ref().to_glib_none().0)) }
+	}
+
+	fn listeners(&self) -> Vec<gio::Socket> {
 		unsafe {
-			from_glib_none(ffi::soup_server_get_listener(
+			FromGlibPtrContainer::from_glib_container(ffi::soup_server_get_listeners(
 				self.as_ref().to_glib_none().0,
 			))
 		}
 	}
 
-	fn listeners(&self) -> Vec<gio::Socket> {
-		unsafe {
-			FromGlibPtrContainer::from_glib_container(
-				ffi::soup_server_get_listeners(self.as_ref().to_glib_none().0),
-			)
-		}
-	}
-
-	fn port(&self) -> u32 {
-		unsafe { ffi::soup_server_get_port(self.as_ref().to_glib_none().0) }
-	}
+	fn port(&self) -> u32 { unsafe { ffi::soup_server_get_port(self.as_ref().to_glib_none().0) } }
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
@@ -479,9 +431,7 @@ impl<O:IsA<Server>> ServerExt for O {
 	}
 
 	fn is_https(&self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_server_is_https(self.as_ref().to_glib_none().0))
-		}
+		unsafe { from_glib(ffi::soup_server_is_https(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
@@ -505,11 +455,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn listen_all(
-		&self,
-		port:u32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error> {
+	fn listen_all(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let _ = ffi::soup_server_listen_all(
@@ -524,11 +470,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn listen_fd(
-		&self,
-		fd:i32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error> {
+	fn listen_fd(&self, fd:i32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let _ = ffi::soup_server_listen_fd(
@@ -543,11 +485,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn listen_local(
-		&self,
-		port:u32,
-		options:ServerListenOptions,
-	) -> Result<(), glib::Error> {
+	fn listen_local(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let _ = ffi::soup_server_listen_local(
@@ -605,10 +543,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn remove_handler(&self, path:&str) {
 		unsafe {
-			ffi::soup_server_remove_handler(
-				self.as_ref().to_glib_none().0,
-				path.to_glib_none().0,
-			);
+			ffi::soup_server_remove_handler(self.as_ref().to_glib_none().0, path.to_glib_none().0);
 		}
 	}
 
@@ -637,11 +572,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn set_ssl_cert_file(
-		&self,
-		ssl_cert_file:&str,
-		ssl_key_file:&str,
-	) -> Result<(), glib::Error> {
+	fn set_ssl_cert_file(&self, ssl_cert_file:&str, ssl_key_file:&str) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let _ = ffi::soup_server_set_ssl_cert_file(
@@ -665,10 +596,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn set_add_websocket_extension(
-		&self,
-		add_websocket_extension:glib::types::Type,
-	) {
+	fn set_add_websocket_extension(&self, add_websocket_extension:glib::types::Type) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -682,17 +610,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	fn http_aliases(&self) -> Vec<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<Vec<glib::GString> as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"http-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `http-aliases` getter")
+			value.get().expect("Return Value for property `http-aliases` getter")
 		}
 	}
 
@@ -712,17 +637,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
 	fn https_aliases(&self) -> Vec<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<Vec<glib::GString> as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"https-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `https-aliases` getter")
+			value.get().expect("Return Value for property `https-aliases` getter")
 		}
 	}
 
@@ -740,8 +662,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn interface(&self) -> Option<Address> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<Address as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<Address as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"interface\0".as_ptr() as *const _,
@@ -753,8 +674,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn is_raw_paths(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"raw-paths\0".as_ptr() as *const _,
@@ -766,10 +686,7 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
-	fn set_remove_websocket_extension(
-		&self,
-		remove_websocket_extension:glib::types::Type,
-	) {
+	fn set_remove_websocket_extension(&self, remove_websocket_extension:glib::types::Type) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -781,17 +698,13 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn server_header(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"server-header\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `server-header` getter")
+			value.get().expect("Return Value for property `server-header` getter")
 		}
 	}
 
@@ -807,33 +720,25 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	fn ssl_cert_file(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-cert-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `ssl-cert-file` getter")
+			value.get().expect("Return Value for property `ssl-cert-file` getter")
 		}
 	}
 
 	fn ssl_key_file(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-key-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `ssl-key-file` getter")
+			value.get().expect("Return Value for property `ssl-key-file` getter")
 		}
 	}
 
@@ -841,23 +746,18 @@ impl<O:IsA<Server>> ServerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn tls_certificate(&self) -> Option<gio::TlsCertificate> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::TlsCertificate as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `tls-certificate` getter")
+			value.get().expect("Return Value for property `tls-certificate` getter")
 		}
 	}
 
-	fn connect_request_aborted<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_aborted<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId {
@@ -890,9 +790,7 @@ impl<O:IsA<Server>> ServerExt for O {
 		}
 	}
 
-	fn connect_request_finished<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_finished<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId {
@@ -958,9 +856,7 @@ impl<O:IsA<Server>> ServerExt for O {
 		}
 	}
 
-	fn connect_request_started<
-		F:Fn(&Self, &Message, &ClientContext) + 'static,
-	>(
+	fn connect_request_started<F:Fn(&Self, &Message, &ClientContext) + 'static>(
 		&self,
 		f:F,
 	) -> SignalHandlerId {
@@ -1016,8 +912,7 @@ impl<O:IsA<Server>> ServerExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::add-websocket-extension\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_add_websocket_extension_trampoline::<Self, F>
-						as *const (),
+					notify_add_websocket_extension_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -1026,14 +921,8 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_http_aliases_trampoline<
-			P:IsA<Server>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_http_aliases_trampoline<P:IsA<Server>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupServer,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1056,14 +945,8 @@ impl<O:IsA<Server>> ServerExt for O {
 
 	#[cfg(any(feature = "v2_44", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_https_aliases_trampoline<
-			P:IsA<Server>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_https_aliases_trampoline<P:IsA<Server>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupServer,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1107,22 +990,15 @@ impl<O:IsA<Server>> ServerExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::remove-websocket-extension\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_remove_websocket_extension_trampoline::<Self, F>
-						as *const (),
+					notify_remove_websocket_extension_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_server_header_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_server_header_trampoline<
-			P:IsA<Server>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_server_header_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_server_header_trampoline<P:IsA<Server>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupServer,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1145,7 +1021,5 @@ impl<O:IsA<Server>> ServerExt for O {
 }
 
 impl fmt::Display for Server {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Server")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Server") }
 }

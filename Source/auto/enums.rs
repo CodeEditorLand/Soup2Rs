@@ -70,9 +70,7 @@ impl FromGlib<ffi::SoupAddressFamily> for AddressFamily {
 }
 
 impl StaticType for AddressFamily {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_address_family_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_address_family_get_type()) } }
 }
 
 impl glib::value::ValueType for AddressFamily {
@@ -92,10 +90,7 @@ impl ToValue for AddressFamily {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -160,9 +155,7 @@ impl FromGlib<ffi::SoupCacheResponse> for CacheResponse {
 }
 
 impl StaticType for CacheResponse {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_cache_response_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_cache_response_get_type()) } }
 }
 
 impl glib::value::ValueType for CacheResponse {
@@ -182,10 +175,7 @@ impl ToValue for CacheResponse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -255,9 +245,7 @@ impl FromGlib<ffi::SoupCacheType> for CacheType {
 #[cfg(any(feature = "v2_34", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 impl StaticType for CacheType {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_cache_type_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_cache_type_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_34", feature = "dox"))]
@@ -283,10 +271,7 @@ impl ToValue for CacheType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -342,9 +327,7 @@ impl IntoGlib for ConnectionState {
 			Self::Connecting => ffi::SOUP_CONNECTION_CONNECTING,
 			Self::Idle => ffi::SOUP_CONNECTION_IDLE,
 			Self::InUse => ffi::SOUP_CONNECTION_IN_USE,
-			Self::RemoteDisconnected => {
-				ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED
-			},
+			Self::RemoteDisconnected => ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED,
 			Self::Disconnected => ffi::SOUP_CONNECTION_DISCONNECTED,
 			Self::__Unknown(value) => value,
 		}
@@ -360,9 +343,7 @@ impl FromGlib<ffi::SoupConnectionState> for ConnectionState {
 			ffi::SOUP_CONNECTION_CONNECTING => Self::Connecting,
 			ffi::SOUP_CONNECTION_IDLE => Self::Idle,
 			ffi::SOUP_CONNECTION_IN_USE => Self::InUse,
-			ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED => {
-				Self::RemoteDisconnected
-			},
+			ffi::SOUP_CONNECTION_REMOTE_DISCONNECTED => Self::RemoteDisconnected,
 			ffi::SOUP_CONNECTION_DISCONNECTED => Self::Disconnected,
 			value => Self::__Unknown(value),
 		}
@@ -370,9 +351,7 @@ impl FromGlib<ffi::SoupConnectionState> for ConnectionState {
 }
 
 impl StaticType for ConnectionState {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_connection_state_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_connection_state_get_type()) } }
 }
 
 impl glib::value::ValueType for ConnectionState {
@@ -392,10 +371,7 @@ impl ToValue for ConnectionState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -450,9 +426,7 @@ impl IntoGlib for CookieJarAcceptPolicy {
 			Self::Always => ffi::SOUP_COOKIE_JAR_ACCEPT_ALWAYS,
 			Self::Never => ffi::SOUP_COOKIE_JAR_ACCEPT_NEVER,
 			Self::NoThirdParty => ffi::SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY,
-			Self::GrandfatheredThirdParty => {
-				ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY
-			},
+			Self::GrandfatheredThirdParty => ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY,
 			Self::__Unknown(value) => value,
 		}
 	}
@@ -468,9 +442,7 @@ impl FromGlib<ffi::SoupCookieJarAcceptPolicy> for CookieJarAcceptPolicy {
 			ffi::SOUP_COOKIE_JAR_ACCEPT_ALWAYS => Self::Always,
 			ffi::SOUP_COOKIE_JAR_ACCEPT_NEVER => Self::Never,
 			ffi::SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY => Self::NoThirdParty,
-			ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY => {
-				Self::GrandfatheredThirdParty
-			},
+			ffi::SOUP_COOKIE_JAR_ACCEPT_GRANDFATHERED_THIRD_PARTY => Self::GrandfatheredThirdParty,
 			value => Self::__Unknown(value),
 		}
 	}
@@ -479,9 +451,7 @@ impl FromGlib<ffi::SoupCookieJarAcceptPolicy> for CookieJarAcceptPolicy {
 #[cfg(any(feature = "v2_30", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 impl StaticType for CookieJarAcceptPolicy {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_cookie_jar_accept_policy_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_cookie_jar_accept_policy_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_30", feature = "dox"))]
@@ -507,10 +477,7 @@ impl ToValue for CookieJarAcceptPolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -590,9 +557,7 @@ impl FromGlib<ffi::SoupDateFormat> for DateFormat {
 }
 
 impl StaticType for DateFormat {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_date_format_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_date_format_get_type()) } }
 }
 
 impl glib::value::ValueType for DateFormat {
@@ -612,10 +577,7 @@ impl ToValue for DateFormat {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -695,9 +657,7 @@ impl FromGlib<ffi::SoupEncoding> for Encoding {
 }
 
 impl StaticType for Encoding {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_encoding_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_encoding_get_type()) } }
 }
 
 impl glib::value::ValueType for Encoding {
@@ -717,10 +677,7 @@ impl ToValue for Encoding {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -780,9 +737,7 @@ impl FromGlib<ffi::SoupHTTPVersion> for HTTPVersion {
 }
 
 impl StaticType for HTTPVersion {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_http_version_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_http_version_get_type()) } }
 }
 
 impl glib::value::ValueType for HTTPVersion {
@@ -802,10 +757,7 @@ impl ToValue for HTTPVersion {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -976,8 +928,7 @@ impl fmt::Display for KnownStatusCode {
 				Self::SeeOther => "SeeOther",
 				Self::NotModified => "NotModified",
 				Self::UseProxy => "UseProxy",
-				Self::NotAppearingInThisProtocol =>
-					"NotAppearingInThisProtocol",
+				Self::NotAppearingInThisProtocol => "NotAppearingInThisProtocol",
 				Self::TemporaryRedirect => "TemporaryRedirect",
 				Self::BadRequest => "BadRequest",
 				Self::Unauthorized => "Unauthorized",
@@ -986,8 +937,7 @@ impl fmt::Display for KnownStatusCode {
 				Self::NotFound => "NotFound",
 				Self::MethodNotAllowed => "MethodNotAllowed",
 				Self::NotAcceptable => "NotAcceptable",
-				Self::ProxyAuthenticationRequired =>
-					"ProxyAuthenticationRequired",
+				Self::ProxyAuthenticationRequired => "ProxyAuthenticationRequired",
 				Self::RequestTimeout => "RequestTimeout",
 				Self::Conflict => "Conflict",
 				Self::Gone => "Gone",
@@ -996,8 +946,7 @@ impl fmt::Display for KnownStatusCode {
 				Self::RequestEntityTooLarge => "RequestEntityTooLarge",
 				Self::RequestUriTooLong => "RequestUriTooLong",
 				Self::UnsupportedMediaType => "UnsupportedMediaType",
-				Self::RequestedRangeNotSatisfiable =>
-					"RequestedRangeNotSatisfiable",
+				Self::RequestedRangeNotSatisfiable => "RequestedRangeNotSatisfiable",
 				Self::ExpectationFailed => "ExpectationFailed",
 				Self::UnprocessableEntity => "UnprocessableEntity",
 				Self::Locked => "Locked",
@@ -1025,42 +974,28 @@ impl IntoGlib for KnownStatusCode {
 			Self::None => ffi::SOUP_KNOWN_STATUS_CODE_NONE,
 			Self::Cancelled => ffi::SOUP_KNOWN_STATUS_CODE_CANCELLED,
 			Self::CantResolve => ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE,
-			Self::CantResolveProxy => {
-				ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY
-			},
+			Self::CantResolveProxy => ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY,
 			Self::CantConnect => ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT,
-			Self::CantConnectProxy => {
-				ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY
-			},
+			Self::CantConnectProxy => ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY,
 			Self::SslFailed => ffi::SOUP_KNOWN_STATUS_CODE_SSL_FAILED,
 			Self::IoError => ffi::SOUP_KNOWN_STATUS_CODE_IO_ERROR,
 			Self::Malformed => ffi::SOUP_KNOWN_STATUS_CODE_MALFORMED,
 			Self::TryAgain => ffi::SOUP_KNOWN_STATUS_CODE_TRY_AGAIN,
-			Self::TooManyRedirects => {
-				ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS
-			},
+			Self::TooManyRedirects => ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS,
 			Self::TlsFailed => ffi::SOUP_KNOWN_STATUS_CODE_TLS_FAILED,
 			Self::Continue => ffi::SOUP_KNOWN_STATUS_CODE_CONTINUE,
-			Self::SwitchingProtocols => {
-				ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS
-			},
+			Self::SwitchingProtocols => ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS,
 			Self::Processing => ffi::SOUP_KNOWN_STATUS_CODE_PROCESSING,
 			Self::Ok => ffi::SOUP_KNOWN_STATUS_CODE_OK,
 			Self::Created => ffi::SOUP_KNOWN_STATUS_CODE_CREATED,
 			Self::Accepted => ffi::SOUP_KNOWN_STATUS_CODE_ACCEPTED,
-			Self::NonAuthoritative => {
-				ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE
-			},
+			Self::NonAuthoritative => ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE,
 			Self::NoContent => ffi::SOUP_KNOWN_STATUS_CODE_NO_CONTENT,
 			Self::ResetContent => ffi::SOUP_KNOWN_STATUS_CODE_RESET_CONTENT,
 			Self::PartialContent => ffi::SOUP_KNOWN_STATUS_CODE_PARTIAL_CONTENT,
 			Self::MultiStatus => ffi::SOUP_KNOWN_STATUS_CODE_MULTI_STATUS,
-			Self::MultipleChoices => {
-				ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES
-			},
-			Self::MovedPermanently => {
-				ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY
-			},
+			Self::MultipleChoices => ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES,
+			Self::MovedPermanently => ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY,
 			Self::Found => ffi::SOUP_KNOWN_STATUS_CODE_FOUND,
 			Self::SeeOther => ffi::SOUP_KNOWN_STATUS_CODE_SEE_OTHER,
 			Self::NotModified => ffi::SOUP_KNOWN_STATUS_CODE_NOT_MODIFIED,
@@ -1068,19 +1003,13 @@ impl IntoGlib for KnownStatusCode {
 			Self::NotAppearingInThisProtocol => {
 				ffi::SOUP_KNOWN_STATUS_CODE_NOT_APPEARING_IN_THIS_PROTOCOL
 			},
-			Self::TemporaryRedirect => {
-				ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT
-			},
+			Self::TemporaryRedirect => ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT,
 			Self::BadRequest => ffi::SOUP_KNOWN_STATUS_CODE_BAD_REQUEST,
 			Self::Unauthorized => ffi::SOUP_KNOWN_STATUS_CODE_UNAUTHORIZED,
-			Self::PaymentRequired => {
-				ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED
-			},
+			Self::PaymentRequired => ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED,
 			Self::Forbidden => ffi::SOUP_KNOWN_STATUS_CODE_FORBIDDEN,
 			Self::NotFound => ffi::SOUP_KNOWN_STATUS_CODE_NOT_FOUND,
-			Self::MethodNotAllowed => {
-				ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED
-			},
+			Self::MethodNotAllowed => ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED,
 			Self::NotAcceptable => ffi::SOUP_KNOWN_STATUS_CODE_NOT_ACCEPTABLE,
 			Self::ProxyAuthenticationRequired => {
 				ffi::SOUP_KNOWN_STATUS_CODE_PROXY_AUTHENTICATION_REQUIRED
@@ -1089,46 +1018,24 @@ impl IntoGlib for KnownStatusCode {
 			Self::Conflict => ffi::SOUP_KNOWN_STATUS_CODE_CONFLICT,
 			Self::Gone => ffi::SOUP_KNOWN_STATUS_CODE_GONE,
 			Self::LengthRequired => ffi::SOUP_KNOWN_STATUS_CODE_LENGTH_REQUIRED,
-			Self::PreconditionFailed => {
-				ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED
-			},
-			Self::RequestEntityTooLarge => {
-				ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE
-			},
-			Self::RequestUriTooLong => {
-				ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG
-			},
-			Self::UnsupportedMediaType => {
-				ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE
-			},
+			Self::PreconditionFailed => ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED,
+			Self::RequestEntityTooLarge => ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE,
+			Self::RequestUriTooLong => ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG,
+			Self::UnsupportedMediaType => ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE,
 			Self::RequestedRangeNotSatisfiable => {
 				ffi::SOUP_KNOWN_STATUS_CODE_REQUESTED_RANGE_NOT_SATISFIABLE
 			},
-			Self::ExpectationFailed => {
-				ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED
-			},
-			Self::UnprocessableEntity => {
-				ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY
-			},
+			Self::ExpectationFailed => ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED,
+			Self::UnprocessableEntity => ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY,
 			Self::Locked => ffi::SOUP_KNOWN_STATUS_CODE_LOCKED,
-			Self::FailedDependency => {
-				ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY
-			},
-			Self::InternalServerError => {
-				ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR
-			},
+			Self::FailedDependency => ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY,
+			Self::InternalServerError => ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR,
 			Self::NotImplemented => ffi::SOUP_KNOWN_STATUS_CODE_NOT_IMPLEMENTED,
 			Self::BadGateway => ffi::SOUP_KNOWN_STATUS_CODE_BAD_GATEWAY,
-			Self::ServiceUnavailable => {
-				ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE
-			},
+			Self::ServiceUnavailable => ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE,
 			Self::GatewayTimeout => ffi::SOUP_KNOWN_STATUS_CODE_GATEWAY_TIMEOUT,
-			Self::HttpVersionNotSupported => {
-				ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED
-			},
-			Self::InsufficientStorage => {
-				ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE
-			},
+			Self::HttpVersionNotSupported => ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED,
+			Self::InsufficientStorage => ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE,
 			Self::NotExtended => ffi::SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED,
 			Self::__Unknown(value) => value,
 		}
@@ -1143,42 +1050,28 @@ impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
 			ffi::SOUP_KNOWN_STATUS_CODE_NONE => Self::None,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANCELLED => Self::Cancelled,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE => Self::CantResolve,
-			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY => {
-				Self::CantResolveProxy
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_CANT_RESOLVE_PROXY => Self::CantResolveProxy,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT => Self::CantConnect,
-			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY => {
-				Self::CantConnectProxy
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_CANT_CONNECT_PROXY => Self::CantConnectProxy,
 			ffi::SOUP_KNOWN_STATUS_CODE_SSL_FAILED => Self::SslFailed,
 			ffi::SOUP_KNOWN_STATUS_CODE_IO_ERROR => Self::IoError,
 			ffi::SOUP_KNOWN_STATUS_CODE_MALFORMED => Self::Malformed,
 			ffi::SOUP_KNOWN_STATUS_CODE_TRY_AGAIN => Self::TryAgain,
-			ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS => {
-				Self::TooManyRedirects
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_TOO_MANY_REDIRECTS => Self::TooManyRedirects,
 			ffi::SOUP_KNOWN_STATUS_CODE_TLS_FAILED => Self::TlsFailed,
 			ffi::SOUP_KNOWN_STATUS_CODE_CONTINUE => Self::Continue,
-			ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS => {
-				Self::SwitchingProtocols
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_SWITCHING_PROTOCOLS => Self::SwitchingProtocols,
 			ffi::SOUP_KNOWN_STATUS_CODE_PROCESSING => Self::Processing,
 			ffi::SOUP_KNOWN_STATUS_CODE_OK => Self::Ok,
 			ffi::SOUP_KNOWN_STATUS_CODE_CREATED => Self::Created,
 			ffi::SOUP_KNOWN_STATUS_CODE_ACCEPTED => Self::Accepted,
-			ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE => {
-				Self::NonAuthoritative
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_NON_AUTHORITATIVE => Self::NonAuthoritative,
 			ffi::SOUP_KNOWN_STATUS_CODE_NO_CONTENT => Self::NoContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_RESET_CONTENT => Self::ResetContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_PARTIAL_CONTENT => Self::PartialContent,
 			ffi::SOUP_KNOWN_STATUS_CODE_MULTI_STATUS => Self::MultiStatus,
-			ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES => {
-				Self::MultipleChoices
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY => {
-				Self::MovedPermanently
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_MULTIPLE_CHOICES => Self::MultipleChoices,
+			ffi::SOUP_KNOWN_STATUS_CODE_MOVED_PERMANENTLY => Self::MovedPermanently,
 			ffi::SOUP_KNOWN_STATUS_CODE_FOUND => Self::Found,
 			ffi::SOUP_KNOWN_STATUS_CODE_SEE_OTHER => Self::SeeOther,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_MODIFIED => Self::NotModified,
@@ -1186,19 +1079,13 @@ impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_APPEARING_IN_THIS_PROTOCOL => {
 				Self::NotAppearingInThisProtocol
 			},
-			ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT => {
-				Self::TemporaryRedirect
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_TEMPORARY_REDIRECT => Self::TemporaryRedirect,
 			ffi::SOUP_KNOWN_STATUS_CODE_BAD_REQUEST => Self::BadRequest,
 			ffi::SOUP_KNOWN_STATUS_CODE_UNAUTHORIZED => Self::Unauthorized,
-			ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED => {
-				Self::PaymentRequired
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_PAYMENT_REQUIRED => Self::PaymentRequired,
 			ffi::SOUP_KNOWN_STATUS_CODE_FORBIDDEN => Self::Forbidden,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_FOUND => Self::NotFound,
-			ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED => {
-				Self::MethodNotAllowed
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_METHOD_NOT_ALLOWED => Self::MethodNotAllowed,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_ACCEPTABLE => Self::NotAcceptable,
 			ffi::SOUP_KNOWN_STATUS_CODE_PROXY_AUTHENTICATION_REQUIRED => {
 				Self::ProxyAuthenticationRequired
@@ -1207,46 +1094,24 @@ impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
 			ffi::SOUP_KNOWN_STATUS_CODE_CONFLICT => Self::Conflict,
 			ffi::SOUP_KNOWN_STATUS_CODE_GONE => Self::Gone,
 			ffi::SOUP_KNOWN_STATUS_CODE_LENGTH_REQUIRED => Self::LengthRequired,
-			ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED => {
-				Self::PreconditionFailed
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE => {
-				Self::RequestEntityTooLarge
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG => {
-				Self::RequestUriTooLong
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE => {
-				Self::UnsupportedMediaType
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_PRECONDITION_FAILED => Self::PreconditionFailed,
+			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_ENTITY_TOO_LARGE => Self::RequestEntityTooLarge,
+			ffi::SOUP_KNOWN_STATUS_CODE_REQUEST_URI_TOO_LONG => Self::RequestUriTooLong,
+			ffi::SOUP_KNOWN_STATUS_CODE_UNSUPPORTED_MEDIA_TYPE => Self::UnsupportedMediaType,
 			ffi::SOUP_KNOWN_STATUS_CODE_REQUESTED_RANGE_NOT_SATISFIABLE => {
 				Self::RequestedRangeNotSatisfiable
 			},
-			ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED => {
-				Self::ExpectationFailed
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY => {
-				Self::UnprocessableEntity
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_EXPECTATION_FAILED => Self::ExpectationFailed,
+			ffi::SOUP_KNOWN_STATUS_CODE_UNPROCESSABLE_ENTITY => Self::UnprocessableEntity,
 			ffi::SOUP_KNOWN_STATUS_CODE_LOCKED => Self::Locked,
-			ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY => {
-				Self::FailedDependency
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR => {
-				Self::InternalServerError
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_FAILED_DEPENDENCY => Self::FailedDependency,
+			ffi::SOUP_KNOWN_STATUS_CODE_INTERNAL_SERVER_ERROR => Self::InternalServerError,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_IMPLEMENTED => Self::NotImplemented,
 			ffi::SOUP_KNOWN_STATUS_CODE_BAD_GATEWAY => Self::BadGateway,
-			ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE => {
-				Self::ServiceUnavailable
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_SERVICE_UNAVAILABLE => Self::ServiceUnavailable,
 			ffi::SOUP_KNOWN_STATUS_CODE_GATEWAY_TIMEOUT => Self::GatewayTimeout,
-			ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED => {
-				Self::HttpVersionNotSupported
-			},
-			ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE => {
-				Self::InsufficientStorage
-			},
+			ffi::SOUP_KNOWN_STATUS_CODE_HTTP_VERSION_NOT_SUPPORTED => Self::HttpVersionNotSupported,
+			ffi::SOUP_KNOWN_STATUS_CODE_INSUFFICIENT_STORAGE => Self::InsufficientStorage,
 			ffi::SOUP_KNOWN_STATUS_CODE_NOT_EXTENDED => Self::NotExtended,
 			value => Self::__Unknown(value),
 		}
@@ -1254,9 +1119,7 @@ impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
 }
 
 impl StaticType for KnownStatusCode {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_known_status_code_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_known_status_code_get_type()) } }
 }
 
 impl glib::value::ValueType for KnownStatusCode {
@@ -1276,10 +1139,7 @@ impl ToValue for KnownStatusCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1349,9 +1209,7 @@ impl FromGlib<ffi::SoupLoggerLogLevel> for LoggerLogLevel {
 }
 
 impl StaticType for LoggerLogLevel {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_logger_log_level_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_logger_log_level_get_type()) } }
 }
 
 impl glib::value::ValueType for LoggerLogLevel {
@@ -1371,10 +1229,7 @@ impl ToValue for LoggerLogLevel {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1444,9 +1299,7 @@ impl FromGlib<ffi::SoupMemoryUse> for MemoryUse {
 }
 
 impl StaticType for MemoryUse {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_memory_use_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_memory_use_get_type()) } }
 }
 
 impl glib::value::ValueType for MemoryUse {
@@ -1466,10 +1319,7 @@ impl ToValue for MemoryUse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1534,9 +1384,7 @@ impl FromGlib<ffi::SoupMessageHeadersType> for MessageHeadersType {
 }
 
 impl StaticType for MessageHeadersType {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_message_headers_type_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_message_headers_type_get_type()) } }
 }
 
 impl glib::value::ValueType for MessageHeadersType {
@@ -1556,10 +1404,7 @@ impl ToValue for MessageHeadersType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1634,9 +1479,7 @@ impl FromGlib<ffi::SoupMessagePriority> for MessagePriority {
 }
 
 impl StaticType for MessagePriority {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_message_priority_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_message_priority_get_type()) } }
 }
 
 impl glib::value::ValueType for MessagePriority {
@@ -1656,10 +1499,7 @@ impl ToValue for MessagePriority {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1712,9 +1552,7 @@ impl IntoGlib for RequestError {
 	fn into_glib(self) -> ffi::SoupRequestError {
 		match self {
 			Self::BadUri => ffi::SOUP_REQUEST_ERROR_BAD_URI,
-			Self::UnsupportedUriScheme => {
-				ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME
-			},
+			Self::UnsupportedUriScheme => ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME,
 			Self::Parsing => ffi::SOUP_REQUEST_ERROR_PARSING,
 			Self::Encoding => ffi::SOUP_REQUEST_ERROR_ENCODING,
 			Self::__Unknown(value) => value,
@@ -1730,9 +1568,7 @@ impl FromGlib<ffi::SoupRequestError> for RequestError {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Self::BadUri,
-			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => {
-				Self::UnsupportedUriScheme
-			},
+			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
 			ffi::SOUP_REQUEST_ERROR_PARSING => Self::Parsing,
 			ffi::SOUP_REQUEST_ERROR_ENCODING => Self::Encoding,
 			value => Self::__Unknown(value),
@@ -1755,9 +1591,7 @@ impl ErrorDomain for RequestError {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Some(Self::BadUri),
-			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => {
-				Some(Self::UnsupportedUriScheme)
-			},
+			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
 			ffi::SOUP_REQUEST_ERROR_PARSING => Some(Self::Parsing),
 			ffi::SOUP_REQUEST_ERROR_ENCODING => Some(Self::Encoding),
 			value => Some(Self::__Unknown(value)),
@@ -1768,9 +1602,7 @@ impl ErrorDomain for RequestError {
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 impl StaticType for RequestError {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_request_error_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_request_error_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
@@ -1796,10 +1628,7 @@ impl ToValue for RequestError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1840,9 +1669,7 @@ impl IntoGlib for RequesterError {
 	fn into_glib(self) -> ffi::SoupRequesterError {
 		match self {
 			Self::BadUri => ffi::SOUP_REQUESTER_ERROR_BAD_URI,
-			Self::UnsupportedUriScheme => {
-				ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME
-			},
+			Self::UnsupportedUriScheme => ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME,
 			Self::__Unknown(value) => value,
 		}
 	}
@@ -1854,9 +1681,7 @@ impl FromGlib<ffi::SoupRequesterError> for RequesterError {
 		crate::skip_assert_initialized!();
 		match value {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Self::BadUri,
-			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => {
-				Self::UnsupportedUriScheme
-			},
+			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
 			value => Self::__Unknown(value),
 		}
 	}
@@ -1875,18 +1700,14 @@ impl ErrorDomain for RequesterError {
 		crate::skip_assert_initialized!();
 		match code {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Some(Self::BadUri),
-			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => {
-				Some(Self::UnsupportedUriScheme)
-			},
+			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
 			value => Some(Self::__Unknown(value)),
 		}
 	}
 }
 
 impl StaticType for RequesterError {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_requester_error_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_requester_error_get_type()) } }
 }
 
 impl glib::value::ValueType for RequesterError {
@@ -1906,10 +1727,7 @@ impl ToValue for RequesterError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -1984,9 +1802,7 @@ impl FromGlib<ffi::SoupSameSitePolicy> for SameSitePolicy {
 #[cfg(any(feature = "v2_70", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_70")))]
 impl StaticType for SameSitePolicy {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_same_site_policy_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_same_site_policy_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_70", feature = "dox"))]
@@ -2012,10 +1828,7 @@ impl ToValue for SameSitePolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -2085,9 +1898,7 @@ impl FromGlib<ffi::SoupSocketIOStatus> for SocketIOStatus {
 }
 
 impl StaticType for SocketIOStatus {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_socket_io_status_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_socket_io_status_get_type()) } }
 }
 
 impl glib::value::ValueType for SocketIOStatus {
@@ -2107,10 +1918,7 @@ impl ToValue for SocketIOStatus {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -2300,8 +2108,7 @@ impl fmt::Display for Status {
 				Self::SeeOther => "SeeOther",
 				Self::NotModified => "NotModified",
 				Self::UseProxy => "UseProxy",
-				Self::NotAppearingInThisProtocol =>
-					"NotAppearingInThisProtocol",
+				Self::NotAppearingInThisProtocol => "NotAppearingInThisProtocol",
 				Self::TemporaryRedirect => "TemporaryRedirect",
 				Self::PermanentRedirect => "PermanentRedirect",
 				Self::BadRequest => "BadRequest",
@@ -2311,8 +2118,7 @@ impl fmt::Display for Status {
 				Self::NotFound => "NotFound",
 				Self::MethodNotAllowed => "MethodNotAllowed",
 				Self::NotAcceptable => "NotAcceptable",
-				Self::ProxyAuthenticationRequired =>
-					"ProxyAuthenticationRequired",
+				Self::ProxyAuthenticationRequired => "ProxyAuthenticationRequired",
 				Self::RequestTimeout => "RequestTimeout",
 				Self::Conflict => "Conflict",
 				Self::Gone => "Gone",
@@ -2321,8 +2127,7 @@ impl fmt::Display for Status {
 				Self::RequestEntityTooLarge => "RequestEntityTooLarge",
 				Self::RequestUriTooLong => "RequestUriTooLong",
 				Self::UnsupportedMediaType => "UnsupportedMediaType",
-				Self::RequestedRangeNotSatisfiable =>
-					"RequestedRangeNotSatisfiable",
+				Self::RequestedRangeNotSatisfiable => "RequestedRangeNotSatisfiable",
 				Self::ExpectationFailed => "ExpectationFailed",
 				Self::UnprocessableEntity => "UnprocessableEntity",
 				Self::Locked => "Locked",
@@ -2376,9 +2181,7 @@ impl IntoGlib for Status {
 			Self::SeeOther => ffi::SOUP_STATUS_SEE_OTHER,
 			Self::NotModified => ffi::SOUP_STATUS_NOT_MODIFIED,
 			Self::UseProxy => ffi::SOUP_STATUS_USE_PROXY,
-			Self::NotAppearingInThisProtocol => {
-				ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL
-			},
+			Self::NotAppearingInThisProtocol => ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL,
 			Self::TemporaryRedirect => ffi::SOUP_STATUS_TEMPORARY_REDIRECT,
 			Self::PermanentRedirect => ffi::SOUP_STATUS_PERMANENT_REDIRECT,
 			Self::BadRequest => ffi::SOUP_STATUS_BAD_REQUEST,
@@ -2388,24 +2191,16 @@ impl IntoGlib for Status {
 			Self::NotFound => ffi::SOUP_STATUS_NOT_FOUND,
 			Self::MethodNotAllowed => ffi::SOUP_STATUS_METHOD_NOT_ALLOWED,
 			Self::NotAcceptable => ffi::SOUP_STATUS_NOT_ACCEPTABLE,
-			Self::ProxyAuthenticationRequired => {
-				ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED
-			},
+			Self::ProxyAuthenticationRequired => ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED,
 			Self::RequestTimeout => ffi::SOUP_STATUS_REQUEST_TIMEOUT,
 			Self::Conflict => ffi::SOUP_STATUS_CONFLICT,
 			Self::Gone => ffi::SOUP_STATUS_GONE,
 			Self::LengthRequired => ffi::SOUP_STATUS_LENGTH_REQUIRED,
 			Self::PreconditionFailed => ffi::SOUP_STATUS_PRECONDITION_FAILED,
-			Self::RequestEntityTooLarge => {
-				ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE
-			},
+			Self::RequestEntityTooLarge => ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE,
 			Self::RequestUriTooLong => ffi::SOUP_STATUS_REQUEST_URI_TOO_LONG,
-			Self::UnsupportedMediaType => {
-				ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE
-			},
-			Self::RequestedRangeNotSatisfiable => {
-				ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE
-			},
+			Self::UnsupportedMediaType => ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE,
+			Self::RequestedRangeNotSatisfiable => ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE,
 			Self::ExpectationFailed => ffi::SOUP_STATUS_EXPECTATION_FAILED,
 			Self::UnprocessableEntity => ffi::SOUP_STATUS_UNPROCESSABLE_ENTITY,
 			Self::Locked => ffi::SOUP_STATUS_LOCKED,
@@ -2415,9 +2210,7 @@ impl IntoGlib for Status {
 			Self::BadGateway => ffi::SOUP_STATUS_BAD_GATEWAY,
 			Self::ServiceUnavailable => ffi::SOUP_STATUS_SERVICE_UNAVAILABLE,
 			Self::GatewayTimeout => ffi::SOUP_STATUS_GATEWAY_TIMEOUT,
-			Self::HttpVersionNotSupported => {
-				ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED
-			},
+			Self::HttpVersionNotSupported => ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED,
 			Self::InsufficientStorage => ffi::SOUP_STATUS_INSUFFICIENT_STORAGE,
 			Self::NotExtended => ffi::SOUP_STATUS_NOT_EXTENDED,
 			Self::__Unknown(value) => value,
@@ -2459,9 +2252,7 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_SEE_OTHER => Self::SeeOther,
 			ffi::SOUP_STATUS_NOT_MODIFIED => Self::NotModified,
 			ffi::SOUP_STATUS_USE_PROXY => Self::UseProxy,
-			ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL => {
-				Self::NotAppearingInThisProtocol
-			},
+			ffi::SOUP_STATUS_NOT_APPEARING_IN_THIS_PROTOCOL => Self::NotAppearingInThisProtocol,
 			ffi::SOUP_STATUS_TEMPORARY_REDIRECT => Self::TemporaryRedirect,
 			ffi::SOUP_STATUS_PERMANENT_REDIRECT => Self::PermanentRedirect,
 			ffi::SOUP_STATUS_BAD_REQUEST => Self::BadRequest,
@@ -2471,24 +2262,16 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_NOT_FOUND => Self::NotFound,
 			ffi::SOUP_STATUS_METHOD_NOT_ALLOWED => Self::MethodNotAllowed,
 			ffi::SOUP_STATUS_NOT_ACCEPTABLE => Self::NotAcceptable,
-			ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED => {
-				Self::ProxyAuthenticationRequired
-			},
+			ffi::SOUP_STATUS_PROXY_AUTHENTICATION_REQUIRED => Self::ProxyAuthenticationRequired,
 			ffi::SOUP_STATUS_REQUEST_TIMEOUT => Self::RequestTimeout,
 			ffi::SOUP_STATUS_CONFLICT => Self::Conflict,
 			ffi::SOUP_STATUS_GONE => Self::Gone,
 			ffi::SOUP_STATUS_LENGTH_REQUIRED => Self::LengthRequired,
 			ffi::SOUP_STATUS_PRECONDITION_FAILED => Self::PreconditionFailed,
-			ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE => {
-				Self::RequestEntityTooLarge
-			},
+			ffi::SOUP_STATUS_REQUEST_ENTITY_TOO_LARGE => Self::RequestEntityTooLarge,
 			ffi::SOUP_STATUS_REQUEST_URI_TOO_LONG => Self::RequestUriTooLong,
-			ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE => {
-				Self::UnsupportedMediaType
-			},
-			ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE => {
-				Self::RequestedRangeNotSatisfiable
-			},
+			ffi::SOUP_STATUS_UNSUPPORTED_MEDIA_TYPE => Self::UnsupportedMediaType,
+			ffi::SOUP_STATUS_REQUESTED_RANGE_NOT_SATISFIABLE => Self::RequestedRangeNotSatisfiable,
 			ffi::SOUP_STATUS_EXPECTATION_FAILED => Self::ExpectationFailed,
 			ffi::SOUP_STATUS_UNPROCESSABLE_ENTITY => Self::UnprocessableEntity,
 			ffi::SOUP_STATUS_LOCKED => Self::Locked,
@@ -2498,9 +2281,7 @@ impl FromGlib<ffi::SoupStatus> for Status {
 			ffi::SOUP_STATUS_BAD_GATEWAY => Self::BadGateway,
 			ffi::SOUP_STATUS_SERVICE_UNAVAILABLE => Self::ServiceUnavailable,
 			ffi::SOUP_STATUS_GATEWAY_TIMEOUT => Self::GatewayTimeout,
-			ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED => {
-				Self::HttpVersionNotSupported
-			},
+			ffi::SOUP_STATUS_HTTP_VERSION_NOT_SUPPORTED => Self::HttpVersionNotSupported,
 			ffi::SOUP_STATUS_INSUFFICIENT_STORAGE => Self::InsufficientStorage,
 			ffi::SOUP_STATUS_NOT_EXTENDED => Self::NotExtended,
 			value => Self::__Unknown(value),
@@ -2509,9 +2290,7 @@ impl FromGlib<ffi::SoupStatus> for Status {
 }
 
 impl StaticType for Status {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_status_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_status_get_type()) } }
 }
 
 impl glib::value::ValueType for Status {
@@ -2531,10 +2310,7 @@ impl ToValue for Status {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -2632,9 +2408,7 @@ impl ErrorDomain for TLDError {
 		match code {
 			ffi::SOUP_TLD_ERROR_INVALID_HOSTNAME => Some(Self::InvalidHostname),
 			ffi::SOUP_TLD_ERROR_IS_IP_ADDRESS => Some(Self::IsIpAddress),
-			ffi::SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS => {
-				Some(Self::NotEnoughDomains)
-			},
+			ffi::SOUP_TLD_ERROR_NOT_ENOUGH_DOMAINS => Some(Self::NotEnoughDomains),
 			ffi::SOUP_TLD_ERROR_NO_BASE_DOMAIN => Some(Self::NoBaseDomain),
 			ffi::SOUP_TLD_ERROR_NO_PSL_DATA => Some(Self::NoPslData),
 			value => Some(Self::__Unknown(value)),
@@ -2645,9 +2419,7 @@ impl ErrorDomain for TLDError {
 #[cfg(any(feature = "v2_40", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 impl StaticType for TLDError {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_tld_error_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_tld_error_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_40", feature = "dox"))]
@@ -2673,10 +2445,7 @@ impl ToValue for TLDError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -2796,9 +2565,7 @@ impl FromGlib<ffi::SoupWebsocketCloseCode> for WebsocketCloseCode {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl StaticType for WebsocketCloseCode {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_websocket_close_code_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_websocket_close_code_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -2824,10 +2591,7 @@ impl ToValue for WebsocketCloseCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -2930,10 +2694,7 @@ impl ToValue for WebsocketConnectionType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -3003,9 +2764,7 @@ impl FromGlib<ffi::SoupWebsocketDataType> for WebsocketDataType {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl StaticType for WebsocketDataType {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_websocket_data_type_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_websocket_data_type_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -3031,10 +2790,7 @@ impl ToValue for WebsocketDataType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -3125,9 +2881,7 @@ impl FromGlib<ffi::SoupWebsocketError> for WebsocketError {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl StaticType for WebsocketError {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_websocket_error_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_websocket_error_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -3153,10 +2907,7 @@ impl ToValue for WebsocketError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -3231,9 +2982,7 @@ impl FromGlib<ffi::SoupWebsocketState> for WebsocketState {
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 impl StaticType for WebsocketState {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_websocket_state_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_websocket_state_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -3259,10 +3008,7 @@ impl ToValue for WebsocketState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -3341,9 +3087,7 @@ impl ErrorDomain for XMLRPCError {
 }
 
 impl StaticType for XMLRPCError {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_xmlrpc_error_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_xmlrpc_error_get_type()) } }
 }
 
 impl glib::value::ValueType for XMLRPCError {
@@ -3363,10 +3107,7 @@ impl ToValue for XMLRPCError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -3382,9 +3123,7 @@ pub enum XMLRPCFault {
 	ParseErrorNotWellFormed,
 	#[doc(alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_UNSUPPORTED_ENCODING")]
 	ParseErrorUnsupportedEncoding,
-	#[doc(
-		alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING"
-	)]
+	#[doc(alias = "SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING")]
 	ParseErrorInvalidCharacterForEncoding,
 	#[doc(alias = "SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_XML_RPC")]
 	ServerErrorInvalidXmlRpc,
@@ -3419,17 +3158,13 @@ impl fmt::Display for XMLRPCFault {
 			"XMLRPCFault::{}",
 			match *self {
 				Self::ParseErrorNotWellFormed => "ParseErrorNotWellFormed",
-				Self::ParseErrorUnsupportedEncoding =>
-					"ParseErrorUnsupportedEncoding",
+				Self::ParseErrorUnsupportedEncoding => "ParseErrorUnsupportedEncoding",
 				Self::ParseErrorInvalidCharacterForEncoding =>
 					"ParseErrorInvalidCharacterForEncoding",
 				Self::ServerErrorInvalidXmlRpc => "ServerErrorInvalidXmlRpc",
-				Self::ServerErrorRequestedMethodNotFound =>
-					"ServerErrorRequestedMethodNotFound",
-				Self::ServerErrorInvalidMethodParameters =>
-					"ServerErrorInvalidMethodParameters",
-				Self::ServerErrorInternalXmlRpcError =>
-					"ServerErrorInternalXmlRpcError",
+				Self::ServerErrorRequestedMethodNotFound => "ServerErrorRequestedMethodNotFound",
+				Self::ServerErrorInvalidMethodParameters => "ServerErrorInvalidMethodParameters",
+				Self::ServerErrorInternalXmlRpcError => "ServerErrorInternalXmlRpcError",
 				Self::ApplicationError => "ApplicationError",
 				Self::SystemError => "SystemError",
 				Self::TransportError => "TransportError",
@@ -3448,20 +3183,20 @@ impl IntoGlib for XMLRPCFault {
 			Self::ParseErrorNotWellFormed => ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_NOT_WELL_FORMED,
 			Self::ParseErrorUnsupportedEncoding => {
 				ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_UNSUPPORTED_ENCODING
-			}
+			},
 			Self::ParseErrorInvalidCharacterForEncoding => {
 				ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING
-			}
+			},
 			Self::ServerErrorInvalidXmlRpc => ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_XML_RPC,
 			Self::ServerErrorRequestedMethodNotFound => {
 				ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_REQUESTED_METHOD_NOT_FOUND
-			}
+			},
 			Self::ServerErrorInvalidMethodParameters => {
 				ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_METHOD_PARAMETERS
-			}
+			},
 			Self::ServerErrorInternalXmlRpcError => {
 				ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INTERNAL_XML_RPC_ERROR
-			}
+			},
 			Self::ApplicationError => ffi::SOUP_XMLRPC_FAULT_APPLICATION_ERROR,
 			Self::SystemError => ffi::SOUP_XMLRPC_FAULT_SYSTEM_ERROR,
 			Self::TransportError => ffi::SOUP_XMLRPC_FAULT_TRANSPORT_ERROR,
@@ -3478,20 +3213,20 @@ impl FromGlib<ffi::SoupXMLRPCFault> for XMLRPCFault {
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_NOT_WELL_FORMED => Self::ParseErrorNotWellFormed,
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_UNSUPPORTED_ENCODING => {
 				Self::ParseErrorUnsupportedEncoding
-			}
+			},
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_INVALID_CHARACTER_FOR_ENCODING => {
 				Self::ParseErrorInvalidCharacterForEncoding
-			}
+			},
 			ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_XML_RPC => Self::ServerErrorInvalidXmlRpc,
 			ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_REQUESTED_METHOD_NOT_FOUND => {
 				Self::ServerErrorRequestedMethodNotFound
-			}
+			},
 			ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INVALID_METHOD_PARAMETERS => {
 				Self::ServerErrorInvalidMethodParameters
-			}
+			},
 			ffi::SOUP_XMLRPC_FAULT_SERVER_ERROR_INTERNAL_XML_RPC_ERROR => {
 				Self::ServerErrorInternalXmlRpcError
-			}
+			},
 			ffi::SOUP_XMLRPC_FAULT_APPLICATION_ERROR => Self::ApplicationError,
 			ffi::SOUP_XMLRPC_FAULT_SYSTEM_ERROR => Self::SystemError,
 			ffi::SOUP_XMLRPC_FAULT_TRANSPORT_ERROR => Self::TransportError,
@@ -3501,9 +3236,7 @@ impl FromGlib<ffi::SoupXMLRPCFault> for XMLRPCFault {
 }
 
 impl StaticType for XMLRPCFault {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_xmlrpc_fault_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_xmlrpc_fault_get_type()) } }
 }
 
 impl glib::value::ValueType for XMLRPCFault {
@@ -3523,10 +3256,7 @@ impl ToValue for XMLRPCFault {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_enum(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}

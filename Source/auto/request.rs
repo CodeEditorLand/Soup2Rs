@@ -43,9 +43,7 @@ pub trait RequestExt: 'static {
 	) -> Result<gio::InputStream, glib::Error>;
 
 	#[doc(alias = "soup_request_send_async")]
-	fn send_async<
-		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
-	>(
+	fn send_async<P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
 		&self,
 		cancellable:Option<&impl IsA<gio::Cancellable>>,
 		callback:P,
@@ -53,44 +51,26 @@ pub trait RequestExt: 'static {
 
 	fn send_async_future(
 		&self,
-	) -> Pin<
-		Box_<
-			dyn std::future::Future<
-					Output = Result<gio::InputStream, glib::Error>,
-				> + 'static,
-		>,
-	>;
+	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>;
 }
 
 impl<O:IsA<Request>> RequestExt for O {
 	fn content_length(&self) -> i64 {
-		unsafe {
-			ffi::soup_request_get_content_length(self.as_ref().to_glib_none().0)
-		}
+		unsafe { ffi::soup_request_get_content_length(self.as_ref().to_glib_none().0) }
 	}
 
 	fn content_type(&self) -> Option<glib::GString> {
 		unsafe {
-			from_glib_none(ffi::soup_request_get_content_type(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_none(ffi::soup_request_get_content_type(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	fn session(&self) -> Option<Session> {
-		unsafe {
-			from_glib_none(ffi::soup_request_get_session(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_request_get_session(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn uri(&self) -> Option<URI> {
-		unsafe {
-			from_glib_none(ffi::soup_request_get_uri(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_request_get_uri(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn send(
@@ -112,9 +92,7 @@ impl<O:IsA<Request>> RequestExt for O {
 		}
 	}
 
-	fn send_async<
-		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
-	>(
+	fn send_async<P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
 		&self,
 		cancellable:Option<&impl IsA<gio::Cancellable>>,
 		callback:P,
@@ -128,11 +106,7 @@ impl<O:IsA<Request>> RequestExt for O {
 			user_data:glib::ffi::gpointer,
 		) {
 			let mut error = ptr::null_mut();
-			let ret = ffi::soup_request_send_finish(
-				_source_object as *mut _,
-				res,
-				&mut error,
-			);
+			let ret = ffi::soup_request_send_finish(_source_object as *mut _, res, &mut error);
 			let result = if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -154,13 +128,8 @@ impl<O:IsA<Request>> RequestExt for O {
 
 	fn send_async_future(
 		&self,
-	) -> Pin<
-		Box_<
-			dyn std::future::Future<
-					Output = Result<gio::InputStream, glib::Error>,
-				> + 'static,
-		>,
-	> {
+	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>
+	{
 		Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
 			obj.send_async(Some(cancellable), move |res| {
 				send.resolve(res);
@@ -170,7 +139,5 @@ impl<O:IsA<Request>> RequestExt for O {
 }
 
 impl fmt::Display for Request {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Request")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Request") }
 }

@@ -28,15 +28,11 @@ pub trait RequestHTTPExt: 'static {
 impl<O:IsA<RequestHTTP>> RequestHTTPExt for O {
 	fn message(&self) -> Option<Message> {
 		unsafe {
-			from_glib_full(ffi::soup_request_http_get_message(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_full(ffi::soup_request_http_get_message(self.as_ref().to_glib_none().0))
 		}
 	}
 }
 
 impl fmt::Display for RequestHTTP {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("RequestHTTP")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("RequestHTTP") }
 }

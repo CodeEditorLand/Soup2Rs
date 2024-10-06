@@ -40,23 +40,14 @@ pub const NONE_PROXY_RESOLVER_DEFAULT:Option<&ProxyResolverDefault> = None;
 
 pub trait ProxyResolverDefaultExt: 'static {
 	#[doc(alias = "gproxy-resolver")]
-	fn set_gproxy_resolver<P:IsA<gio::ProxyResolver>>(
-		&self,
-		gproxy_resolver:Option<&P>,
-	);
+	fn set_gproxy_resolver<P:IsA<gio::ProxyResolver>>(&self, gproxy_resolver:Option<&P>);
 
 	#[doc(alias = "gproxy-resolver")]
-	fn connect_gproxy_resolver_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_gproxy_resolver_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<ProxyResolverDefault>> ProxyResolverDefaultExt for O {
-	fn set_gproxy_resolver<P:IsA<gio::ProxyResolver>>(
-		&self,
-		gproxy_resolver:Option<&P>,
-	) {
+	fn set_gproxy_resolver<P:IsA<gio::ProxyResolver>>(&self, gproxy_resolver:Option<&P>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -66,10 +57,7 @@ impl<O:IsA<ProxyResolverDefault>> ProxyResolverDefaultExt for O {
 		}
 	}
 
-	fn connect_gproxy_resolver_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_gproxy_resolver_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_gproxy_resolver_trampoline<
 			P:IsA<ProxyResolverDefault>,
 			F:Fn(&P) + 'static,
@@ -96,7 +84,5 @@ impl<O:IsA<ProxyResolverDefault>> ProxyResolverDefaultExt for O {
 }
 
 impl fmt::Display for ProxyResolverDefault {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("ProxyResolverDefault")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("ProxyResolverDefault") }
 }

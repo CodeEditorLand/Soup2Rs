@@ -42,9 +42,7 @@ pub static AUTH_DOMAIN_ADD_PATH:once_cell::sync::Lazy<&'static str> =
 #[doc(alias = "SOUP_AUTH_DOMAIN_BASIC_AUTH_CALLBACK")]
 pub static AUTH_DOMAIN_BASIC_AUTH_CALLBACK:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_BASIC_AUTH_CALLBACK)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_BASIC_AUTH_CALLBACK).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_BASIC_AUTH_DATA")]
 pub static AUTH_DOMAIN_BASIC_AUTH_DATA:once_cell::sync::Lazy<&'static str> =
@@ -52,11 +50,10 @@ pub static AUTH_DOMAIN_BASIC_AUTH_DATA:once_cell::sync::Lazy<&'static str> =
 		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_BASIC_AUTH_DATA).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_DIGEST_AUTH_CALLBACK")]
-pub static AUTH_DOMAIN_DIGEST_AUTH_CALLBACK:once_cell::sync::Lazy<
-	&'static str,
-> = once_cell::sync::Lazy::new(|| unsafe {
-	CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_DIGEST_AUTH_CALLBACK).to_str().unwrap()
-});
+pub static AUTH_DOMAIN_DIGEST_AUTH_CALLBACK:once_cell::sync::Lazy<&'static str> =
+	once_cell::sync::Lazy::new(|| unsafe {
+		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_DIGEST_AUTH_CALLBACK).to_str().unwrap()
+	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_DIGEST_AUTH_DATA")]
 pub static AUTH_DOMAIN_DIGEST_AUTH_DATA:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
@@ -73,19 +70,14 @@ pub static AUTH_DOMAIN_FILTER_DATA:once_cell::sync::Lazy<&'static str> =
 		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_FILTER_DATA).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_GENERIC_AUTH_CALLBACK")]
-pub static AUTH_DOMAIN_GENERIC_AUTH_CALLBACK:once_cell::sync::Lazy<
-	&'static str,
-> = once_cell::sync::Lazy::new(|| unsafe {
-	CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_GENERIC_AUTH_CALLBACK)
-		.to_str()
-		.unwrap()
-});
+pub static AUTH_DOMAIN_GENERIC_AUTH_CALLBACK:once_cell::sync::Lazy<&'static str> =
+	once_cell::sync::Lazy::new(|| unsafe {
+		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_GENERIC_AUTH_CALLBACK).to_str().unwrap()
+	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_GENERIC_AUTH_DATA")]
 pub static AUTH_DOMAIN_GENERIC_AUTH_DATA:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_GENERIC_AUTH_DATA)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_AUTH_DOMAIN_GENERIC_AUTH_DATA).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_AUTH_DOMAIN_PROXY")]
 pub static AUTH_DOMAIN_PROXY:once_cell::sync::Lazy<&'static str> =
@@ -104,9 +96,7 @@ pub static AUTH_DOMAIN_REMOVE_PATH:once_cell::sync::Lazy<&'static str> =
 	});
 #[doc(alias = "SOUP_AUTH_HOST")]
 pub static AUTH_HOST:once_cell::sync::Lazy<&'static str> =
-	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_AUTH_HOST).to_str().unwrap()
-	});
+	once_cell::sync::Lazy::new(|| unsafe { CStr::from_ptr(ffi::SOUP_AUTH_HOST).to_str().unwrap() });
 #[doc(alias = "SOUP_AUTH_IS_AUTHENTICATED")]
 pub static AUTH_IS_AUTHENTICATED:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
@@ -118,10 +108,9 @@ pub static AUTH_IS_FOR_PROXY:once_cell::sync::Lazy<&'static str> =
 		CStr::from_ptr(ffi::SOUP_AUTH_IS_FOR_PROXY).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_AUTH_REALM")]
-pub static AUTH_REALM:once_cell::sync::Lazy<&'static str> =
-	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_AUTH_REALM).to_str().unwrap()
-	});
+pub static AUTH_REALM:once_cell::sync::Lazy<&'static str> = once_cell::sync::Lazy::new(|| unsafe {
+	CStr::from_ptr(ffi::SOUP_AUTH_REALM).to_str().unwrap()
+});
 #[doc(alias = "SOUP_AUTH_SCHEME_NAME")]
 pub static AUTH_SCHEME_NAME:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
@@ -202,9 +191,7 @@ pub static MESSAGE_HTTP_VERSION:once_cell::sync::Lazy<&'static str> =
 #[doc(alias = "SOUP_MESSAGE_IS_TOP_LEVEL_NAVIGATION")]
 pub static MESSAGE_IS_TOP_LEVEL_NAVIGATION:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_MESSAGE_IS_TOP_LEVEL_NAVIGATION)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_MESSAGE_IS_TOP_LEVEL_NAVIGATION).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_MESSAGE_METHOD")]
 pub static MESSAGE_METHOD:once_cell::sync::Lazy<&'static str> =
@@ -310,9 +297,7 @@ pub static REQUEST_URI:once_cell::sync::Lazy<&'static str> =
 #[doc(alias = "SOUP_SERVER_ADD_WEBSOCKET_EXTENSION")]
 pub static SERVER_ADD_WEBSOCKET_EXTENSION:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_SERVER_ADD_WEBSOCKET_EXTENSION)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_SERVER_ADD_WEBSOCKET_EXTENSION).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_SERVER_ASYNC_CONTEXT")]
 pub static SERVER_ASYNC_CONTEXT:once_cell::sync::Lazy<&'static str> =
@@ -351,13 +336,10 @@ pub static SERVER_RAW_PATHS:once_cell::sync::Lazy<&'static str> =
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 #[doc(alias = "SOUP_SERVER_REMOVE_WEBSOCKET_EXTENSION")]
-pub static SERVER_REMOVE_WEBSOCKET_EXTENSION:once_cell::sync::Lazy<
-	&'static str,
-> = once_cell::sync::Lazy::new(|| unsafe {
-	CStr::from_ptr(ffi::SOUP_SERVER_REMOVE_WEBSOCKET_EXTENSION)
-		.to_str()
-		.unwrap()
-});
+pub static SERVER_REMOVE_WEBSOCKET_EXTENSION:once_cell::sync::Lazy<&'static str> =
+	once_cell::sync::Lazy::new(|| unsafe {
+		CStr::from_ptr(ffi::SOUP_SERVER_REMOVE_WEBSOCKET_EXTENSION).to_str().unwrap()
+	});
 #[doc(alias = "SOUP_SERVER_SERVER_HEADER")]
 pub static SERVER_SERVER_HEADER:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
@@ -466,9 +448,7 @@ pub static SESSION_PROXY_URI:once_cell::sync::Lazy<&'static str> =
 #[doc(alias = "SOUP_SESSION_REMOVE_FEATURE_BY_TYPE")]
 pub static SESSION_REMOVE_FEATURE_BY_TYPE:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_SESSION_REMOVE_FEATURE_BY_TYPE)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_SESSION_REMOVE_FEATURE_BY_TYPE).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_SESSION_SSL_CA_FILE")]
 pub static SESSION_SSL_CA_FILE:once_cell::sync::Lazy<&'static str> =
@@ -487,9 +467,7 @@ pub static SESSION_SSL_STRICT:once_cell::sync::Lazy<&'static str> =
 #[doc(alias = "SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE")]
 pub static SESSION_SSL_USE_SYSTEM_CA_FILE:once_cell::sync::Lazy<&'static str> =
 	once_cell::sync::Lazy::new(|| unsafe {
-		CStr::from_ptr(ffi::SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE)
-			.to_str()
-			.unwrap()
+		CStr::from_ptr(ffi::SOUP_SESSION_SSL_USE_SYSTEM_CA_FILE).to_str().unwrap()
 	});
 #[doc(alias = "SOUP_SESSION_TIMEOUT")]
 pub static SESSION_TIMEOUT:once_cell::sync::Lazy<&'static str> =

@@ -26,17 +26,13 @@ impl Address {
 	#[doc(alias = "soup_address_new")]
 	pub fn new(name:&str, port:u32) -> Address {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_address_new(name.to_glib_none().0, port))
-		}
+		unsafe { from_glib_full(ffi::soup_address_new(name.to_glib_none().0, port)) }
 	}
 
 	#[doc(alias = "soup_address_new_any")]
 	pub fn new_any(family:AddressFamily, port:u32) -> Option<Address> {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_address_new_any(family.into_glib(), port))
-		}
+		unsafe { from_glib_full(ffi::soup_address_new_any(family.into_glib(), port)) }
 	}
 
 	//#[doc(alias = "soup_address_new_from_sockaddr")]
@@ -85,63 +81,39 @@ pub trait AddressExt: 'static {
 	);
 
 	#[doc(alias = "soup_address_resolve_sync")]
-	fn resolve_sync(
-		&self,
-		cancellable:Option<&impl IsA<gio::Cancellable>>,
-	) -> u32;
+	fn resolve_sync(&self, cancellable:Option<&impl IsA<gio::Cancellable>>) -> u32;
 
 	fn family(&self) -> AddressFamily;
 
 	fn protocol(&self) -> Option<glib::GString>;
 
 	#[doc(alias = "physical")]
-	fn connect_physical_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_physical_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<Address>> AddressExt for O {
 	#[cfg(any(feature = "v2_32", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	fn gsockaddr(&self) -> Option<gio::SocketAddress> {
-		unsafe {
-			from_glib_full(ffi::soup_address_get_gsockaddr(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_address_get_gsockaddr(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn name(&self) -> Option<glib::GString> {
-		unsafe {
-			from_glib_none(ffi::soup_address_get_name(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_address_get_name(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn physical(&self) -> Option<glib::GString> {
-		unsafe {
-			from_glib_none(ffi::soup_address_get_physical(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_none(ffi::soup_address_get_physical(self.as_ref().to_glib_none().0)) }
 	}
 
-	fn port(&self) -> u32 {
-		unsafe { ffi::soup_address_get_port(self.as_ref().to_glib_none().0) }
-	}
+	fn port(&self) -> u32 { unsafe { ffi::soup_address_get_port(self.as_ref().to_glib_none().0) } }
 
 	// fn sockaddr(&self, len: i32) -> /*Unimplemented*/Option<Fundamental:
 	// Pointer> {    unsafe { TODO: call ffi:soup_address_get_sockaddr() }
 	//}
 
 	fn is_resolved(&self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_address_is_resolved(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_address_is_resolved(self.as_ref().to_glib_none().0)) }
 	}
 
 	fn resolve_async<P:FnOnce(&Address, u32) + 'static>(
@@ -173,10 +145,7 @@ impl<O:IsA<Address>> AddressExt for O {
 		}
 	}
 
-	fn resolve_sync(
-		&self,
-		cancellable:Option<&impl IsA<gio::Cancellable>>,
-	) -> u32 {
+	fn resolve_sync(&self, cancellable:Option<&impl IsA<gio::Cancellable>>) -> u32 {
 		unsafe {
 			ffi::soup_address_resolve_sync(
 				self.as_ref().to_glib_none().0,
@@ -187,9 +156,7 @@ impl<O:IsA<Address>> AddressExt for O {
 
 	fn family(&self) -> AddressFamily {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<AddressFamily as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<AddressFamily as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"family\0".as_ptr() as *const _,
@@ -201,9 +168,7 @@ impl<O:IsA<Address>> AddressExt for O {
 
 	fn protocol(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"protocol\0".as_ptr() as *const _,
@@ -213,14 +178,8 @@ impl<O:IsA<Address>> AddressExt for O {
 		}
 	}
 
-	fn connect_physical_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_physical_trampoline<
-			P:IsA<Address>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_physical_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_physical_trampoline<P:IsA<Address>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupAddress,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -243,7 +202,5 @@ impl<O:IsA<Address>> AddressExt for O {
 }
 
 impl fmt::Display for Address {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Address")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Address") }
 }

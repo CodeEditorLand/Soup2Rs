@@ -25,9 +25,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_new")]
 	pub fn new(type_:MessageHeadersType) -> MessageHeaders {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_message_headers_new(type_.into_glib()))
-		}
+		unsafe { from_glib_full(ffi::soup_message_headers_new(type_.into_glib())) }
 	}
 
 	#[doc(alias = "soup_message_headers_append")]
@@ -46,9 +44,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_clean_connection_headers")]
 	pub fn clean_connection_headers(&mut self) {
 		unsafe {
-			ffi::soup_message_headers_clean_connection_headers(
-				self.to_glib_none_mut().0,
-			);
+			ffi::soup_message_headers_clean_connection_headers(self.to_glib_none_mut().0);
 		}
 	}
 
@@ -112,11 +108,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_get_content_length")]
 	#[doc(alias = "get_content_length")]
 	pub fn content_length(&mut self) -> i64 {
-		unsafe {
-			ffi::soup_message_headers_get_content_length(
-				self.to_glib_none_mut().0,
-			)
-		}
+		unsafe { ffi::soup_message_headers_get_content_length(self.to_glib_none_mut().0) }
 	}
 
 	#[cfg(any(feature = "v2_26", feature = "dox"))]
@@ -152,21 +144,13 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_get_encoding")]
 	#[doc(alias = "get_encoding")]
 	pub fn encoding(&mut self) -> Encoding {
-		unsafe {
-			from_glib(ffi::soup_message_headers_get_encoding(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_headers_get_encoding(self.to_glib_none_mut().0)) }
 	}
 
 	#[doc(alias = "soup_message_headers_get_expectations")]
 	#[doc(alias = "get_expectations")]
 	pub fn expectations(&mut self) -> Expectation {
-		unsafe {
-			from_glib(ffi::soup_message_headers_get_expectations(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_headers_get_expectations(self.to_glib_none_mut().0)) }
 	}
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
@@ -174,11 +158,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_get_headers_type")]
 	#[doc(alias = "get_headers_type")]
 	pub fn headers_type(&mut self) -> MessageHeadersType {
-		unsafe {
-			from_glib(ffi::soup_message_headers_get_headers_type(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_headers_get_headers_type(self.to_glib_none_mut().0)) }
 	}
 
 	#[cfg(any(feature = "v2_28", feature = "dox"))]
@@ -245,10 +225,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_remove")]
 	pub fn remove(&mut self, name:&str) {
 		unsafe {
-			ffi::soup_message_headers_remove(
-				self.to_glib_none_mut().0,
-				name.to_glib_none().0,
-			);
+			ffi::soup_message_headers_remove(self.to_glib_none_mut().0, name.to_glib_none().0);
 		}
 	}
 
@@ -275,10 +252,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_set_content_length")]
 	pub fn set_content_length(&mut self, content_length:i64) {
 		unsafe {
-			ffi::soup_message_headers_set_content_length(
-				self.to_glib_none_mut().0,
-				content_length,
-			);
+			ffi::soup_message_headers_set_content_length(self.to_glib_none_mut().0, content_length);
 		}
 	}
 
@@ -306,10 +280,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_set_encoding")]
 	pub fn set_encoding(&mut self, encoding:Encoding) {
 		unsafe {
-			ffi::soup_message_headers_set_encoding(
-				self.to_glib_none_mut().0,
-				encoding.into_glib(),
-			);
+			ffi::soup_message_headers_set_encoding(self.to_glib_none_mut().0, encoding.into_glib());
 		}
 	}
 
@@ -328,11 +299,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_set_range")]
 	pub fn set_range(&mut self, start:i64, end:i64) {
 		unsafe {
-			ffi::soup_message_headers_set_range(
-				self.to_glib_none_mut().0,
-				start,
-				end,
-			);
+			ffi::soup_message_headers_set_range(self.to_glib_none_mut().0, start, end);
 		}
 	}
 

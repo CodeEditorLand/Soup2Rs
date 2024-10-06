@@ -19,20 +19,9 @@ glib::wrapper! {
 
 impl Date {
 	#[doc(alias = "soup_date_new")]
-	pub fn new(
-		year:i32,
-		month:i32,
-		day:i32,
-		hour:i32,
-		minute:i32,
-		second:i32,
-	) -> Date {
+	pub fn new(year:i32, month:i32, day:i32, hour:i32, minute:i32, second:i32) -> Date {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_date_new(
-				year, month, day, hour, minute, second,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_date_new(year, month, day, hour, minute, second)) }
 	}
 
 	#[doc(alias = "soup_date_new_from_now")]
@@ -46,11 +35,7 @@ impl Date {
 	#[doc(alias = "new_from_string")]
 	pub fn from_string(date_string:&str) -> Option<Date> {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_date_new_from_string(
-				date_string.to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_date_new_from_string(date_string.to_glib_none().0)) }
 	}
 
 	#[doc(alias = "soup_date_new_from_time_t")]
@@ -64,17 +49,13 @@ impl Date {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	#[doc(alias = "soup_date_get_day")]
 	#[doc(alias = "get_day")]
-	pub fn day(&mut self) -> i32 {
-		unsafe { ffi::soup_date_get_day(self.to_glib_none_mut().0) }
-	}
+	pub fn day(&mut self) -> i32 { unsafe { ffi::soup_date_get_day(self.to_glib_none_mut().0) } }
 
 	#[cfg(any(feature = "v2_32", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	#[doc(alias = "soup_date_get_hour")]
 	#[doc(alias = "get_hour")]
-	pub fn hour(&mut self) -> i32 {
-		unsafe { ffi::soup_date_get_hour(self.to_glib_none_mut().0) }
-	}
+	pub fn hour(&mut self) -> i32 { unsafe { ffi::soup_date_get_hour(self.to_glib_none_mut().0) } }
 
 	#[cfg(any(feature = "v2_32", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
@@ -112,17 +93,13 @@ impl Date {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	#[doc(alias = "soup_date_get_utc")]
 	#[doc(alias = "get_utc")]
-	pub fn utc(&mut self) -> i32 {
-		unsafe { ffi::soup_date_get_utc(self.to_glib_none_mut().0) }
-	}
+	pub fn utc(&mut self) -> i32 { unsafe { ffi::soup_date_get_utc(self.to_glib_none_mut().0) } }
 
 	#[cfg(any(feature = "v2_32", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_32")))]
 	#[doc(alias = "soup_date_get_year")]
 	#[doc(alias = "get_year")]
-	pub fn year(&mut self) -> i32 {
-		unsafe { ffi::soup_date_get_year(self.to_glib_none_mut().0) }
-	}
+	pub fn year(&mut self) -> i32 { unsafe { ffi::soup_date_get_year(self.to_glib_none_mut().0) } }
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
@@ -134,10 +111,7 @@ impl Date {
 	#[doc(alias = "soup_date_to_string")]
 	pub fn to_string(&mut self, format:DateFormat) -> Option<glib::GString> {
 		unsafe {
-			from_glib_full(ffi::soup_date_to_string(
-				self.to_glib_none_mut().0,
-				format.into_glib(),
-			))
+			from_glib_full(ffi::soup_date_to_string(self.to_glib_none_mut().0, format.into_glib()))
 		}
 	}
 

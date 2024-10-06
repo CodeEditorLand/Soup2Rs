@@ -23,16 +23,13 @@ glib::wrapper! {
 
 impl AuthDomainDigest {
 	//#[doc(alias = "soup_auth_domain_digest_new")]
-	// pub fn new(optname1: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainDigest {
+	// pub fn new(optname1: &str, : /*Unknown
+	// conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainDigest {
 	//    unsafe { TODO: call ffi:soup_auth_domain_digest_new() }
 	//}
 
 	#[doc(alias = "soup_auth_domain_digest_encode_password")]
-	pub fn encode_password(
-		username:&str,
-		realm:&str,
-		password:&str,
-	) -> Option<glib::GString> {
+	pub fn encode_password(username:&str, realm:&str, password:&str) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_auth_domain_digest_encode_password(
@@ -48,9 +45,7 @@ pub const NONE_AUTH_DOMAIN_DIGEST:Option<&AuthDomainDigest> = None;
 
 pub trait AuthDomainDigestExt: 'static {
 	#[doc(alias = "soup_auth_domain_digest_set_auth_callback")]
-	fn set_auth_callback<
-		P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
-	>(
+	fn set_auth_callback<P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static>(
 		&self,
 		callback:P,
 	);
@@ -63,16 +58,11 @@ pub trait AuthDomainDigestExt: 'static {
 	// Pointer);
 
 	#[doc(alias = "auth-data")]
-	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
-	fn set_auth_callback<
-		P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static,
-	>(
+	fn set_auth_callback<P:Fn(&AuthDomainDigest, &Message, &str) -> Option<String> + 'static>(
 		&self,
 		callback:P,
 	) {
@@ -129,10 +119,7 @@ impl<O:IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
 	// auth_data.to_value().to_glib_none().0);    }
 	//}
 
-	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_auth_data_trampoline<
 			P:IsA<AuthDomainDigest>,
 			F:Fn(&P) + 'static,
@@ -159,7 +146,5 @@ impl<O:IsA<AuthDomainDigest>> AuthDomainDigestExt for O {
 }
 
 impl fmt::Display for AuthDomainDigest {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthDomainDigest")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthDomainDigest") }
 }

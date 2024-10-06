@@ -113,29 +113,18 @@ pub trait CookieJarExt: 'static {
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "soup_cookie_jar_set_cookie_with_first_party")]
-	fn set_cookie_with_first_party(
-		&self,
-		uri:&mut URI,
-		first_party:&mut URI,
-		cookie:&str,
-	);
+	fn set_cookie_with_first_party(&self, uri:&mut URI, first_party:&mut URI, cookie:&str);
 
 	#[doc(alias = "read-only")]
 	fn is_read_only(&self) -> bool;
 
 	#[doc(alias = "changed")]
-	fn connect_changed<F:Fn(&Self, &Cookie, &Cookie) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_changed<F:Fn(&Self, &Cookie, &Cookie) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "accept-policy")]
-	fn connect_accept_policy_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_accept_policy_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<CookieJar>> CookieJarExt for O {
@@ -143,11 +132,9 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	fn all_cookies(&self) -> Vec<Cookie> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(
-				ffi::soup_cookie_jar_all_cookies(
-					self.as_ref().to_glib_none().0,
-				),
-			)
+			FromGlibPtrContainer::from_glib_full(ffi::soup_cookie_jar_all_cookies(
+				self.as_ref().to_glib_none().0,
+			))
 		}
 	}
 
@@ -165,24 +152,18 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn accept_policy(&self) -> CookieJarAcceptPolicy {
-		unsafe {
-			from_glib(ffi::soup_cookie_jar_get_accept_policy(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_cookie_jar_get_accept_policy(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn cookie_list(&self, uri:&mut URI, for_http:bool) -> Vec<Cookie> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(
-				ffi::soup_cookie_jar_get_cookie_list(
-					self.as_ref().to_glib_none().0,
-					uri.to_glib_none_mut().0,
-					for_http.into_glib(),
-				),
-			)
+			FromGlibPtrContainer::from_glib_full(ffi::soup_cookie_jar_get_cookie_list(
+				self.as_ref().to_glib_none().0,
+				uri.to_glib_none_mut().0,
+				for_http.into_glib(),
+			))
 		}
 	}
 
@@ -201,11 +182,7 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn is_persistent(&self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_cookie_jar_is_persistent(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_cookie_jar_is_persistent(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
@@ -241,12 +218,7 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn set_cookie_with_first_party(
-		&self,
-		uri:&mut URI,
-		first_party:&mut URI,
-		cookie:&str,
-	) {
+	fn set_cookie_with_first_party(&self, uri:&mut URI, first_party:&mut URI, cookie:&str) {
 		unsafe {
 			ffi::soup_cookie_jar_set_cookie_with_first_party(
 				self.as_ref().to_glib_none().0,
@@ -259,8 +231,7 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 
 	fn is_read_only(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"read-only\0".as_ptr() as *const _,
@@ -270,10 +241,7 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 		}
 	}
 
-	fn connect_changed<F:Fn(&Self, &Cookie, &Cookie) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_changed<F:Fn(&Self, &Cookie, &Cookie) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn changed_trampoline<
 			P:IsA<CookieJar>,
 			F:Fn(&P, &Cookie, &Cookie) + 'static,
@@ -305,14 +273,8 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_accept_policy_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_accept_policy_trampoline<
-			P:IsA<CookieJar>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_accept_policy_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_accept_policy_trampoline<P:IsA<CookieJar>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupCookieJar,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -335,7 +297,5 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 }
 
 impl fmt::Display for CookieJar {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("CookieJar")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("CookieJar") }
 }

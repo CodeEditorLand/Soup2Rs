@@ -18,7 +18,5 @@ glib::wrapper! {
 impl AuthNTLM {}
 
 impl fmt::Display for AuthNTLM {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthNTLM")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthNTLM") }
 }

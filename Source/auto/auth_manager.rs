@@ -64,9 +64,7 @@ impl<O:IsA<AuthManager>> AuthManagerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 	fn clear_cached_credentials(&self) {
 		unsafe {
-			ffi::soup_auth_manager_clear_cached_credentials(
-				self.as_ref().to_glib_none().0,
-			);
+			ffi::soup_auth_manager_clear_cached_credentials(self.as_ref().to_glib_none().0);
 		}
 	}
 
@@ -119,7 +117,5 @@ impl<O:IsA<AuthManager>> AuthManagerExt for O {
 }
 
 impl fmt::Display for AuthManager {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthManager")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthManager") }
 }

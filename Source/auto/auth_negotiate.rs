@@ -30,7 +30,5 @@ impl AuthNegotiate {
 }
 
 impl fmt::Display for AuthNegotiate {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthNegotiate")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthNegotiate") }
 }

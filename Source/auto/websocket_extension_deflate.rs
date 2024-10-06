@@ -17,11 +17,8 @@ glib::wrapper! {
 
 impl WebsocketExtensionDeflate {}
 
-pub const NONE_WEBSOCKET_EXTENSION_DEFLATE:Option<&WebsocketExtensionDeflate> =
-	None;
+pub const NONE_WEBSOCKET_EXTENSION_DEFLATE:Option<&WebsocketExtensionDeflate> = None;
 
 impl fmt::Display for WebsocketExtensionDeflate {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("WebsocketExtensionDeflate")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("WebsocketExtensionDeflate") }
 }

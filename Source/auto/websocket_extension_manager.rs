@@ -31,11 +31,8 @@ glib::wrapper! {
 
 impl WebsocketExtensionManager {}
 
-pub const NONE_WEBSOCKET_EXTENSION_MANAGER:Option<&WebsocketExtensionManager> =
-	None;
+pub const NONE_WEBSOCKET_EXTENSION_MANAGER:Option<&WebsocketExtensionManager> = None;
 
 impl fmt::Display for WebsocketExtensionManager {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("WebsocketExtensionManager")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("WebsocketExtensionManager") }
 }

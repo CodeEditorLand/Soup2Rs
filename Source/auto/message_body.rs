@@ -57,11 +57,7 @@ impl MessageBody {
 
 	#[doc(alias = "soup_message_body_flatten")]
 	pub fn flatten(&mut self) -> Option<Buffer> {
-		unsafe {
-			from_glib_full(ffi::soup_message_body_flatten(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_message_body_flatten(self.to_glib_none_mut().0)) }
 	}
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
@@ -69,21 +65,14 @@ impl MessageBody {
 	#[doc(alias = "soup_message_body_get_accumulate")]
 	#[doc(alias = "get_accumulate")]
 	pub fn is_accumulate(&mut self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_message_body_get_accumulate(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_message_body_get_accumulate(self.to_glib_none_mut().0)) }
 	}
 
 	#[doc(alias = "soup_message_body_get_chunk")]
 	#[doc(alias = "get_chunk")]
 	pub fn chunk(&mut self, offset:i64) -> Option<Buffer> {
 		unsafe {
-			from_glib_full(ffi::soup_message_body_get_chunk(
-				self.to_glib_none_mut().0,
-				offset,
-			))
+			from_glib_full(ffi::soup_message_body_get_chunk(self.to_glib_none_mut().0, offset))
 		}
 	}
 
@@ -92,10 +81,7 @@ impl MessageBody {
 	#[doc(alias = "soup_message_body_got_chunk")]
 	pub fn got_chunk(&mut self, chunk:&mut Buffer) {
 		unsafe {
-			ffi::soup_message_body_got_chunk(
-				self.to_glib_none_mut().0,
-				chunk.to_glib_none_mut().0,
-			);
+			ffi::soup_message_body_got_chunk(self.to_glib_none_mut().0, chunk.to_glib_none_mut().0);
 		}
 	}
 

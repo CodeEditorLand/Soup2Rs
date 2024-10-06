@@ -22,12 +22,7 @@ impl Buffer {
 	pub fn new_take(data:&[u8]) -> Buffer {
 		crate::assert_initialized_main_thread!();
 		let length = data.len() as usize;
-		unsafe {
-			from_glib_full(ffi::soup_buffer_new_take(
-				data.to_glib_full(),
-				length,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_buffer_new_take(data.to_glib_full(), length)) }
 	}
 
 	//#[doc(alias = "soup_buffer_new_with_owner")]
@@ -42,11 +37,7 @@ impl Buffer {
 	#[doc(alias = "soup_buffer_get_as_bytes")]
 	#[doc(alias = "get_as_bytes")]
 	pub fn as_bytes(&mut self) -> Option<glib::Bytes> {
-		unsafe {
-			from_glib_full(ffi::soup_buffer_get_as_bytes(
-				self.to_glib_none_mut().0,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_buffer_get_as_bytes(self.to_glib_none_mut().0)) }
 	}
 
 	//#[doc(alias = "soup_buffer_get_owner")]
@@ -56,11 +47,7 @@ impl Buffer {
 	//}
 
 	#[doc(alias = "soup_buffer_new_subbuffer")]
-	pub fn new_subbuffer(
-		&mut self,
-		offset:usize,
-		length:usize,
-	) -> Option<Buffer> {
+	pub fn new_subbuffer(&mut self, offset:usize, length:usize) -> Option<Buffer> {
 		unsafe {
 			from_glib_full(ffi::soup_buffer_new_subbuffer(
 				self.to_glib_none_mut().0,

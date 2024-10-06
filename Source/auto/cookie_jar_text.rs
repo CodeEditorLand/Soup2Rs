@@ -60,9 +60,7 @@ pub trait CookieJarTextExt: 'static {
 impl<O:IsA<CookieJarText>> CookieJarTextExt for O {
 	fn filename(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"filename\0".as_ptr() as *const _,
@@ -74,7 +72,5 @@ impl<O:IsA<CookieJarText>> CookieJarTextExt for O {
 }
 
 impl fmt::Display for CookieJarText {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("CookieJarText")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("CookieJarText") }
 }

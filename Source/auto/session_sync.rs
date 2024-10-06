@@ -21,9 +21,7 @@ impl SessionSync {
 	#[doc(alias = "soup_session_sync_new")]
 	pub fn new() -> SessionSync {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			Session::from_glib_full(ffi::soup_session_sync_new()).unsafe_cast()
-		}
+		unsafe { Session::from_glib_full(ffi::soup_session_sync_new()).unsafe_cast() }
 	}
 
 	//#[doc(alias = "soup_session_sync_new_with_options")]
@@ -41,7 +39,5 @@ impl Default for SessionSync {
 pub const NONE_SESSION_SYNC:Option<&SessionSync> = None;
 
 impl fmt::Display for SessionSync {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("SessionSync")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("SessionSync") }
 }

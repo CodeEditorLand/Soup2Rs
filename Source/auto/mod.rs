@@ -71,16 +71,10 @@ mod message;
 pub use self::message::{Message, NONE_MESSAGE};
 
 mod multipart_input_stream;
-pub use self::multipart_input_stream::{
-	MultipartInputStream,
-	NONE_MULTIPART_INPUT_STREAM,
-};
+pub use self::multipart_input_stream::{MultipartInputStream, NONE_MULTIPART_INPUT_STREAM};
 
 mod proxy_resolver_default;
-pub use self::proxy_resolver_default::{
-	ProxyResolverDefault,
-	NONE_PROXY_RESOLVER_DEFAULT,
-};
+pub use self::proxy_resolver_default::{ProxyResolverDefault, NONE_PROXY_RESOLVER_DEFAULT};
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
@@ -132,16 +126,10 @@ pub use self::socket::{Socket, NONE_SOCKET};
 mod websocket_connection;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-pub use self::websocket_connection::{
-	WebsocketConnection,
-	NONE_WEBSOCKET_CONNECTION,
-};
+pub use self::websocket_connection::{WebsocketConnection, NONE_WEBSOCKET_CONNECTION};
 
 mod websocket_extension;
-pub use self::websocket_extension::{
-	WebsocketExtension,
-	NONE_WEBSOCKET_EXTENSION,
-};
+pub use self::websocket_extension::{WebsocketExtension, NONE_WEBSOCKET_EXTENSION};
 
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]

@@ -109,8 +109,7 @@ pub trait SessionExt: 'static {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	#[doc(alias = "soup_session_get_feature")]
 	#[doc(alias = "get_feature")]
-	fn feature(&self, feature_type:glib::types::Type)
-	-> Option<SessionFeature>;
+	fn feature(&self, feature_type:glib::types::Type) -> Option<SessionFeature>;
 
 	#[cfg(any(feature = "v2_28", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
@@ -182,20 +181,12 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_session_request_http")]
-	fn request_http(
-		&self,
-		method:&str,
-		uri_string:&str,
-	) -> Result<RequestHTTP, glib::Error>;
+	fn request_http(&self, method:&str, uri_string:&str) -> Result<RequestHTTP, glib::Error>;
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_session_request_http_uri")]
-	fn request_http_uri(
-		&self,
-		method:&str,
-		uri:&mut URI,
-	) -> Result<RequestHTTP, glib::Error>;
+	fn request_http_uri(&self, method:&str, uri:&mut URI) -> Result<RequestHTTP, glib::Error>;
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
@@ -217,9 +208,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "soup_session_send_async")]
-	fn send_async<
-		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
-	>(
+	fn send_async<P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
 		&self,
 		msg:&impl IsA<Message>,
 		cancellable:Option<&impl IsA<gio::Cancellable>>,
@@ -231,13 +220,7 @@ pub trait SessionExt: 'static {
 	fn send_async_future(
 		&self,
 		msg:&(impl IsA<Message> + Clone + 'static),
-	) -> Pin<
-		Box_<
-			dyn std::future::Future<
-					Output = Result<gio::InputStream, glib::Error>,
-				> + 'static,
-		>,
-	>;
+	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>;
 
 	#[doc(alias = "soup_session_send_message")]
 	fn send_message(&self, msg:&impl IsA<Message>) -> u32;
@@ -245,8 +228,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	#[doc(alias = "soup_session_steal_connection")]
-	fn steal_connection(&self, msg:&impl IsA<Message>)
-	-> Option<gio::IOStream>;
+	fn steal_connection(&self, msg:&impl IsA<Message>) -> Option<gio::IOStream>;
 
 	#[doc(alias = "soup_session_unpause_message")]
 	fn unpause_message(&self, msg:&impl IsA<Message>);
@@ -341,10 +323,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "proxy-resolver")]
-	fn set_proxy_resolver<P:IsA<gio::ProxyResolver>>(
-		&self,
-		proxy_resolver:Option<&P>,
-	);
+	fn set_proxy_resolver<P:IsA<gio::ProxyResolver>>(&self, proxy_resolver:Option<&P>);
 
 	#[cfg_attr(feature = "v2_70", deprecated = "Since 2.70")]
 	#[doc(alias = "proxy-uri")]
@@ -357,10 +336,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "remove-feature-by-type")]
-	fn set_remove_feature_by_type(
-		&self,
-		remove_feature_by_type:glib::types::Type,
-	);
+	fn set_remove_feature_by_type(&self, remove_feature_by_type:glib::types::Type);
 
 	#[doc(alias = "ssl-ca-file")]
 	fn ssl_ca_file(&self) -> Option<glib::GString>;
@@ -400,10 +376,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "tls-database")]
-	fn set_tls_database<P:IsA<gio::TlsDatabase>>(
-		&self,
-		tls_database:Option<&P>,
-	);
+	fn set_tls_database<P:IsA<gio::TlsDatabase>>(&self, tls_database:Option<&P>);
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
@@ -413,10 +386,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "tls-interaction")]
-	fn set_tls_interaction<P:IsA<gio::TlsInteraction>>(
-		&self,
-		tls_interaction:Option<&P>,
-	);
+	fn set_tls_interaction<P:IsA<gio::TlsInteraction>>(&self, tls_interaction:Option<&P>);
 
 	#[doc(alias = "use-ntlm")]
 	fn uses_ntlm(&self) -> bool;
@@ -457,10 +427,7 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "request-queued")]
-	fn connect_request_queued<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_request_queued<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg_attr(feature = "v2_50", deprecated = "Since 2.50")]
 	#[doc(alias = "request-started")]
@@ -472,173 +439,104 @@ pub trait SessionExt: 'static {
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "request-unqueued")]
-	fn connect_request_unqueued<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_request_unqueued<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "tunneling")]
-	fn connect_tunneling<F:Fn(&Self, &glib::Object) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_tunneling<F:Fn(&Self, &glib::Object) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "accept-language")]
-	fn connect_accept_language_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_accept_language_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "accept-language-auto")]
-	fn connect_accept_language_auto_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_accept_language_auto_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "add-feature")]
-	fn connect_add_feature_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_add_feature_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "add-feature-by-type")]
-	fn connect_add_feature_by_type_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_add_feature_by_type_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "http-aliases")]
-	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "https-aliases")]
-	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "idle-timeout")]
-	fn connect_idle_timeout_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_idle_timeout_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "max-conns")]
-	fn connect_max_conns_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_max_conns_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "max-conns-per-host")]
-	fn connect_max_conns_per_host_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_max_conns_per_host_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	#[doc(alias = "proxy-resolver")]
-	fn connect_proxy_resolver_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_proxy_resolver_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg_attr(feature = "v2_70", deprecated = "Since 2.70")]
 	#[doc(alias = "proxy-uri")]
-	fn connect_proxy_uri_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_proxy_uri_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	#[doc(alias = "remove-feature-by-type")]
-	fn connect_remove_feature_by_type_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_remove_feature_by_type_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "ssl-ca-file")]
-	fn connect_ssl_ca_file_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_ssl_ca_file_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	#[doc(alias = "ssl-strict")]
-	fn connect_ssl_strict_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_ssl_strict_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "ssl-use-system-ca-file")]
-	fn connect_ssl_use_system_ca_file_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_ssl_use_system_ca_file_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "timeout")]
-	fn connect_timeout_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_timeout_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "tls-database")]
-	fn connect_tls_database_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_tls_database_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	#[doc(alias = "tls-interaction")]
-	fn connect_tls_interaction_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_tls_interaction_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "use-ntlm")]
-	fn connect_use_ntlm_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_use_ntlm_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	#[doc(alias = "use-thread-context")]
-	fn connect_use_thread_context_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_use_thread_context_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[doc(alias = "user-agent")]
-	fn connect_user_agent_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_user_agent_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<Session>> SessionExt for O {
@@ -713,18 +611,13 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn async_context(&self) -> Option<glib::MainContext> {
 		unsafe {
-			from_glib_none(ffi::soup_session_get_async_context(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_none(ffi::soup_session_get_async_context(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	#[cfg(any(feature = "v2_26", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
-	fn feature(
-		&self,
-		feature_type:glib::types::Type,
-	) -> Option<SessionFeature> {
+	fn feature(&self, feature_type:glib::types::Type) -> Option<SessionFeature> {
 		unsafe {
 			from_glib_none(ffi::soup_session_get_feature(
 				self.as_ref().to_glib_none().0,
@@ -753,12 +646,10 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_26")))]
 	fn features(&self, feature_type:glib::types::Type) -> Vec<SessionFeature> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_container(
-				ffi::soup_session_get_features(
-					self.as_ref().to_glib_none().0,
-					feature_type.into_glib(),
-				),
-			)
+			FromGlibPtrContainer::from_glib_container(ffi::soup_session_get_features(
+				self.as_ref().to_glib_none().0,
+				feature_type.into_glib(),
+			))
 		}
 	}
 
@@ -790,29 +681,21 @@ impl<O:IsA<Session>> SessionExt for O {
 		cancellable:Option<&impl IsA<gio::Cancellable>>,
 		callback:Option<Box_<dyn FnOnce(&Address, u32) + 'static>>,
 	) {
-		let callback_data:Box_<
-			Option<Box_<dyn FnOnce(&Address, u32) + 'static>>,
-		> = Box_::new(callback);
+		let callback_data:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> =
+			Box_::new(callback);
 		unsafe extern fn callback_func(
 			addr:*mut ffi::SoupAddress,
 			status:libc::c_uint,
 			user_data:glib::ffi::gpointer,
 		) {
 			let addr = from_glib_borrow(addr);
-			let callback:Box_<
-				Option<Box_<dyn FnOnce(&Address, u32) + 'static>>,
-			> = Box_::from_raw(user_data as *mut _);
+			let callback:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> =
+				Box_::from_raw(user_data as *mut _);
 			let callback = (*callback).expect("cannot get closure...");
 			callback(&addr, status)
 		}
-		let callback = if callback_data.is_some() {
-			Some(callback_func as _)
-		} else {
-			None
-		};
-		let super_callback0:Box_<
-			Option<Box_<dyn FnOnce(&Address, u32) + 'static>>,
-		> = callback_data;
+		let callback = if callback_data.is_some() { Some(callback_func as _) } else { None };
+		let super_callback0:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> = callback_data;
 		unsafe {
 			ffi::soup_session_prefetch_dns(
 				self.as_ref().to_glib_none().0,
@@ -840,9 +723,8 @@ impl<O:IsA<Session>> SessionExt for O {
 		msg:&impl IsA<Message>,
 		callback:Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>,
 	) {
-		let callback_data:Box_<
-			Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>,
-		> = Box_::new(callback);
+		let callback_data:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
+			Box_::new(callback);
 		unsafe extern fn callback_func(
 			session:*mut ffi::SoupSession,
 			msg:*mut ffi::SoupMessage,
@@ -850,20 +732,14 @@ impl<O:IsA<Session>> SessionExt for O {
 		) {
 			let session = from_glib_borrow(session);
 			let msg = from_glib_borrow(msg);
-			let callback:Box_<
-				Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>,
-			> = Box_::from_raw(user_data as *mut _);
+			let callback:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
+				Box_::from_raw(user_data as *mut _);
 			let callback = (*callback).expect("cannot get closure...");
 			callback(&session, &msg)
 		}
-		let callback = if callback_data.is_some() {
-			Some(callback_func as _)
-		} else {
-			None
-		};
-		let super_callback0:Box_<
-			Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>,
-		> = callback_data;
+		let callback = if callback_data.is_some() { Some(callback_func as _) } else { None };
+		let super_callback0:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
+			callback_data;
 		unsafe {
 			ffi::soup_session_queue_message(
 				self.as_ref().to_glib_none().0,
@@ -927,11 +803,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn request_http(
-		&self,
-		method:&str,
-		uri_string:&str,
-	) -> Result<RequestHTTP, glib::Error> {
+	fn request_http(&self, method:&str, uri_string:&str) -> Result<RequestHTTP, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let ret = ffi::soup_session_request_http(
@@ -950,11 +822,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn request_http_uri(
-		&self,
-		method:&str,
-		uri:&mut URI,
-	) -> Result<RequestHTTP, glib::Error> {
+	fn request_http_uri(&self, method:&str, uri:&mut URI) -> Result<RequestHTTP, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
 			let ret = ffi::soup_session_request_http_uri(
@@ -1023,9 +891,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn send_async<
-		P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
-	>(
+	fn send_async<P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static>(
 		&self,
 		msg:&impl IsA<Message>,
 		cancellable:Option<&impl IsA<gio::Cancellable>>,
@@ -1040,11 +906,7 @@ impl<O:IsA<Session>> SessionExt for O {
 			user_data:glib::ffi::gpointer,
 		) {
 			let mut error = ptr::null_mut();
-			let ret = ffi::soup_session_send_finish(
-				_source_object as *mut _,
-				res,
-				&mut error,
-			);
+			let ret = ffi::soup_session_send_finish(_source_object as *mut _, res, &mut error);
 			let result = if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -1070,13 +932,8 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn send_async_future(
 		&self,
 		msg:&(impl IsA<Message> + Clone + 'static),
-	) -> Pin<
-		Box_<
-			dyn std::future::Future<
-					Output = Result<gio::InputStream, glib::Error>,
-				> + 'static,
-		>,
-	> {
+	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>
+	{
 		let msg = msg.clone();
 		Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
 			obj.send_async(&msg, Some(cancellable), move |res| {
@@ -1096,10 +953,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	fn steal_connection(
-		&self,
-		msg:&impl IsA<Message>,
-	) -> Option<gio::IOStream> {
+	fn steal_connection(&self, msg:&impl IsA<Message>) -> Option<gio::IOStream> {
 		unsafe {
 			from_glib_full(ffi::soup_session_steal_connection(
 				self.as_ref().to_glib_none().0,
@@ -1132,17 +986,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn accept_language(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"accept-language\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `accept-language` getter")
+			value.get().expect("Return Value for property `accept-language` getter")
 		}
 	}
 
@@ -1162,16 +1012,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn accepts_language_auto(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"accept-language-auto\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect(
-				"Return Value for property `accept-language-auto` getter",
-			)
+			value.get().expect("Return Value for property `accept-language-auto` getter")
 		}
 	}
 
@@ -1215,17 +1062,14 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn http_aliases(&self) -> Vec<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<Vec<glib::GString> as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"http-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `http-aliases` getter")
+			value.get().expect("Return Value for property `http-aliases` getter")
 		}
 	}
 
@@ -1245,17 +1089,14 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn https_aliases(&self) -> Vec<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<Vec<glib::GString> as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"https-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `https-aliases` getter")
+			value.get().expect("Return Value for property `https-aliases` getter")
 		}
 	}
 
@@ -1275,16 +1116,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 	fn idle_timeout(&self) -> u32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<u32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"idle-timeout\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `idle-timeout` getter")
+			value.get().expect("Return Value for property `idle-timeout` getter")
 		}
 	}
 
@@ -1304,23 +1142,19 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	fn local_address(&self) -> Option<Address> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<Address as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<Address as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"local-address\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `local-address` getter")
+			value.get().expect("Return Value for property `local-address` getter")
 		}
 	}
 
 	fn max_conns(&self) -> i32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<i32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-conns\0".as_ptr() as *const _,
@@ -1342,16 +1176,13 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn max_conns_per_host(&self) -> i32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<i32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-conns-per-host\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `max-conns-per-host` getter")
+			value.get().expect("Return Value for property `max-conns-per-host` getter")
 		}
 	}
 
@@ -1369,26 +1200,20 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 	fn proxy_resolver(&self) -> Option<gio::ProxyResolver> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::ProxyResolver as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<gio::ProxyResolver as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy-resolver\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `proxy-resolver` getter")
+			value.get().expect("Return Value for property `proxy-resolver` getter")
 		}
 	}
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn set_proxy_resolver<P:IsA<gio::ProxyResolver>>(
-		&self,
-		proxy_resolver:Option<&P>,
-	) {
+	fn set_proxy_resolver<P:IsA<gio::ProxyResolver>>(&self, proxy_resolver:Option<&P>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1400,8 +1225,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn proxy_uri(&self) -> Option<URI> {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<URI as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<URI as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy-uri\0".as_ptr() as *const _,
@@ -1423,10 +1247,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn set_remove_feature_by_type(
-		&self,
-		remove_feature_by_type:glib::types::Type,
-	) {
+	fn set_remove_feature_by_type(&self, remove_feature_by_type:glib::types::Type) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1438,9 +1259,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn ssl_ca_file(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-ca-file\0".as_ptr() as *const _,
@@ -1464,8 +1283,7 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
 	fn is_ssl_strict(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-strict\0".as_ptr() as *const _,
@@ -1491,16 +1309,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn is_ssl_use_system_ca_file(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-use-system-ca-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value.get().expect(
-				"Return Value for property `ssl-use-system-ca-file` getter",
-			)
+			value.get().expect("Return Value for property `ssl-use-system-ca-file` getter")
 		}
 	}
 
@@ -1518,8 +1333,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn timeout(&self) -> u32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<u32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"timeout\0".as_ptr() as *const _,
@@ -1543,26 +1357,19 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn tls_database(&self) -> Option<gio::TlsDatabase> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::TlsDatabase as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<gio::TlsDatabase as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-database\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `tls-database` getter")
+			value.get().expect("Return Value for property `tls-database` getter")
 		}
 	}
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn set_tls_database<P:IsA<gio::TlsDatabase>>(
-		&self,
-		tls_database:Option<&P>,
-	) {
+	fn set_tls_database<P:IsA<gio::TlsDatabase>>(&self, tls_database:Option<&P>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1576,26 +1383,20 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 	fn tls_interaction(&self) -> Option<gio::TlsInteraction> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<gio::TlsInteraction as StaticType>::static_type(),
-			);
+			let mut value =
+				glib::Value::from_type(<gio::TlsInteraction as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-interaction\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `tls-interaction` getter")
+			value.get().expect("Return Value for property `tls-interaction` getter")
 		}
 	}
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn set_tls_interaction<P:IsA<gio::TlsInteraction>>(
-		&self,
-		tls_interaction:Option<&P>,
-	) {
+	fn set_tls_interaction<P:IsA<gio::TlsInteraction>>(&self, tls_interaction:Option<&P>) {
 		unsafe {
 			glib::gobject_ffi::g_object_set_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
@@ -1607,8 +1408,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn uses_ntlm(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"use-ntlm\0".as_ptr() as *const _,
@@ -1632,16 +1432,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
 	fn uses_thread_context(&self) -> bool {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<bool as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"use-thread-context\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `use-thread-context` getter")
+			value.get().expect("Return Value for property `use-thread-context` getter")
 		}
 	}
 
@@ -1659,9 +1456,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	fn user_agent(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"user-agent\0".as_ptr() as *const _,
@@ -1731,10 +1526,7 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Session::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(connection),
-			)
+			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(connection))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1751,23 +1543,14 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_request_queued<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn request_queued_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P, &Message) + 'static,
-		>(
+	fn connect_request_queued<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn request_queued_trampoline<P:IsA<Session>, F:Fn(&P, &Message) + 'static>(
 			this:*mut ffi::SoupSession,
 			msg:*mut ffi::SoupMessage,
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Session::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(msg),
-			)
+			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(msg))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1817,10 +1600,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_request_unqueued<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_request_unqueued<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn request_unqueued_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P, &Message) + 'static,
@@ -1830,10 +1610,7 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Session::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(msg),
-			)
+			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(msg))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1850,23 +1627,14 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_tunneling<F:Fn(&Self, &glib::Object) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn tunneling_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P, &glib::Object) + 'static,
-		>(
+	fn connect_tunneling<F:Fn(&Self, &glib::Object) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn tunneling_trampoline<P:IsA<Session>, F:Fn(&P, &glib::Object) + 'static>(
 			this:*mut ffi::SoupSession,
 			connection:*mut glib::gobject_ffi::GObject,
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
-			f(
-				Session::from_glib_borrow(this).unsafe_cast_ref(),
-				&from_glib_borrow(connection),
-			)
+			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(connection))
 		}
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
@@ -1883,14 +1651,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_accept_language_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_accept_language_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_accept_language_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_accept_language_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1913,10 +1675,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_accept_language_auto_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_accept_language_auto_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_accept_language_auto_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -1934,8 +1693,7 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::accept-language-auto\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_accept_language_auto_trampoline::<Self, F>
-						as *const (),
+					notify_accept_language_auto_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -1944,14 +1702,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_add_feature_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_add_feature_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_add_feature_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_add_feature_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -1974,10 +1726,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_add_feature_by_type_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_add_feature_by_type_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_add_feature_by_type_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -1995,8 +1744,7 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::add-feature-by-type\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_add_feature_by_type_trampoline::<Self, F>
-						as *const (),
+					notify_add_feature_by_type_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -2005,14 +1753,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_http_aliases_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_http_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_http_aliases_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2035,14 +1777,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_https_aliases_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_https_aliases_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_https_aliases_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2065,14 +1801,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_idle_timeout_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_idle_timeout_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_idle_timeout_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_idle_timeout_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2093,14 +1823,8 @@ impl<O:IsA<Session>> SessionExt for O {
 		}
 	}
 
-	fn connect_max_conns_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_max_conns_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_max_conns_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_max_conns_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2121,10 +1845,7 @@ impl<O:IsA<Session>> SessionExt for O {
 		}
 	}
 
-	fn connect_max_conns_per_host_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_max_conns_per_host_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_max_conns_per_host_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -2142,8 +1863,7 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::max-conns-per-host\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_max_conns_per_host_trampoline::<Self, F>
-						as *const (),
+					notify_max_conns_per_host_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -2152,14 +1872,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_42", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-	fn connect_proxy_resolver_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_proxy_resolver_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_proxy_resolver_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_proxy_resolver_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2180,14 +1894,8 @@ impl<O:IsA<Session>> SessionExt for O {
 		}
 	}
 
-	fn connect_proxy_uri_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_proxy_uri_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_proxy_uri_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_proxy_uri_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2210,10 +1918,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_24", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-	fn connect_remove_feature_by_type_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_remove_feature_by_type_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_remove_feature_by_type_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -2231,22 +1936,15 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::remove-feature-by-type\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_remove_feature_by_type_trampoline::<Self, F>
-						as *const (),
+					notify_remove_feature_by_type_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_ssl_ca_file_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_ssl_ca_file_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_ssl_ca_file_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_ssl_ca_file_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2269,14 +1967,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_30", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_30")))]
-	fn connect_ssl_strict_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_ssl_strict_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_ssl_strict_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_ssl_strict_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2299,10 +1991,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_ssl_use_system_ca_file_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_ssl_use_system_ca_file_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_ssl_use_system_ca_file_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -2320,22 +2009,15 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::ssl-use-system-ca-file\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_ssl_use_system_ca_file_trampoline::<Self, F>
-						as *const (),
+					notify_ssl_use_system_ca_file_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_timeout_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_timeout_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_timeout_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_timeout_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2358,14 +2040,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_tls_database_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_tls_database_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_tls_database_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_tls_database_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2388,14 +2064,8 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_48", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
-	fn connect_tls_interaction_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_tls_interaction_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_tls_interaction_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_tls_interaction_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2416,14 +2086,8 @@ impl<O:IsA<Session>> SessionExt for O {
 		}
 	}
 
-	fn connect_use_ntlm_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_use_ntlm_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_use_ntlm_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_use_ntlm_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2446,10 +2110,7 @@ impl<O:IsA<Session>> SessionExt for O {
 
 	#[cfg(any(feature = "v2_38", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-	fn connect_use_thread_context_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_use_thread_context_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_use_thread_context_trampoline<
 			P:IsA<Session>,
 			F:Fn(&P) + 'static,
@@ -2467,22 +2128,15 @@ impl<O:IsA<Session>> SessionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::use-thread-context\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_use_thread_context_trampoline::<Self, F>
-						as *const (),
+					notify_use_thread_context_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
 		}
 	}
 
-	fn connect_user_agent_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_user_agent_trampoline<
-			P:IsA<Session>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_user_agent_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_user_agent_trampoline<P:IsA<Session>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupSession,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -2505,7 +2159,5 @@ impl<O:IsA<Session>> SessionExt for O {
 }
 
 impl fmt::Display for Session {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Session")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Session") }
 }

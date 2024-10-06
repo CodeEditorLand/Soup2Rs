@@ -34,7 +34,5 @@ impl RequestData {}
 pub const NONE_REQUEST_DATA:Option<&RequestData> = None;
 
 impl fmt::Display for RequestData {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("RequestData")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("RequestData") }
 }

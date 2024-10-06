@@ -34,7 +34,5 @@ impl ContentDecoder {}
 pub const NONE_CONTENT_DECODER:Option<&ContentDecoder> = None;
 
 impl fmt::Display for ContentDecoder {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("ContentDecoder")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("ContentDecoder") }
 }

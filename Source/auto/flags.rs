@@ -27,9 +27,7 @@ bitflags! {
 }
 
 impl fmt::Display for Cacheability {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		<Self as fmt::Debug>::fmt(self, f)
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { <Self as fmt::Debug>::fmt(self, f) }
 }
 
 #[doc(hidden)]
@@ -48,9 +46,7 @@ impl FromGlib<ffi::SoupCacheability> for Cacheability {
 }
 
 impl StaticType for Cacheability {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_cacheability_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_cacheability_get_type()) } }
 }
 
 impl glib::value::ValueType for Cacheability {
@@ -70,10 +66,7 @@ impl ToValue for Cacheability {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -92,9 +85,7 @@ bitflags! {
 }
 
 impl fmt::Display for Expectation {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		<Self as fmt::Debug>::fmt(self, f)
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { <Self as fmt::Debug>::fmt(self, f) }
 }
 
 #[doc(hidden)]
@@ -113,9 +104,7 @@ impl FromGlib<ffi::SoupExpectation> for Expectation {
 }
 
 impl StaticType for Expectation {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_expectation_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_expectation_get_type()) } }
 }
 
 impl glib::value::ValueType for Expectation {
@@ -135,10 +124,7 @@ impl ToValue for Expectation {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -171,9 +157,7 @@ bitflags! {
 }
 
 impl fmt::Display for MessageFlags {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		<Self as fmt::Debug>::fmt(self, f)
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { <Self as fmt::Debug>::fmt(self, f) }
 }
 
 #[doc(hidden)]
@@ -192,9 +176,7 @@ impl FromGlib<ffi::SoupMessageFlags> for MessageFlags {
 }
 
 impl StaticType for MessageFlags {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_message_flags_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_message_flags_get_type()) } }
 }
 
 impl glib::value::ValueType for MessageFlags {
@@ -214,10 +196,7 @@ impl ToValue for MessageFlags {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}
@@ -242,9 +221,7 @@ bitflags! {
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 impl fmt::Display for ServerListenOptions {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		<Self as fmt::Debug>::fmt(self, f)
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { <Self as fmt::Debug>::fmt(self, f) }
 }
 
 #[cfg(any(feature = "v2_48", feature = "dox"))]
@@ -269,9 +246,7 @@ impl FromGlib<ffi::SoupServerListenOptions> for ServerListenOptions {
 #[cfg(any(feature = "v2_48", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_48")))]
 impl StaticType for ServerListenOptions {
-	fn static_type() -> Type {
-		unsafe { from_glib(ffi::soup_server_listen_options_get_type()) }
-	}
+	fn static_type() -> Type { unsafe { from_glib(ffi::soup_server_listen_options_get_type()) } }
 }
 
 #[cfg(any(feature = "v2_48", feature = "dox"))]
@@ -297,10 +272,7 @@ impl ToValue for ServerListenOptions {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
 		unsafe {
-			glib::gobject_ffi::g_value_set_flags(
-				value.to_glib_none_mut().0,
-				self.into_glib(),
-			);
+			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
 		value
 	}

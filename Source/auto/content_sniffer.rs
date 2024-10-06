@@ -71,11 +71,7 @@ impl<O:IsA<ContentSniffer>> ContentSnifferExt for O {
 	#[cfg(any(feature = "v2_28", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_28")))]
 	fn buffer_size(&self) -> usize {
-		unsafe {
-			ffi::soup_content_sniffer_get_buffer_size(
-				self.as_ref().to_glib_none().0,
-			)
-		}
+		unsafe { ffi::soup_content_sniffer_get_buffer_size(self.as_ref().to_glib_none().0) }
 	}
 
 	//#[cfg(any(feature = "v2_28", feature = "dox"))]
@@ -88,7 +84,5 @@ impl<O:IsA<ContentSniffer>> ContentSnifferExt for O {
 }
 
 impl fmt::Display for ContentSniffer {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("ContentSniffer")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("ContentSniffer") }
 }

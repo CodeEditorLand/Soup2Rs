@@ -54,12 +54,7 @@ impl Logger {
 	#[doc(alias = "soup_logger_new")]
 	pub fn new(level:LoggerLogLevel, max_body_size:i32) -> Logger {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_logger_new(
-				level.into_glib(),
-				max_body_size,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_logger_new(level.into_glib(), max_body_size)) }
 	}
 }
 
@@ -83,9 +78,7 @@ pub trait LoggerExt: 'static {
 	);
 
 	#[doc(alias = "soup_logger_set_response_filter")]
-	fn set_response_filter<
-		P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
-	>(
+	fn set_response_filter<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 		&self,
 		response_filter:P,
 	);
@@ -111,18 +104,12 @@ pub trait LoggerExt: 'static {
 	#[cfg(any(feature = "v2_56", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 	#[doc(alias = "level")]
-	fn connect_level_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_level_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_56", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 	#[doc(alias = "max-body-size")]
-	fn connect_max_body_size_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_max_body_size_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<Logger>> LoggerExt for O {
@@ -148,9 +135,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 		}
 	}
 
-	fn set_request_filter<
-		P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
-	>(
+	fn set_request_filter<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 		&self,
 		request_filter:P,
 	) {
@@ -169,9 +154,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			res.into_glib()
 		}
 		let request_filter = Some(request_filter_func::<P> as _);
-		unsafe extern fn destroy_func<
-			P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
-		>(
+		unsafe extern fn destroy_func<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
@@ -188,9 +171,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 		}
 	}
 
-	fn set_response_filter<
-		P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
-	>(
+	fn set_response_filter<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 		&self,
 		response_filter:P,
 	) {
@@ -209,9 +190,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			res.into_glib()
 		}
 		let response_filter = Some(response_filter_func::<P> as _);
-		unsafe extern fn destroy_func<
-			P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
-		>(
+		unsafe extern fn destroy_func<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
@@ -232,9 +211,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 	fn level(&self) -> LoggerLogLevel {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<LoggerLogLevel as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<LoggerLogLevel as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"level\0".as_ptr() as *const _,
@@ -260,16 +237,13 @@ impl<O:IsA<Logger>> LoggerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 	fn max_body_size(&self) -> i32 {
 		unsafe {
-			let mut value =
-				glib::Value::from_type(<i32 as StaticType>::static_type());
+			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-body-size\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
-			value
-				.get()
-				.expect("Return Value for property `max-body-size` getter")
+			value.get().expect("Return Value for property `max-body-size` getter")
 		}
 	}
 
@@ -287,14 +261,8 @@ impl<O:IsA<Logger>> LoggerExt for O {
 
 	#[cfg(any(feature = "v2_56", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-	fn connect_level_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_level_trampoline<
-			P:IsA<Logger>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_level_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_level_trampoline<P:IsA<Logger>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupLogger,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -317,14 +285,8 @@ impl<O:IsA<Logger>> LoggerExt for O {
 
 	#[cfg(any(feature = "v2_56", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-	fn connect_max_body_size_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_max_body_size_trampoline<
-			P:IsA<Logger>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_max_body_size_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_max_body_size_trampoline<P:IsA<Logger>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupLogger,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -347,7 +309,5 @@ impl<O:IsA<Logger>> LoggerExt for O {
 }
 
 impl fmt::Display for Logger {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Logger")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Logger") }
 }

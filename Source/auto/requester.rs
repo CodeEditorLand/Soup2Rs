@@ -105,7 +105,5 @@ impl<O:IsA<Requester>> RequesterExt for O {
 }
 
 impl fmt::Display for Requester {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("Requester")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("Requester") }
 }

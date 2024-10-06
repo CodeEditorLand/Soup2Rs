@@ -48,16 +48,10 @@ impl<O:IsA<RequestFile>> RequestFileExt for O {
 	#[cfg(any(feature = "v2_40", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 	fn file(&self) -> Option<gio::File> {
-		unsafe {
-			from_glib_full(ffi::soup_request_file_get_file(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib_full(ffi::soup_request_file_get_file(self.as_ref().to_glib_none().0)) }
 	}
 }
 
 impl fmt::Display for RequestFile {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("RequestFile")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("RequestFile") }
 }

@@ -18,7 +18,5 @@ glib::wrapper! {
 impl AuthBasic {}
 
 impl fmt::Display for AuthBasic {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthBasic")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthBasic") }
 }

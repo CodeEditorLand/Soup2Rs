@@ -23,7 +23,8 @@ glib::wrapper! {
 
 impl AuthDomainBasic {
 	//#[doc(alias = "soup_auth_domain_basic_new")]
-	// pub fn new(optname1: &str, : /*Unknown conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainBasic {
+	// pub fn new(optname1: &str, : /*Unknown
+	// conversion*//*Unimplemented*/Fundamental: VarArgs) -> AuthDomainBasic {
 	//    unsafe { TODO: call ffi:soup_auth_domain_basic_new() }
 	//}
 }
@@ -32,9 +33,7 @@ pub const NONE_AUTH_DOMAIN_BASIC:Option<&AuthDomainBasic> = None;
 
 pub trait AuthDomainBasicExt: 'static {
 	#[doc(alias = "soup_auth_domain_basic_set_auth_callback")]
-	fn set_auth_callback<
-		P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static,
-	>(
+	fn set_auth_callback<P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static>(
 		&self,
 		callback:P,
 	);
@@ -47,16 +46,11 @@ pub trait AuthDomainBasicExt: 'static {
 	// Pointer);
 
 	#[doc(alias = "auth-data")]
-	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
-	fn set_auth_callback<
-		P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static,
-	>(
+	fn set_auth_callback<P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static>(
 		&self,
 		callback:P,
 	) {
@@ -75,12 +69,7 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 			let username:Borrowed<glib::GString> = from_glib_borrow(username);
 			let password:Borrowed<glib::GString> = from_glib_borrow(password);
 			let callback:&P = &*(user_data as *mut _);
-			let res = (*callback)(
-				&domain,
-				&msg,
-				username.as_str(),
-				password.as_str(),
-			);
+			let res = (*callback)(&domain, &msg, username.as_str(), password.as_str());
 			res.into_glib()
 		}
 		let callback = Some(callback_func::<P> as _);
@@ -120,14 +109,8 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 	// auth_data.to_value().to_glib_none().0);    }
 	//}
 
-	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_auth_data_trampoline<
-			P:IsA<AuthDomainBasic>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_auth_data_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_auth_data_trampoline<P:IsA<AuthDomainBasic>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupAuthDomainBasic,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -150,7 +133,5 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 }
 
 impl fmt::Display for AuthDomainBasic {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("AuthDomainBasic")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthDomainBasic") }
 }

@@ -96,7 +96,5 @@ impl<O:IsA<SessionFeature>> SessionFeatureExt for O {
 }
 
 impl fmt::Display for SessionFeature {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("SessionFeature")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("SessionFeature") }
 }

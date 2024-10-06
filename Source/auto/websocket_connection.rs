@@ -153,34 +153,22 @@ pub trait WebsocketConnectionExt: 'static {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	#[doc(alias = "error")]
-	fn connect_error<F:Fn(&Self, &glib::Error) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_error<F:Fn(&Self, &glib::Error) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	#[doc(alias = "message")]
-	fn connect_message<F:Fn(&Self, i32, &glib::Bytes) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_message<F:Fn(&Self, i32, &glib::Bytes) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_60", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
 	#[doc(alias = "pong")]
-	fn connect_pong<F:Fn(&Self, &glib::Bytes) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_pong<F:Fn(&Self, &glib::Bytes) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_58", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 	#[doc(alias = "keepalive-interval")]
-	fn connect_keepalive_interval_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_keepalive_interval_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 
 	#[cfg(any(feature = "v2_56", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
@@ -193,10 +181,7 @@ pub trait WebsocketConnectionExt: 'static {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	#[doc(alias = "state")]
-	fn connect_state_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_state_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
@@ -211,11 +196,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 	}
 
 	fn close_code(&self) -> libc::c_ushort {
-		unsafe {
-			ffi::soup_websocket_connection_get_close_code(
-				self.as_ref().to_glib_none().0,
-			)
-		}
+		unsafe { ffi::soup_websocket_connection_get_close_code(self.as_ref().to_glib_none().0) }
 	}
 
 	fn close_data(&self) -> Option<glib::GString> {
@@ -238,11 +219,9 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn extensions(&self) -> Vec<WebsocketExtension> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_none(
-				ffi::soup_websocket_connection_get_extensions(
-					self.as_ref().to_glib_none().0,
-				),
-			)
+			FromGlibPtrContainer::from_glib_none(ffi::soup_websocket_connection_get_extensions(
+				self.as_ref().to_glib_none().0,
+			))
 		}
 	}
 
@@ -258,9 +237,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
 	fn keepalive_interval(&self) -> u32 {
 		unsafe {
-			ffi::soup_websocket_connection_get_keepalive_interval(
-				self.as_ref().to_glib_none().0,
-			)
+			ffi::soup_websocket_connection_get_keepalive_interval(self.as_ref().to_glib_none().0)
 		}
 	}
 
@@ -292,17 +269,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	fn state(&self) -> WebsocketState {
 		unsafe {
-			from_glib(ffi::soup_websocket_connection_get_state(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib(ffi::soup_websocket_connection_get_state(self.as_ref().to_glib_none().0))
 		}
 	}
 
 	fn uri(&self) -> Option<URI> {
 		unsafe {
-			from_glib_none(ffi::soup_websocket_connection_get_uri(
-				self.as_ref().to_glib_none().0,
-			))
+			from_glib_none(ffi::soup_websocket_connection_get_uri(self.as_ref().to_glib_none().0))
 		}
 	}
 
@@ -340,10 +313,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	fn connect_closed<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn closed_trampoline<
-			P:IsA<WebsocketConnection>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn closed_trampoline<P:IsA<WebsocketConnection>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupWebsocketConnection,
 			f:glib::ffi::gpointer,
 		) {
@@ -355,9 +325,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"closed\0".as_ptr() as *const _,
-				Some(transmute::<_, unsafe extern fn()>(
-					closed_trampoline::<Self, F> as *const (),
-				)),
+				Some(transmute::<_, unsafe extern fn()>(closed_trampoline::<Self, F> as *const ())),
 				Box_::into_raw(f),
 			)
 		}
@@ -366,10 +334,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	fn connect_closing<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
-		unsafe extern fn closing_trampoline<
-			P:IsA<WebsocketConnection>,
-			F:Fn(&P) + 'static,
-		>(
+		unsafe extern fn closing_trampoline<P:IsA<WebsocketConnection>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupWebsocketConnection,
 			f:glib::ffi::gpointer,
 		) {
@@ -391,10 +356,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	fn connect_error<F:Fn(&Self, &glib::Error) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_error<F:Fn(&Self, &glib::Error) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn error_trampoline<
 			P:IsA<WebsocketConnection>,
 			F:Fn(&P, &glib::Error) + 'static,
@@ -414,9 +376,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"error\0".as_ptr() as *const _,
-				Some(transmute::<_, unsafe extern fn()>(
-					error_trampoline::<Self, F> as *const (),
-				)),
+				Some(transmute::<_, unsafe extern fn()>(error_trampoline::<Self, F> as *const ())),
 				Box_::into_raw(f),
 			)
 		}
@@ -424,10 +384,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	fn connect_message<F:Fn(&Self, i32, &glib::Bytes) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_message<F:Fn(&Self, i32, &glib::Bytes) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn message_trampoline<
 			P:IsA<WebsocketConnection>,
 			F:Fn(&P, i32, &glib::Bytes) + 'static,
@@ -459,10 +416,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	#[cfg(any(feature = "v2_60", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_60")))]
-	fn connect_pong<F:Fn(&Self, &glib::Bytes) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_pong<F:Fn(&Self, &glib::Bytes) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn pong_trampoline<
 			P:IsA<WebsocketConnection>,
 			F:Fn(&P, &glib::Bytes) + 'static,
@@ -482,9 +436,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"pong\0".as_ptr() as *const _,
-				Some(transmute::<_, unsafe extern fn()>(
-					pong_trampoline::<Self, F> as *const (),
-				)),
+				Some(transmute::<_, unsafe extern fn()>(pong_trampoline::<Self, F> as *const ())),
 				Box_::into_raw(f),
 			)
 		}
@@ -492,10 +444,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	#[cfg(any(feature = "v2_58", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_58")))]
-	fn connect_keepalive_interval_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_keepalive_interval_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn notify_keepalive_interval_trampoline<
 			P:IsA<WebsocketConnection>,
 			F:Fn(&P) + 'static,
@@ -513,8 +462,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::keepalive-interval\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_keepalive_interval_trampoline::<Self, F>
-						as *const (),
+					notify_keepalive_interval_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -544,8 +492,7 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 				self.as_ptr() as *mut _,
 				b"notify::max-incoming-payload-size\0".as_ptr() as *const _,
 				Some(transmute::<_, unsafe extern fn()>(
-					notify_max_incoming_payload_size_trampoline::<Self, F>
-						as *const (),
+					notify_max_incoming_payload_size_trampoline::<Self, F> as *const (),
 				)),
 				Box_::into_raw(f),
 			)
@@ -554,14 +501,8 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-	fn connect_state_notify<F:Fn(&Self) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
-		unsafe extern fn notify_state_trampoline<
-			P:IsA<WebsocketConnection>,
-			F:Fn(&P) + 'static,
-		>(
+	fn connect_state_notify<F:Fn(&Self) + 'static>(&self, f:F) -> SignalHandlerId {
+		unsafe extern fn notify_state_trampoline<P:IsA<WebsocketConnection>, F:Fn(&P) + 'static>(
 			this:*mut ffi::SoupWebsocketConnection,
 			_param_spec:glib::ffi::gpointer,
 			f:glib::ffi::gpointer,
@@ -584,7 +525,5 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 }
 
 impl fmt::Display for WebsocketConnection {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("WebsocketConnection")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("WebsocketConnection") }
 }

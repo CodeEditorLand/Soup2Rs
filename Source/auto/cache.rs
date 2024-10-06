@@ -39,10 +39,7 @@ impl Cache {
 	pub fn new(cache_dir:Option<&str>, cache_type:CacheType) -> Cache {
 		crate::assert_initialized_main_thread!();
 		unsafe {
-			from_glib_full(ffi::soup_cache_new(
-				cache_dir.to_glib_none().0,
-				cache_type.into_glib(),
-			))
+			from_glib_full(ffi::soup_cache_new(cache_dir.to_glib_none().0, cache_type.into_glib()))
 		}
 	}
 }
@@ -131,18 +128,13 @@ impl<O:IsA<Cache>> CacheExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_34")))]
 	fn set_max_size(&self, max_size:u32) {
 		unsafe {
-			ffi::soup_cache_set_max_size(
-				self.as_ref().to_glib_none().0,
-				max_size,
-			);
+			ffi::soup_cache_set_max_size(self.as_ref().to_glib_none().0, max_size);
 		}
 	}
 
 	fn cache_dir(&self) -> Option<glib::GString> {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<glib::GString as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"cache-dir\0".as_ptr() as *const _,
@@ -154,9 +146,7 @@ impl<O:IsA<Cache>> CacheExt for O {
 
 	fn cache_type(&self) -> CacheType {
 		unsafe {
-			let mut value = glib::Value::from_type(
-				<CacheType as StaticType>::static_type(),
-			);
+			let mut value = glib::Value::from_type(<CacheType as StaticType>::static_type());
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"cache-type\0".as_ptr() as *const _,

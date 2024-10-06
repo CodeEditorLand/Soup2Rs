@@ -94,10 +94,7 @@ pub trait HSTSEnforcerExt: 'static {
 	) -> SignalHandlerId;
 
 	#[doc(alias = "hsts-enforced")]
-	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId;
+	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId;
 }
 
 impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
@@ -105,12 +102,10 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn domains(&self, session_policies:bool) -> Vec<glib::GString> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(
-				ffi::soup_hsts_enforcer_get_domains(
-					self.as_ref().to_glib_none().0,
-					session_policies.into_glib(),
-				),
-			)
+			FromGlibPtrContainer::from_glib_full(ffi::soup_hsts_enforcer_get_domains(
+				self.as_ref().to_glib_none().0,
+				session_policies.into_glib(),
+			))
 		}
 	}
 
@@ -118,12 +113,10 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn policies(&self, session_policies:bool) -> Vec<HSTSPolicy> {
 		unsafe {
-			FromGlibPtrContainer::from_glib_full(
-				ffi::soup_hsts_enforcer_get_policies(
-					self.as_ref().to_glib_none().0,
-					session_policies.into_glib(),
-				),
-			)
+			FromGlibPtrContainer::from_glib_full(ffi::soup_hsts_enforcer_get_policies(
+				self.as_ref().to_glib_none().0,
+				session_policies.into_glib(),
+			))
 		}
 	}
 
@@ -141,11 +134,7 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 	fn is_persistent(&self) -> bool {
-		unsafe {
-			from_glib(ffi::soup_hsts_enforcer_is_persistent(
-				self.as_ref().to_glib_none().0,
-			))
-		}
+		unsafe { from_glib(ffi::soup_hsts_enforcer_is_persistent(self.as_ref().to_glib_none().0)) }
 	}
 
 	#[cfg(any(feature = "v2_68", feature = "dox"))]
@@ -204,10 +193,7 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 		}
 	}
 
-	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(
-		&self,
-		f:F,
-	) -> SignalHandlerId {
+	fn connect_hsts_enforced<F:Fn(&Self, &Message) + 'static>(&self, f:F) -> SignalHandlerId {
 		unsafe extern fn hsts_enforced_trampoline<
 			P:IsA<HSTSEnforcer>,
 			F:Fn(&P, &Message) + 'static,
@@ -237,7 +223,5 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 }
 
 impl fmt::Display for HSTSEnforcer {
-	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result {
-		f.write_str("HSTSEnforcer")
-	}
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("HSTSEnforcer") }
 }

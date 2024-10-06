@@ -23,17 +23,12 @@ impl Multipart {
 	#[doc(alias = "soup_multipart_new")]
 	pub fn new(mime_type:&str) -> Multipart {
 		crate::assert_initialized_main_thread!();
-		unsafe {
-			from_glib_full(ffi::soup_multipart_new(mime_type.to_glib_none().0))
-		}
+		unsafe { from_glib_full(ffi::soup_multipart_new(mime_type.to_glib_none().0)) }
 	}
 
 	#[doc(alias = "soup_multipart_new_from_message")]
 	#[doc(alias = "new_from_message")]
-	pub fn from_message(
-		headers:&mut MessageHeaders,
-		body:&mut MessageBody,
-	) -> Option<Multipart> {
+	pub fn from_message(headers:&mut MessageHeaders, body:&mut MessageBody) -> Option<Multipart> {
 		crate::assert_initialized_main_thread!();
 		unsafe {
 			from_glib_full(ffi::soup_multipart_new_from_message(
@@ -74,11 +69,7 @@ impl Multipart {
 	}
 
 	#[doc(alias = "soup_multipart_append_part")]
-	pub fn append_part(
-		&mut self,
-		headers:&mut MessageHeaders,
-		body:&mut Buffer,
-	) {
+	pub fn append_part(&mut self, headers:&mut MessageHeaders, body:&mut Buffer) {
 		unsafe {
 			ffi::soup_multipart_append_part(
 				self.to_glib_none_mut().0,
@@ -106,20 +97,12 @@ impl Multipart {
 				&mut headers,
 				&mut body,
 			));
-			if ret {
-				Some((from_glib_none(headers), from_glib_none(body)))
-			} else {
-				None
-			}
+			if ret { Some((from_glib_none(headers), from_glib_none(body))) } else { None }
 		}
 	}
 
 	#[doc(alias = "soup_multipart_to_message")]
-	pub fn to_message(
-		&mut self,
-		dest_headers:&mut MessageHeaders,
-		dest_body:&mut MessageBody,
-	) {
+	pub fn to_message(&mut self, dest_headers:&mut MessageHeaders, dest_body:&mut MessageBody) {
 		unsafe {
 			ffi::soup_multipart_to_message(
 				self.to_glib_none_mut().0,
