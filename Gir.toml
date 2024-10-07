@@ -9,11 +9,7 @@ generate_safety_asserts = true
 deprecate_by_min_version = true
 single_version_file = true
 
-external_libraries = [
-   "GLib",
-   "GObject",
-   "Gio",
-]
+external_libraries = ["GLib", "GObject", "Gio"]
 
 generate = [
 	# "Soup.*",
@@ -130,203 +126,202 @@ manual = [
 	"GLib.Variant",
 	"GLib.Value",
 	"GLib.ValueArray",
-	"GObject.Object"
+	"GObject.Object",
 ]
 
 [[object]]
-name="Soup.RequestHTTP"
-status="generate"
-version="2.42" # Soup.Request only appears in 2.42, and this is a subclass of it.
+name = "Soup.RequestHTTP"
+status = "generate"
+version = "2.42"          # Soup.Request only appears in 2.42, and this is a subclass of it.
 
 [[object]]
-name="Soup.Server"
-status="generate"
-	[[object.function]]
-	name="add_websocket_handler"
-	version="2.68"
+name = "Soup.Server"
+status = "generate"
+[[object.function]]
+name = "add_websocket_handler"
+version = "2.68"
 
 [[object]]
 name = "Soup.Session"
 status = "generate"
-	[[object.function]]
-	name = "websocket_connect_async"
-	ignore = true
+[[object.function]]
+name = "websocket_connect_async"
+ignore = true
 
 [[object]]
-name="Soup.Socket"
+name = "Soup.Socket"
 status = "generate"
-    [[object.function]]
-    name = "write"
-    ignore = true
-	[[object.function]]
-    name = "read"
-    ignore = true
+[[object.function]]
+name = "write"
+ignore = true
+[[object.function]]
+name = "read"
+ignore = true
 
 [[object]]
-name="Soup.Logger"
+name = "Soup.Logger"
 status = "generate"
-    [[object.function]]
-    name = "set_printer"
-    ignore = true
+[[object.function]]
+name = "set_printer"
+ignore = true
 
 [[object]]
-name="Soup.RequestData"
-status = "generate"
-version = "v2_42"
-
-[[object]]
-name="Soup.RequestFile"
+name = "Soup.RequestData"
 status = "generate"
 version = "v2_42"
 
 [[object]]
-name="Soup.MessageBody"
+name = "Soup.RequestFile"
 status = "generate"
-    [[object.function]]
-    name = "append"
-    ignore = true
+version = "v2_42"
 
 [[object]]
-name="Soup.URI"
+name = "Soup.MessageBody"
 status = "generate"
-    [[object.function]]
-    name = "equal"
-	ignore= true
-	[[object.function]]
-	name="host_equal"
-	ignore=true
-	[[object.function]]
-	name="host_hash"
-	ignore=true
+[[object.function]]
+name = "append"
+ignore = true
 
 [[object]]
-name="Soup.Cookie"
+name = "Soup.URI"
 status = "generate"
-    [[object.function]]
-    name = "equal"
-	ignore= true
+[[object.function]]
+name = "equal"
+ignore = true
+[[object.function]]
+name = "host_equal"
+ignore = true
+[[object.function]]
+name = "host_hash"
+ignore = true
 
 [[object]]
-name="Soup.CookieJar"
+name = "Soup.Cookie"
 status = "generate"
-    [[object.function]]
-    name = "add_cookie"
-	ignore= true
-    [[object.function]]
-    name = "add_cookie_with_first_party"
-	ignore= true
-    [[object.function]]
-    name = "add_cookie_full"
-	ignore= true
-    [[object.function]]
-    name = "get_cookie_list_with_same_site_info"
-	ignore= true
+[[object.function]]
+name = "equal"
+ignore = true
 
 [[object]]
-name="Soup.Address"
-status="generate"
-	[[object.function]]
-	name = "equal_by_name"
-	ignore = true
-	[[object.function]]
-	name = "equal_by_ip"
-	ignore = true
-	[[object.function]]
-	name = "hash_by_ip"
-	ignore = true
-	[[object.function]]
-	name = "hash_by_name"
-	ignore = true
+name = "Soup.CookieJar"
+status = "generate"
+[[object.function]]
+name = "add_cookie"
+ignore = true
+[[object.function]]
+name = "add_cookie_with_first_party"
+ignore = true
+[[object.function]]
+name = "add_cookie_full"
+ignore = true
+[[object.function]]
+name = "get_cookie_list_with_same_site_info"
+ignore = true
 
 [[object]]
-name="Soup.WebsocketConnection"
-status="generate"
-	[[object.function]]
-	name = "send_binary"
-	ignore = true
-	[[object.function]]
-	name = "send_message"
-	ignore = true
+name = "Soup.Address"
+status = "generate"
+[[object.function]]
+name = "equal_by_name"
+ignore = true
+[[object.function]]
+name = "equal_by_ip"
+ignore = true
+[[object.function]]
+name = "hash_by_ip"
+ignore = true
+[[object.function]]
+name = "hash_by_name"
+ignore = true
 
 [[object]]
-name="Soup.WebsocketExtensionDeflate"
-version="2.68"
-status="generate"
+name = "Soup.WebsocketConnection"
+status = "generate"
+[[object.function]]
+name = "send_binary"
+ignore = true
+[[object.function]]
+name = "send_message"
+ignore = true
 
 [[object]]
-name="Soup.MultipartInputStream"
-status="generate"
-	[[object.function]]
-	name="next_part_async"
-	ignore=true
+name = "Soup.WebsocketExtensionDeflate"
+version = "2.68"
+status = "generate"
 
 [[object]]
-name="Soup.AuthDomain"
-status="generate"
-	[[object.property]]
-	name="filter"
-	ignore=true
-	[[object.property]]
-	name="generic-auth-callback"
-	ignore=true
+name = "Soup.MultipartInputStream"
+status = "generate"
+[[object.function]]
+name = "next_part_async"
+ignore = true
 
 [[object]]
-name="Soup.AuthDomainBasic"
-status="generate"
-	[[object.property]]
-	name="auth-callback"
-	ignore=true
+name = "Soup.AuthDomain"
+status = "generate"
+[[object.property]]
+name = "filter"
+ignore = true
+[[object.property]]
+name = "generic-auth-callback"
+ignore = true
 
 [[object]]
-name="Soup.AuthDomainDigest"
-status="generate"
-	[[object.property]]
-	name="auth-callback"
-	ignore=true
+name = "Soup.AuthDomainBasic"
+status = "generate"
+[[object.property]]
+name = "auth-callback"
+ignore = true
 
 [[object]]
-name="Soup.Message"
-status="generate"
-	[[object.function]]
-	name = "get_site_for_cookies"
-	ignore = true
-	[[object.function]]
-	name = "set_site_for_cookies"
-	ignore = true
-	[[object.function]]
-	name="set_chunk_allocator"
-	ignore=true
+name = "Soup.AuthDomainDigest"
+status = "generate"
+[[object.property]]
+name = "auth-callback"
+ignore = true
 
 [[object]]
-name="Soup.Buffer"
-status="generate"
-	[[object.function]]
-	name="new"
-	ignore=true
-	[[object.function]]
-	name="get_data"
-	ignore=true
+name = "Soup.Message"
+status = "generate"
+[[object.function]]
+name = "get_site_for_cookies"
+ignore = true
+[[object.function]]
+name = "set_site_for_cookies"
+ignore = true
+[[object.function]]
+name = "set_chunk_allocator"
+ignore = true
 
 [[object]]
-name="Soup.HSTSPolicy"
-status="generate"
-	[[object.function]]
-	name="equal"
-	ignore=true
+name = "Soup.Buffer"
+status = "generate"
+[[object.function]]
+name = "new"
+ignore = true
+[[object.function]]
+name = "get_data"
+ignore = true
 
 [[object]]
-name="Soup.*"
-status="generate"
-	[[object.function]]
-	name = "cookies_free"
-	ignore = true
-	[[object.function]]
-	name = "cookies_to_cookie_header"
-	ignore = true
-	[[object.function]]
-	name = "cookies_to_request"
-	ignore = true
-	[[object.function]]
-	name = "cookies_to_response"
-	ignore = true
+name = "Soup.HSTSPolicy"
+status = "generate"
+[[object.function]]
+name = "equal"
+ignore = true
 
+[[object]]
+name = "Soup.*"
+status = "generate"
+[[object.function]]
+name = "cookies_free"
+ignore = true
+[[object.function]]
+name = "cookies_to_cookie_header"
+ignore = true
+[[object.function]]
+name = "cookies_to_request"
+ignore = true
+[[object.function]]
+name = "cookies_to_response"
+ignore = true

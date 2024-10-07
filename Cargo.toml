@@ -16,8 +16,6 @@ glib = "0.15"
 gio = "0.15"
 
 [dependencies.ffi]
-package = "soup2-sys"
-path = "sys"
 version = 0.2"
 
 [features]
@@ -49,4 +47,5 @@ v2_68 = ["v2_66", "ffi/v2_68"]
 v2_70 = ["v2_68", "ffi/v2_70"]
 
 [package.metadata.docs.rs]
-features = ["dox"]
+features = ["dox"]package = "soup2-sys"
+path = "sys"
