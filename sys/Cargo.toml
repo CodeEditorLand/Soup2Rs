@@ -6,7 +6,6 @@ links = "soup"
 name = "soup2-sys"
 version = "0.2.0"
 edition = "2021"
-
 [package.metadata.docs.rs]
 features = ["dox"]
 [package.metadata.system-deps.libsoup_2_4]
