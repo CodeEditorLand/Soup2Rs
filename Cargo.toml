@@ -18,7 +18,7 @@ gio = "0.15"
 [dependencies.ffi]
 package = "soup2-sys"
 path = "sys"
-version = "^0.2"
+version = "0.2"
 
 [features]
 default = ["v2_62"]
