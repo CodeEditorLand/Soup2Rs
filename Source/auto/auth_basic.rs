@@ -2,22 +2,21 @@
 // from ../gir-files
 // DO NOT EDIT
 
-use crate::Auth;
 use std::fmt;
 
-glib::wrapper! {
-    #[doc(alias = "SoupAuthBasic")]
-    pub struct AuthBasic(Object<ffi::SoupAuthBasic>) @extends Auth;
+use crate::Auth;
 
-    match fn {
-        type_ => || ffi::soup_auth_basic_get_type(),
-    }
+glib::wrapper! {
+	#[doc(alias = "SoupAuthBasic")]
+	pub struct AuthBasic(Object<ffi::SoupAuthBasic>) @extends Auth;
+
+	match fn {
+		type_ => || ffi::soup_auth_basic_get_type(),
+	}
 }
 
 impl AuthBasic {}
 
 impl fmt::Display for AuthBasic {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.write_str("AuthBasic")
-    }
+	fn fmt(&self, f:&mut fmt::Formatter) -> fmt::Result { f.write_str("AuthBasic") }
 }
