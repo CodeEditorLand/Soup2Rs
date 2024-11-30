@@ -49,6 +49,7 @@ impl CookieJar {
 	#[doc(alias = "soup_cookie_jar_new")]
 	pub fn new() -> CookieJar {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_cookie_jar_new()) }
 	}
 }
@@ -232,11 +233,13 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 	fn is_read_only(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"read-only\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `read-only` getter")
 		}
 	}
@@ -252,14 +255,17 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				CookieJar::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(old_cookie),
 				&from_glib_borrow(new_cookie),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"changed\0".as_ptr() as *const _,
@@ -280,10 +286,13 @@ impl<O:IsA<CookieJar>> CookieJarExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(CookieJar::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::accept-policy\0".as_ptr() as *const _,

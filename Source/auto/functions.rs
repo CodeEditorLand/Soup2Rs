@@ -31,16 +31,23 @@ pub fn add_completion<P:Fn() -> bool + Send + Sync + 'static>(
 	function:P,
 ) -> Option<glib::Source> {
 	crate::assert_initialized_main_thread!();
+
 	let function_data:Box_<P> = Box_::new(function);
+
 	unsafe extern fn function_func<P:Fn() -> bool + Send + Sync + 'static>(
 		user_data:glib::ffi::gpointer,
 	) -> glib::ffi::gboolean {
 		let callback:&P = &*(user_data as *mut _);
+
 		let res = (*callback)();
+
 		res.into_glib()
 	}
+
 	let function = Some(function_func::<P> as _);
+
 	let super_callback0:Box_<P> = function_data;
+
 	unsafe {
 		from_glib_full(ffi::soup_add_completion(
 			async_context.to_glib_none().0,
@@ -56,16 +63,23 @@ pub fn add_idle<P:Fn() -> bool + Send + Sync + 'static>(
 	function:P,
 ) -> Option<glib::Source> {
 	crate::assert_initialized_main_thread!();
+
 	let function_data:Box_<P> = Box_::new(function);
+
 	unsafe extern fn function_func<P:Fn() -> bool + Send + Sync + 'static>(
 		user_data:glib::ffi::gpointer,
 	) -> glib::ffi::gboolean {
 		let callback:&P = &*(user_data as *mut _);
+
 		let res = (*callback)();
+
 		res.into_glib()
 	}
+
 	let function = Some(function_func::<P> as _);
+
 	let super_callback0:Box_<P> = function_data;
+
 	unsafe {
 		from_glib_full(ffi::soup_add_idle(
 			async_context.to_glib_none().0,
@@ -91,16 +105,23 @@ pub fn add_timeout<P:Fn() -> bool + Send + Sync + 'static>(
 	function:P,
 ) -> Option<glib::Source> {
 	crate::assert_initialized_main_thread!();
+
 	let function_data:Box_<P> = Box_::new(function);
+
 	unsafe extern fn function_func<P:Fn() -> bool + Send + Sync + 'static>(
 		user_data:glib::ffi::gpointer,
 	) -> glib::ffi::gboolean {
 		let callback:&P = &*(user_data as *mut _);
+
 		let res = (*callback)();
+
 		res.into_glib()
 	}
+
 	let function = Some(function_func::<P> as _);
+
 	let super_callback0:Box_<P> = function_data;
+
 	unsafe {
 		from_glib_full(ffi::soup_add_timeout(
 			async_context.to_glib_none().0,
@@ -116,6 +137,7 @@ pub fn add_timeout<P:Fn() -> bool + Send + Sync + 'static>(
 #[doc(alias = "soup_check_version")]
 pub fn check_version(major:u32, minor:u32, micro:u32) -> bool {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { from_glib(ffi::soup_check_version(major, minor, micro)) }
 }
 
@@ -124,6 +146,7 @@ pub fn check_version(major:u32, minor:u32, micro:u32) -> bool {
 #[doc(alias = "soup_cookies_from_request")]
 pub fn cookies_from_request(msg:&impl IsA<Message>) -> Vec<Cookie> {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		FromGlibPtrContainer::from_glib_full(ffi::soup_cookies_from_request(
 			msg.as_ref().to_glib_none().0,
@@ -136,6 +159,7 @@ pub fn cookies_from_request(msg:&impl IsA<Message>) -> Vec<Cookie> {
 #[doc(alias = "soup_cookies_from_response")]
 pub fn cookies_from_response(msg:&impl IsA<Message>) -> Vec<Cookie> {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		FromGlibPtrContainer::from_glib_full(ffi::soup_cookies_from_response(
 			msg.as_ref().to_glib_none().0,
@@ -203,6 +227,7 @@ pub fn cookies_from_response(msg:&impl IsA<Message>) -> Vec<Cookie> {
 #[doc(alias = "soup_form_request_new_from_multipart")]
 pub fn form_request_new_from_multipart(uri:&str, multipart:&mut Multipart) -> Option<Message> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		from_glib_full(ffi::soup_form_request_new_from_multipart(
 			uri.to_glib_none().0,
@@ -217,6 +242,7 @@ pub fn form_request_new_from_multipart(uri:&str, multipart:&mut Multipart) -> Op
 #[doc(alias = "get_major_version")]
 pub fn major_version() -> u32 {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { ffi::soup_get_major_version() }
 }
 
@@ -226,6 +252,7 @@ pub fn major_version() -> u32 {
 #[doc(alias = "get_micro_version")]
 pub fn micro_version() -> u32 {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { ffi::soup_get_micro_version() }
 }
 
@@ -235,6 +262,7 @@ pub fn micro_version() -> u32 {
 #[doc(alias = "get_minor_version")]
 pub fn minor_version() -> u32 {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { ffi::soup_get_minor_version() }
 }
 
@@ -247,6 +275,7 @@ pub fn minor_version() -> u32 {
 #[doc(alias = "soup_header_contains")]
 pub fn header_contains(header:&str, token:&str) -> bool {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { from_glib(ffi::soup_header_contains(header.to_glib_none().0, token.to_glib_none().0)) }
 }
 
@@ -265,6 +294,7 @@ pub fn header_contains(header:&str, token:&str) -> bool {
 #[doc(alias = "soup_header_g_string_append_param")]
 pub fn header_g_string_append_param(string:&mut glib::GStringBuilder, name:&str, value:&str) {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		ffi::soup_header_g_string_append_param(
 			string.to_glib_none_mut().0,
@@ -283,6 +313,7 @@ pub fn header_g_string_append_param_quoted(
 	value:&str,
 ) {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		ffi::soup_header_g_string_append_param_quoted(
 			string.to_glib_none_mut().0,
@@ -295,6 +326,7 @@ pub fn header_g_string_append_param_quoted(
 #[doc(alias = "soup_header_parse_list")]
 pub fn header_parse_list(header:&str) -> Vec<glib::GString> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		FromGlibPtrContainer::from_glib_full(ffi::soup_header_parse_list(header.to_glib_none().0))
 	}
@@ -337,7 +369,9 @@ pub fn header_parse_list(header:&str) -> Vec<glib::GString> {
 #[doc(alias = "soup_headers_parse")]
 pub fn headers_parse(str:&str, dest:&mut MessageHeaders) -> bool {
 	crate::assert_initialized_main_thread!();
+
 	let len = str.len() as i32;
+
 	unsafe {
 		from_glib(ffi::soup_headers_parse(str.to_glib_none().0, len, dest.to_glib_none_mut().0))
 	}
@@ -349,11 +383,16 @@ pub fn headers_parse_request(
 	req_headers:&mut MessageHeaders,
 ) -> (u32, glib::GString, glib::GString, HTTPVersion) {
 	crate::assert_initialized_main_thread!();
+
 	let len = str.len() as i32;
+
 	unsafe {
 		let mut req_method = ptr::null_mut();
+
 		let mut req_path = ptr::null_mut();
+
 		let mut ver = mem::MaybeUninit::uninit();
+
 		let ret = ffi::soup_headers_parse_request(
 			str.to_glib_none().0,
 			len,
@@ -362,6 +401,7 @@ pub fn headers_parse_request(
 			&mut req_path,
 			ver.as_mut_ptr(),
 		);
+
 		let ver = ver.assume_init();
 		(ret, from_glib_full(req_method), from_glib_full(req_path), from_glib(ver))
 	}
@@ -373,11 +413,16 @@ pub fn headers_parse_response(
 	headers:&mut MessageHeaders,
 ) -> Option<(HTTPVersion, u32, glib::GString)> {
 	crate::assert_initialized_main_thread!();
+
 	let len = str.len() as i32;
+
 	unsafe {
 		let mut ver = mem::MaybeUninit::uninit();
+
 		let mut status_code = mem::MaybeUninit::uninit();
+
 		let mut reason_phrase = ptr::null_mut();
+
 		let ret = from_glib(ffi::soup_headers_parse_response(
 			str.to_glib_none().0,
 			len,
@@ -386,8 +431,11 @@ pub fn headers_parse_response(
 			status_code.as_mut_ptr(),
 			&mut reason_phrase,
 		));
+
 		let ver = ver.assume_init();
+
 		let status_code = status_code.assume_init();
+
 		if ret {
 			Some((from_glib(ver), status_code, from_glib_full(reason_phrase)))
 		} else {
@@ -399,18 +447,25 @@ pub fn headers_parse_response(
 #[doc(alias = "soup_headers_parse_status_line")]
 pub fn headers_parse_status_line(status_line:&str) -> Option<(HTTPVersion, u32, glib::GString)> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut ver = mem::MaybeUninit::uninit();
+
 		let mut status_code = mem::MaybeUninit::uninit();
+
 		let mut reason_phrase = ptr::null_mut();
+
 		let ret = from_glib(ffi::soup_headers_parse_status_line(
 			status_line.to_glib_none().0,
 			ver.as_mut_ptr(),
 			status_code.as_mut_ptr(),
 			&mut reason_phrase,
 		));
+
 		let ver = ver.assume_init();
+
 		let status_code = status_code.assume_init();
+
 		if ret {
 			Some((from_glib(ver), status_code, from_glib_full(reason_phrase)))
 		} else {
@@ -422,6 +477,7 @@ pub fn headers_parse_status_line(status_line:&str) -> Option<(HTTPVersion, u32, 
 #[doc(alias = "soup_http_error_quark")]
 pub fn http_error_quark() -> glib::Quark {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { from_glib(ffi::soup_http_error_quark()) }
 }
 
@@ -441,6 +497,7 @@ pub fn http_error_quark() -> glib::Quark {
 #[doc(alias = "soup_tld_domain_is_public_suffix")]
 pub fn tld_domain_is_public_suffix(domain:&str) -> bool {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { from_glib(ffi::soup_tld_domain_is_public_suffix(domain.to_glib_none().0)) }
 }
 
@@ -449,9 +506,12 @@ pub fn tld_domain_is_public_suffix(domain:&str) -> bool {
 #[doc(alias = "soup_tld_get_base_domain")]
 pub fn tld_get_base_domain(hostname:&str) -> Result<glib::GString, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_tld_get_base_domain(hostname.to_glib_none().0, &mut error);
+
 		if error.is_null() {
 			Ok(from_glib_none(ret))
 		} else {
@@ -557,6 +617,7 @@ pub fn websocket_client_prepare_handshake(
 	protocols:&[&str],
 ) {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		ffi::soup_websocket_client_prepare_handshake(
 			msg.as_ref().to_glib_none().0,
@@ -580,10 +641,13 @@ pub fn websocket_client_prepare_handshake(
 #[doc(alias = "soup_websocket_client_verify_handshake")]
 pub fn websocket_client_verify_handshake(msg:&impl IsA<Message>) -> Result<(), glib::Error> {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let _ =
 			ffi::soup_websocket_client_verify_handshake(msg.as_ref().to_glib_none().0, &mut error);
+
 		if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 	}
 }
@@ -607,14 +671,17 @@ pub fn websocket_server_check_handshake(
 	protocols:&[&str],
 ) -> Result<(), glib::Error> {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let _ = ffi::soup_websocket_server_check_handshake(
 			msg.as_ref().to_glib_none().0,
 			origin.to_glib_none().0,
 			protocols.to_glib_none().0,
 			&mut error,
 		);
+
 		if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 	}
 }
@@ -637,6 +704,7 @@ pub fn websocket_server_process_handshake(
 	protocols:&[&str],
 ) -> bool {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		from_glib(ffi::soup_websocket_server_process_handshake(
 			msg.as_ref().to_glib_none().0,
@@ -681,13 +749,16 @@ pub fn xmlrpc_build_request(
 	params:&glib::Variant,
 ) -> Result<glib::GString, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_xmlrpc_build_request(
 			method_name.to_glib_none().0,
 			params.to_glib_none().0,
 			&mut error,
 		);
+
 		if error.is_null() {
 			Ok(from_glib_full(ret))
 		} else {
@@ -701,9 +772,12 @@ pub fn xmlrpc_build_request(
 #[doc(alias = "soup_xmlrpc_build_response")]
 pub fn xmlrpc_build_response(value:&glib::Variant) -> Result<glib::GString, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_xmlrpc_build_response(value.to_glib_none().0, &mut error);
+
 		if error.is_null() {
 			Ok(from_glib_full(ret))
 		} else {
@@ -733,14 +807,17 @@ pub fn xmlrpc_message_new(
 	params:&glib::Variant,
 ) -> Result<Message, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_xmlrpc_message_new(
 			uri.to_glib_none().0,
 			method_name.to_glib_none().0,
 			params.to_glib_none().0,
 			&mut error,
 		);
+
 		if error.is_null() {
 			Ok(from_glib_full(ret))
 		} else {
@@ -765,13 +842,16 @@ pub fn xmlrpc_message_set_response(
 	value:&glib::Variant,
 ) -> Result<(), glib::Error> {
 	crate::skip_assert_initialized!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let _ = ffi::soup_xmlrpc_message_set_response(
 			msg.as_ref().to_glib_none().0,
 			value.to_glib_none().0,
 			&mut error,
 		);
+
 		if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 	}
 }
@@ -804,15 +884,19 @@ pub fn xmlrpc_parse_response(
 	signature:Option<&str>,
 ) -> Result<glib::Variant, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	let length = method_response.len() as i32;
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_xmlrpc_parse_response(
 			method_response.to_glib_none().0,
 			length,
 			signature.to_glib_none().0,
 			&mut error,
 		);
+
 		if error.is_null() {
 			Ok(from_glib_full(ret))
 		} else {
@@ -844,9 +928,12 @@ pub fn xmlrpc_parse_response(
 #[doc(alias = "soup_xmlrpc_variant_get_datetime")]
 pub fn xmlrpc_variant_get_datetime(variant:&glib::Variant) -> Result<Date, glib::Error> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe {
 		let mut error = ptr::null_mut();
+
 		let ret = ffi::soup_xmlrpc_variant_get_datetime(variant.to_glib_none().0, &mut error);
+
 		if error.is_null() {
 			Ok(from_glib_full(ret))
 		} else {
@@ -860,5 +947,6 @@ pub fn xmlrpc_variant_get_datetime(variant:&glib::Variant) -> Result<Date, glib:
 #[doc(alias = "soup_xmlrpc_variant_new_datetime")]
 pub fn xmlrpc_variant_new_datetime(date:&mut Date) -> Option<glib::Variant> {
 	crate::assert_initialized_main_thread!();
+
 	unsafe { from_glib_full(ffi::soup_xmlrpc_variant_new_datetime(date.to_glib_none_mut().0)) }
 }

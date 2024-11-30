@@ -25,6 +25,7 @@ impl AuthNegotiate {
 	#[doc(alias = "soup_auth_negotiate_supported")]
 	pub fn supported() -> bool {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib(ffi::soup_auth_negotiate_supported()) }
 	}
 }

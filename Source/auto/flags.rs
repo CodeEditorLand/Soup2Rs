@@ -41,6 +41,7 @@ impl IntoGlib for Cacheability {
 impl FromGlib<ffi::SoupCacheability> for Cacheability {
 	unsafe fn from_glib(value:ffi::SoupCacheability) -> Self {
 		crate::skip_assert_initialized!();
+
 		Self::from_bits_truncate(value)
 	}
 }
@@ -58,6 +59,7 @@ unsafe impl<'a> FromValue<'a> for Cacheability {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
 }
@@ -65,9 +67,11 @@ unsafe impl<'a> FromValue<'a> for Cacheability {
 impl ToValue for Cacheability {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -99,6 +103,7 @@ impl IntoGlib for Expectation {
 impl FromGlib<ffi::SoupExpectation> for Expectation {
 	unsafe fn from_glib(value:ffi::SoupExpectation) -> Self {
 		crate::skip_assert_initialized!();
+
 		Self::from_bits_truncate(value)
 	}
 }
@@ -116,6 +121,7 @@ unsafe impl<'a> FromValue<'a> for Expectation {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
 }
@@ -123,9 +129,11 @@ unsafe impl<'a> FromValue<'a> for Expectation {
 impl ToValue for Expectation {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -171,6 +179,7 @@ impl IntoGlib for MessageFlags {
 impl FromGlib<ffi::SoupMessageFlags> for MessageFlags {
 	unsafe fn from_glib(value:ffi::SoupMessageFlags) -> Self {
 		crate::skip_assert_initialized!();
+
 		Self::from_bits_truncate(value)
 	}
 }
@@ -188,6 +197,7 @@ unsafe impl<'a> FromValue<'a> for MessageFlags {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
 }
@@ -195,9 +205,11 @@ unsafe impl<'a> FromValue<'a> for MessageFlags {
 impl ToValue for MessageFlags {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -239,6 +251,7 @@ impl IntoGlib for ServerListenOptions {
 impl FromGlib<ffi::SoupServerListenOptions> for ServerListenOptions {
 	unsafe fn from_glib(value:ffi::SoupServerListenOptions) -> Self {
 		crate::skip_assert_initialized!();
+
 		Self::from_bits_truncate(value)
 	}
 }
@@ -262,6 +275,7 @@ unsafe impl<'a> FromValue<'a> for ServerListenOptions {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_flags(value.to_glib_none().0))
 	}
 }
@@ -271,9 +285,11 @@ unsafe impl<'a> FromValue<'a> for ServerListenOptions {
 impl ToValue for ServerListenOptions {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_flags(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 

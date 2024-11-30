@@ -26,12 +26,14 @@ impl Address {
 	#[doc(alias = "soup_address_new")]
 	pub fn new(name:&str, port:u32) -> Address {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_address_new(name.to_glib_none().0, port)) }
 	}
 
 	#[doc(alias = "soup_address_new_any")]
 	pub fn new_any(family:AddressFamily, port:u32) -> Option<Address> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_address_new_any(family.into_glib(), port)) }
 	}
 
@@ -123,17 +125,22 @@ impl<O:IsA<Address>> AddressExt for O {
 		callback:P,
 	) {
 		let callback_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn callback_func<P:FnOnce(&Address, u32) + 'static>(
 			addr:*mut ffi::SoupAddress,
 			status:libc::c_uint,
 			user_data:glib::ffi::gpointer,
 		) {
 			let addr = from_glib_borrow(addr);
+
 			let callback:Box_<P> = Box_::from_raw(user_data as *mut _);
 			(*callback)(&addr, status);
 		}
+
 		let callback = Some(callback_func::<P> as _);
+
 		let super_callback0:Box_<P> = callback_data;
+
 		unsafe {
 			ffi::soup_address_resolve_async(
 				self.as_ref().to_glib_none().0,
@@ -157,11 +164,13 @@ impl<O:IsA<Address>> AddressExt for O {
 	fn family(&self) -> AddressFamily {
 		unsafe {
 			let mut value = glib::Value::from_type(<AddressFamily as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"family\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `family` getter")
 		}
 	}
@@ -169,11 +178,13 @@ impl<O:IsA<Address>> AddressExt for O {
 	fn protocol(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"protocol\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `protocol` getter")
 		}
 	}
@@ -185,10 +196,13 @@ impl<O:IsA<Address>> AddressExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Address::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::physical\0".as_ptr() as *const _,

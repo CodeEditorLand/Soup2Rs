@@ -21,6 +21,7 @@ impl HSTSPolicy {
 	#[doc(alias = "soup_hsts_policy_new")]
 	pub fn new(domain:&str, max_age:libc::c_ulong, include_subdomains:bool) -> HSTSPolicy {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_hsts_policy_new(
 				domain.to_glib_none().0,
@@ -34,6 +35,7 @@ impl HSTSPolicy {
 	#[doc(alias = "new_from_response")]
 	pub fn from_response(msg:&impl IsA<Message>) -> Option<HSTSPolicy> {
 		crate::skip_assert_initialized!();
+
 		unsafe {
 			from_glib_full(ffi::soup_hsts_policy_new_from_response(msg.as_ref().to_glib_none().0))
 		}
@@ -47,6 +49,7 @@ impl HSTSPolicy {
 		include_subdomains:bool,
 	) -> HSTSPolicy {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_hsts_policy_new_full(
 				domain.to_glib_none().0,
@@ -60,6 +63,7 @@ impl HSTSPolicy {
 	#[doc(alias = "soup_hsts_policy_new_session_policy")]
 	pub fn new_session_policy(domain:&str, include_subdomains:bool) -> HSTSPolicy {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_hsts_policy_new_session_policy(
 				domain.to_glib_none().0,

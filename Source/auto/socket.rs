@@ -184,17 +184,22 @@ impl<O:IsA<Socket>> SocketExt for O {
 		callback:P,
 	) {
 		let callback_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn callback_func<P:FnOnce(&Socket, u32) + 'static>(
 			sock:*mut ffi::SoupSocket,
 			status:libc::c_uint,
 			user_data:glib::ffi::gpointer,
 		) {
 			let sock = from_glib_borrow(sock);
+
 			let callback:Box_<P> = Box_::from_raw(user_data as *mut _);
 			(*callback)(&sock, status);
 		}
+
 		let callback = Some(callback_func::<P> as _);
+
 		let super_callback0:Box_<P> = callback_data;
+
 		unsafe {
 			ffi::soup_socket_connect_async(
 				self.as_ref().to_glib_none().0,
@@ -289,11 +294,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_ipv6_only(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ipv6-only\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ipv6-only` getter")
 		}
 	}
@@ -311,11 +318,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_server(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"is-server\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `is-server` getter")
 		}
 	}
@@ -323,11 +332,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_non_blocking(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"non-blocking\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `non-blocking` getter")
 		}
 	}
@@ -362,11 +373,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_ssl_fallback(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-fallback\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-fallback` getter")
 		}
 	}
@@ -374,11 +387,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_ssl_strict(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-strict\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-strict` getter")
 		}
 	}
@@ -386,11 +401,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn timeout(&self) -> u32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"timeout\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `timeout` getter")
 		}
 	}
@@ -409,11 +426,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-certificate` getter")
 		}
 	}
@@ -422,11 +441,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsCertificateFlags as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-errors\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-errors` getter")
 		}
 	}
@@ -434,11 +455,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn is_trusted_certificate(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"trusted-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `trusted-certificate` getter")
 		}
 	}
@@ -448,11 +471,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 	fn uses_thread_context(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"use-thread-context\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `use-thread-context` getter")
 		}
 	}
@@ -463,10 +488,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"disconnected\0".as_ptr() as *const _,
@@ -494,14 +522,17 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Socket::from_glib_borrow(this).unsafe_cast_ref(),
 				from_glib(event),
 				&from_glib_borrow(connection),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"event\0".as_ptr() as *const _,
@@ -518,10 +549,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(new))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"new-connection\0".as_ptr() as *const _,
@@ -539,10 +573,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"readable\0".as_ptr() as *const _,
@@ -560,10 +597,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"writable\0".as_ptr() as *const _,
@@ -582,10 +622,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::ipv6-only\0".as_ptr() as *const _,
@@ -604,10 +647,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-server\0".as_ptr() as *const _,
@@ -626,10 +672,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::non-blocking\0".as_ptr() as *const _,
@@ -648,10 +697,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::ssl-creds\0".as_ptr() as *const _,
@@ -670,10 +722,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::timeout\0".as_ptr() as *const _,
@@ -692,10 +747,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-certificate\0".as_ptr() as *const _,
@@ -714,10 +772,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-errors\0".as_ptr() as *const _,
@@ -739,10 +800,13 @@ impl<O:IsA<Socket>> SocketExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Socket::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::trusted-certificate\0".as_ptr() as *const _,

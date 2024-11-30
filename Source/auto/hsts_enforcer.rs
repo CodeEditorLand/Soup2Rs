@@ -42,6 +42,7 @@ impl HSTSEnforcer {
 	#[doc(alias = "soup_hsts_enforcer_new")]
 	pub fn new() -> HSTSEnforcer {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_hsts_enforcer_new()) }
 	}
 }
@@ -174,14 +175,17 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				HSTSEnforcer::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(old_policy),
 				&from_glib_borrow(new_policy),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"changed\0".as_ptr() as *const _,
@@ -203,13 +207,16 @@ impl<O:IsA<HSTSEnforcer>> HSTSEnforcerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				HSTSEnforcer::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"hsts-enforced\0".as_ptr() as *const _,

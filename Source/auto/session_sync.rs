@@ -21,6 +21,7 @@ impl SessionSync {
 	#[doc(alias = "soup_session_sync_new")]
 	pub fn new() -> SessionSync {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { Session::from_glib_full(ffi::soup_session_sync_new()).unsafe_cast() }
 	}
 

@@ -79,11 +79,13 @@ impl<O:IsA<Request>> RequestExt for O {
 	) -> Result<gio::InputStream, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_request_send(
 				self.as_ref().to_glib_none().0,
 				cancellable.map(|p| p.as_ref()).to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -98,6 +100,7 @@ impl<O:IsA<Request>> RequestExt for O {
 		callback:P,
 	) {
 		let user_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn send_async_trampoline<
 			P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
 		>(
@@ -106,16 +109,22 @@ impl<O:IsA<Request>> RequestExt for O {
 			user_data:glib::ffi::gpointer,
 		) {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_request_send_finish(_source_object as *mut _, res, &mut error);
+
 			let result = if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
 				Err(from_glib_full(error))
 			};
+
 			let callback:Box_<P> = Box_::from_raw(user_data as *mut _);
+
 			callback(result);
 		}
+
 		let callback = send_async_trampoline::<P>;
+
 		unsafe {
 			ffi::soup_request_send_async(
 				self.as_ref().to_glib_none().0,

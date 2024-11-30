@@ -60,6 +60,7 @@ impl IntoGlib for AddressFamily {
 impl FromGlib<ffi::SoupAddressFamily> for AddressFamily {
 	unsafe fn from_glib(value:ffi::SoupAddressFamily) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_ADDRESS_FAMILY_INVALID => Self::Invalid,
 			ffi::SOUP_ADDRESS_FAMILY_IPV4 => Self::Ipv4,
@@ -82,6 +83,7 @@ unsafe impl<'a> FromValue<'a> for AddressFamily {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -89,9 +91,11 @@ unsafe impl<'a> FromValue<'a> for AddressFamily {
 impl ToValue for AddressFamily {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -145,6 +149,7 @@ impl IntoGlib for CacheResponse {
 impl FromGlib<ffi::SoupCacheResponse> for CacheResponse {
 	unsafe fn from_glib(value:ffi::SoupCacheResponse) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_CACHE_RESPONSE_FRESH => Self::Fresh,
 			ffi::SOUP_CACHE_RESPONSE_NEEDS_VALIDATION => Self::NeedsValidation,
@@ -167,6 +172,7 @@ unsafe impl<'a> FromValue<'a> for CacheResponse {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -174,9 +180,11 @@ unsafe impl<'a> FromValue<'a> for CacheResponse {
 impl ToValue for CacheResponse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -234,6 +242,7 @@ impl IntoGlib for CacheType {
 impl FromGlib<ffi::SoupCacheType> for CacheType {
 	unsafe fn from_glib(value:ffi::SoupCacheType) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_CACHE_SINGLE_USER => Self::SingleUser,
 			ffi::SOUP_CACHE_SHARED => Self::Shared,
@@ -261,6 +270,7 @@ unsafe impl<'a> FromValue<'a> for CacheType {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -270,9 +280,11 @@ unsafe impl<'a> FromValue<'a> for CacheType {
 impl ToValue for CacheType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -338,6 +350,7 @@ impl IntoGlib for ConnectionState {
 impl FromGlib<ffi::SoupConnectionState> for ConnectionState {
 	unsafe fn from_glib(value:ffi::SoupConnectionState) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_CONNECTION_NEW => Self::New,
 			ffi::SOUP_CONNECTION_CONNECTING => Self::Connecting,
@@ -363,6 +376,7 @@ unsafe impl<'a> FromValue<'a> for ConnectionState {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -370,9 +384,11 @@ unsafe impl<'a> FromValue<'a> for ConnectionState {
 impl ToValue for ConnectionState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -438,6 +454,7 @@ impl IntoGlib for CookieJarAcceptPolicy {
 impl FromGlib<ffi::SoupCookieJarAcceptPolicy> for CookieJarAcceptPolicy {
 	unsafe fn from_glib(value:ffi::SoupCookieJarAcceptPolicy) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_COOKIE_JAR_ACCEPT_ALWAYS => Self::Always,
 			ffi::SOUP_COOKIE_JAR_ACCEPT_NEVER => Self::Never,
@@ -467,6 +484,7 @@ unsafe impl<'a> FromValue<'a> for CookieJarAcceptPolicy {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -476,9 +494,11 @@ unsafe impl<'a> FromValue<'a> for CookieJarAcceptPolicy {
 impl ToValue for CookieJarAcceptPolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -544,6 +564,7 @@ impl IntoGlib for DateFormat {
 impl FromGlib<ffi::SoupDateFormat> for DateFormat {
 	unsafe fn from_glib(value:ffi::SoupDateFormat) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_DATE_HTTP => Self::Http,
 			ffi::SOUP_DATE_COOKIE => Self::Cookie,
@@ -569,6 +590,7 @@ unsafe impl<'a> FromValue<'a> for DateFormat {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -576,9 +598,11 @@ unsafe impl<'a> FromValue<'a> for DateFormat {
 impl ToValue for DateFormat {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -644,6 +668,7 @@ impl IntoGlib for Encoding {
 impl FromGlib<ffi::SoupEncoding> for Encoding {
 	unsafe fn from_glib(value:ffi::SoupEncoding) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_ENCODING_UNRECOGNIZED => Self::Unrecognized,
 			ffi::SOUP_ENCODING_NONE => Self::None,
@@ -669,6 +694,7 @@ unsafe impl<'a> FromValue<'a> for Encoding {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -676,9 +702,11 @@ unsafe impl<'a> FromValue<'a> for Encoding {
 impl ToValue for Encoding {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -728,6 +756,7 @@ impl IntoGlib for HTTPVersion {
 impl FromGlib<ffi::SoupHTTPVersion> for HTTPVersion {
 	unsafe fn from_glib(value:ffi::SoupHTTPVersion) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_HTTP_1_0 => Self::Http10,
 			ffi::SOUP_HTTP_1_1 => Self::Http11,
@@ -749,6 +778,7 @@ unsafe impl<'a> FromValue<'a> for HTTPVersion {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -756,9 +786,11 @@ unsafe impl<'a> FromValue<'a> for HTTPVersion {
 impl ToValue for HTTPVersion {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1046,6 +1078,7 @@ impl IntoGlib for KnownStatusCode {
 impl FromGlib<ffi::SoupKnownStatusCode> for KnownStatusCode {
 	unsafe fn from_glib(value:ffi::SoupKnownStatusCode) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_KNOWN_STATUS_CODE_NONE => Self::None,
 			ffi::SOUP_KNOWN_STATUS_CODE_CANCELLED => Self::Cancelled,
@@ -1131,6 +1164,7 @@ unsafe impl<'a> FromValue<'a> for KnownStatusCode {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1138,9 +1172,11 @@ unsafe impl<'a> FromValue<'a> for KnownStatusCode {
 impl ToValue for KnownStatusCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1198,6 +1234,7 @@ impl IntoGlib for LoggerLogLevel {
 impl FromGlib<ffi::SoupLoggerLogLevel> for LoggerLogLevel {
 	unsafe fn from_glib(value:ffi::SoupLoggerLogLevel) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_LOGGER_LOG_NONE => Self::None,
 			ffi::SOUP_LOGGER_LOG_MINIMAL => Self::Minimal,
@@ -1221,6 +1258,7 @@ unsafe impl<'a> FromValue<'a> for LoggerLogLevel {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1228,9 +1266,11 @@ unsafe impl<'a> FromValue<'a> for LoggerLogLevel {
 impl ToValue for LoggerLogLevel {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1288,6 +1328,7 @@ impl IntoGlib for MemoryUse {
 impl FromGlib<ffi::SoupMemoryUse> for MemoryUse {
 	unsafe fn from_glib(value:ffi::SoupMemoryUse) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_MEMORY_STATIC => Self::Static,
 			ffi::SOUP_MEMORY_TAKE => Self::Take,
@@ -1311,6 +1352,7 @@ unsafe impl<'a> FromValue<'a> for MemoryUse {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1318,9 +1360,11 @@ unsafe impl<'a> FromValue<'a> for MemoryUse {
 impl ToValue for MemoryUse {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1374,6 +1418,7 @@ impl IntoGlib for MessageHeadersType {
 impl FromGlib<ffi::SoupMessageHeadersType> for MessageHeadersType {
 	unsafe fn from_glib(value:ffi::SoupMessageHeadersType) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_MESSAGE_HEADERS_REQUEST => Self::Request,
 			ffi::SOUP_MESSAGE_HEADERS_RESPONSE => Self::Response,
@@ -1396,6 +1441,7 @@ unsafe impl<'a> FromValue<'a> for MessageHeadersType {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1403,9 +1449,11 @@ unsafe impl<'a> FromValue<'a> for MessageHeadersType {
 impl ToValue for MessageHeadersType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1467,6 +1515,7 @@ impl IntoGlib for MessagePriority {
 impl FromGlib<ffi::SoupMessagePriority> for MessagePriority {
 	unsafe fn from_glib(value:ffi::SoupMessagePriority) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_MESSAGE_PRIORITY_VERY_LOW => Self::VeryLow,
 			ffi::SOUP_MESSAGE_PRIORITY_LOW => Self::Low,
@@ -1491,6 +1540,7 @@ unsafe impl<'a> FromValue<'a> for MessagePriority {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1498,9 +1548,11 @@ unsafe impl<'a> FromValue<'a> for MessagePriority {
 impl ToValue for MessagePriority {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1566,6 +1618,7 @@ impl IntoGlib for RequestError {
 impl FromGlib<ffi::SoupRequestError> for RequestError {
 	unsafe fn from_glib(value:ffi::SoupRequestError) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Self::BadUri,
 			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
@@ -1589,6 +1642,7 @@ impl ErrorDomain for RequestError {
 
 	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
+
 		match code {
 			ffi::SOUP_REQUEST_ERROR_BAD_URI => Some(Self::BadUri),
 			ffi::SOUP_REQUEST_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
@@ -1618,6 +1672,7 @@ unsafe impl<'a> FromValue<'a> for RequestError {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1627,9 +1682,11 @@ unsafe impl<'a> FromValue<'a> for RequestError {
 impl ToValue for RequestError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1679,6 +1736,7 @@ impl IntoGlib for RequesterError {
 impl FromGlib<ffi::SoupRequesterError> for RequesterError {
 	unsafe fn from_glib(value:ffi::SoupRequesterError) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Self::BadUri,
 			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Self::UnsupportedUriScheme,
@@ -1698,6 +1756,7 @@ impl ErrorDomain for RequesterError {
 
 	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
+
 		match code {
 			ffi::SOUP_REQUESTER_ERROR_BAD_URI => Some(Self::BadUri),
 			ffi::SOUP_REQUESTER_ERROR_UNSUPPORTED_URI_SCHEME => Some(Self::UnsupportedUriScheme),
@@ -1719,6 +1778,7 @@ unsafe impl<'a> FromValue<'a> for RequesterError {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1726,9 +1786,11 @@ unsafe impl<'a> FromValue<'a> for RequesterError {
 impl ToValue for RequesterError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1790,6 +1852,7 @@ impl IntoGlib for SameSitePolicy {
 impl FromGlib<ffi::SoupSameSitePolicy> for SameSitePolicy {
 	unsafe fn from_glib(value:ffi::SoupSameSitePolicy) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_SAME_SITE_POLICY_NONE => Self::None,
 			ffi::SOUP_SAME_SITE_POLICY_LAX => Self::Lax,
@@ -1818,6 +1881,7 @@ unsafe impl<'a> FromValue<'a> for SameSitePolicy {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1827,9 +1891,11 @@ unsafe impl<'a> FromValue<'a> for SameSitePolicy {
 impl ToValue for SameSitePolicy {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -1887,6 +1953,7 @@ impl IntoGlib for SocketIOStatus {
 impl FromGlib<ffi::SoupSocketIOStatus> for SocketIOStatus {
 	unsafe fn from_glib(value:ffi::SoupSocketIOStatus) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_SOCKET_OK => Self::Ok,
 			ffi::SOUP_SOCKET_WOULD_BLOCK => Self::WouldBlock,
@@ -1910,6 +1977,7 @@ unsafe impl<'a> FromValue<'a> for SocketIOStatus {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -1917,9 +1985,11 @@ unsafe impl<'a> FromValue<'a> for SocketIOStatus {
 impl ToValue for SocketIOStatus {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2061,6 +2131,7 @@ impl Status {
 	#[doc(alias = "get_phrase")]
 	pub fn phrase(status_code:u32) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_none(ffi::soup_status_get_phrase(status_code)) }
 	}
 
@@ -2069,6 +2140,7 @@ impl Status {
 	#[doc(alias = "soup_status_proxify")]
 	pub fn proxify(status_code:u32) -> u32 {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { ffi::soup_status_proxify(status_code) }
 	}
 }
@@ -2222,6 +2294,7 @@ impl IntoGlib for Status {
 impl FromGlib<ffi::SoupStatus> for Status {
 	unsafe fn from_glib(value:ffi::SoupStatus) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_STATUS_NONE => Self::None,
 			ffi::SOUP_STATUS_CANCELLED => Self::Cancelled,
@@ -2302,6 +2375,7 @@ unsafe impl<'a> FromValue<'a> for Status {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2309,9 +2383,11 @@ unsafe impl<'a> FromValue<'a> for Status {
 impl ToValue for Status {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2381,6 +2457,7 @@ impl IntoGlib for TLDError {
 impl FromGlib<ffi::SoupTLDError> for TLDError {
 	unsafe fn from_glib(value:ffi::SoupTLDError) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_TLD_ERROR_INVALID_HOSTNAME => Self::InvalidHostname,
 			ffi::SOUP_TLD_ERROR_IS_IP_ADDRESS => Self::IsIpAddress,
@@ -2405,6 +2482,7 @@ impl ErrorDomain for TLDError {
 
 	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
+
 		match code {
 			ffi::SOUP_TLD_ERROR_INVALID_HOSTNAME => Some(Self::InvalidHostname),
 			ffi::SOUP_TLD_ERROR_IS_IP_ADDRESS => Some(Self::IsIpAddress),
@@ -2435,6 +2513,7 @@ unsafe impl<'a> FromValue<'a> for TLDError {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2444,9 +2523,11 @@ unsafe impl<'a> FromValue<'a> for TLDError {
 impl ToValue for TLDError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2544,6 +2625,7 @@ impl IntoGlib for WebsocketCloseCode {
 impl FromGlib<ffi::SoupWebsocketCloseCode> for WebsocketCloseCode {
 	unsafe fn from_glib(value:ffi::SoupWebsocketCloseCode) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_WEBSOCKET_CLOSE_NORMAL => Self::Normal,
 			ffi::SOUP_WEBSOCKET_CLOSE_GOING_AWAY => Self::GoingAway,
@@ -2581,6 +2663,7 @@ unsafe impl<'a> FromValue<'a> for WebsocketCloseCode {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2590,9 +2673,11 @@ unsafe impl<'a> FromValue<'a> for WebsocketCloseCode {
 impl ToValue for WebsocketCloseCode {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2654,6 +2739,7 @@ impl IntoGlib for WebsocketConnectionType {
 impl FromGlib<ffi::SoupWebsocketConnectionType> for WebsocketConnectionType {
 	unsafe fn from_glib(value:ffi::SoupWebsocketConnectionType) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_WEBSOCKET_CONNECTION_UNKNOWN => Self::Unknown,
 			ffi::SOUP_WEBSOCKET_CONNECTION_CLIENT => Self::Client,
@@ -2684,6 +2770,7 @@ unsafe impl<'a> FromValue<'a> for WebsocketConnectionType {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2693,9 +2780,11 @@ unsafe impl<'a> FromValue<'a> for WebsocketConnectionType {
 impl ToValue for WebsocketConnectionType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2753,6 +2842,7 @@ impl IntoGlib for WebsocketDataType {
 impl FromGlib<ffi::SoupWebsocketDataType> for WebsocketDataType {
 	unsafe fn from_glib(value:ffi::SoupWebsocketDataType) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_WEBSOCKET_DATA_TEXT => Self::Text,
 			ffi::SOUP_WEBSOCKET_DATA_BINARY => Self::Binary,
@@ -2780,6 +2870,7 @@ unsafe impl<'a> FromValue<'a> for WebsocketDataType {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2789,9 +2880,11 @@ unsafe impl<'a> FromValue<'a> for WebsocketDataType {
 impl ToValue for WebsocketDataType {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2823,6 +2916,7 @@ impl WebsocketError {
 	#[doc(alias = "get_quark")]
 	pub fn quark() -> glib::Quark {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib(ffi::soup_websocket_error_get_quark()) }
 	}
 }
@@ -2868,6 +2962,7 @@ impl IntoGlib for WebsocketError {
 impl FromGlib<ffi::SoupWebsocketError> for WebsocketError {
 	unsafe fn from_glib(value:ffi::SoupWebsocketError) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_WEBSOCKET_ERROR_FAILED => Self::Failed,
 			ffi::SOUP_WEBSOCKET_ERROR_NOT_WEBSOCKET => Self::NotWebsocket,
@@ -2897,6 +2992,7 @@ unsafe impl<'a> FromValue<'a> for WebsocketError {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -2906,9 +3002,11 @@ unsafe impl<'a> FromValue<'a> for WebsocketError {
 impl ToValue for WebsocketError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -2970,6 +3068,7 @@ impl IntoGlib for WebsocketState {
 impl FromGlib<ffi::SoupWebsocketState> for WebsocketState {
 	unsafe fn from_glib(value:ffi::SoupWebsocketState) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_WEBSOCKET_STATE_OPEN => Self::Open,
 			ffi::SOUP_WEBSOCKET_STATE_CLOSING => Self::Closing,
@@ -2998,6 +3097,7 @@ unsafe impl<'a> FromValue<'a> for WebsocketState {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -3007,9 +3107,11 @@ unsafe impl<'a> FromValue<'a> for WebsocketState {
 impl ToValue for WebsocketState {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -3059,6 +3161,7 @@ impl IntoGlib for XMLRPCError {
 impl FromGlib<ffi::SoupXMLRPCError> for XMLRPCError {
 	unsafe fn from_glib(value:ffi::SoupXMLRPCError) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_XMLRPC_ERROR_ARGUMENTS => Self::Arguments,
 			ffi::SOUP_XMLRPC_ERROR_RETVAL => Self::Retval,
@@ -3078,6 +3181,7 @@ impl ErrorDomain for XMLRPCError {
 
 	fn from(code:i32) -> Option<Self> {
 		crate::skip_assert_initialized!();
+
 		match code {
 			ffi::SOUP_XMLRPC_ERROR_ARGUMENTS => Some(Self::Arguments),
 			ffi::SOUP_XMLRPC_ERROR_RETVAL => Some(Self::Retval),
@@ -3099,6 +3203,7 @@ unsafe impl<'a> FromValue<'a> for XMLRPCError {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -3106,9 +3211,11 @@ unsafe impl<'a> FromValue<'a> for XMLRPCError {
 impl ToValue for XMLRPCError {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 
@@ -3147,6 +3254,7 @@ impl XMLRPCFault {
 	#[doc(alias = "soup_xmlrpc_fault_quark")]
 	pub fn quark() -> glib::Quark {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib(ffi::soup_xmlrpc_fault_quark()) }
 	}
 }
@@ -3209,6 +3317,7 @@ impl IntoGlib for XMLRPCFault {
 impl FromGlib<ffi::SoupXMLRPCFault> for XMLRPCFault {
 	unsafe fn from_glib(value:ffi::SoupXMLRPCFault) -> Self {
 		crate::skip_assert_initialized!();
+
 		match value {
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_NOT_WELL_FORMED => Self::ParseErrorNotWellFormed,
 			ffi::SOUP_XMLRPC_FAULT_PARSE_ERROR_UNSUPPORTED_ENCODING => {
@@ -3248,6 +3357,7 @@ unsafe impl<'a> FromValue<'a> for XMLRPCFault {
 
 	unsafe fn from_value(value:&'a glib::Value) -> Self {
 		crate::skip_assert_initialized!();
+
 		from_glib(glib::gobject_ffi::g_value_get_enum(value.to_glib_none().0))
 	}
 }
@@ -3255,9 +3365,11 @@ unsafe impl<'a> FromValue<'a> for XMLRPCFault {
 impl ToValue for XMLRPCFault {
 	fn to_value(&self) -> glib::Value {
 		let mut value = glib::Value::for_value_type::<Self>();
+
 		unsafe {
 			glib::gobject_ffi::g_value_set_enum(value.to_glib_none_mut().0, self.into_glib());
 		}
+
 		value
 	}
 

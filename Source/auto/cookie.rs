@@ -24,6 +24,7 @@ impl Cookie {
 	#[doc(alias = "soup_cookie_new")]
 	pub fn new(name:&str, value:&str, domain:&str, path:&str, max_age:i32) -> Cookie {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_cookie_new(
 				name.to_glib_none().0,
@@ -199,6 +200,7 @@ impl Cookie {
 	#[doc(alias = "soup_cookie_parse")]
 	pub fn parse(header:&str, origin:&mut URI) -> Option<Cookie> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_cookie_parse(
 				header.to_glib_none().0,

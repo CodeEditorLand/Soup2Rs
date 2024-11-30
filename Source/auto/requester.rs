@@ -44,6 +44,7 @@ impl Requester {
 	#[doc(alias = "soup_requester_new")]
 	pub fn new() -> Requester {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_requester_new()) }
 	}
 }
@@ -72,11 +73,13 @@ impl<O:IsA<Requester>> RequesterExt for O {
 	fn request(&self, uri_string:&str) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_requester_request(
 				self.as_ref().to_glib_none().0,
 				uri_string.to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -90,11 +93,13 @@ impl<O:IsA<Requester>> RequesterExt for O {
 	fn request_uri(&self, uri:&mut URI) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_requester_request_uri(
 				self.as_ref().to_glib_none().0,
 				uri.to_glib_none_mut().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {

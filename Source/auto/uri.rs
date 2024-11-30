@@ -19,6 +19,7 @@ impl URI {
 	#[doc(alias = "soup_uri_new")]
 	pub fn new(uri_string:Option<&str>) -> Option<URI> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_uri_new(uri_string.to_glib_none().0)) }
 	}
 
@@ -26,6 +27,7 @@ impl URI {
 	#[doc(alias = "new_with_base")]
 	pub fn with_base(base:&mut URI, uri_string:&str) -> URI {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_uri_new_with_base(
 				base.to_glib_none_mut().0,
@@ -188,12 +190,14 @@ impl URI {
 	#[doc(alias = "soup_uri_decode")]
 	pub fn decode(part:&str) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_uri_decode(part.to_glib_none().0)) }
 	}
 
 	#[doc(alias = "soup_uri_encode")]
 	pub fn encode(part:&str, escape_extra:Option<&str>) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_uri_encode(
 				part.to_glib_none().0,
@@ -205,6 +209,7 @@ impl URI {
 	#[doc(alias = "soup_uri_normalize")]
 	pub fn normalize(part:&str, unescape_extra:Option<&str>) -> Option<glib::GString> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_uri_normalize(
 				part.to_glib_none().0,

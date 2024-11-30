@@ -439,6 +439,7 @@ pub mod traits {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	pub use super::websocket_connection::WebsocketConnectionExt;
+
 	pub use super::{
 		address::AddressExt,
 		auth::AuthExt,

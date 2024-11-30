@@ -38,6 +38,7 @@ impl Cache {
 	#[doc(alias = "soup_cache_new")]
 	pub fn new(cache_dir:Option<&str>, cache_type:CacheType) -> Cache {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_cache_new(cache_dir.to_glib_none().0, cache_type.into_glib()))
 		}
@@ -135,11 +136,13 @@ impl<O:IsA<Cache>> CacheExt for O {
 	fn cache_dir(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"cache-dir\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `cache-dir` getter")
 		}
 	}
@@ -147,11 +150,13 @@ impl<O:IsA<Cache>> CacheExt for O {
 	fn cache_type(&self) -> CacheType {
 		unsafe {
 			let mut value = glib::Value::from_type(<CacheType as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"cache-type\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `cache-type` getter")
 		}
 	}

@@ -40,6 +40,7 @@ impl ContentSniffer {
 	#[doc(alias = "soup_content_sniffer_new")]
 	pub fn new() -> ContentSniffer {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_content_sniffer_new()) }
 	}
 }

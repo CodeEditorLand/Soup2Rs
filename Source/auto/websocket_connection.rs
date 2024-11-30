@@ -34,6 +34,7 @@ impl WebsocketConnection {
 		protocol:Option<&str>,
 	) -> WebsocketConnection {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_websocket_connection_new(
 				stream.as_ref().to_glib_none().0,
@@ -58,6 +59,7 @@ impl WebsocketConnection {
 		extensions:&[WebsocketExtension],
 	) -> WebsocketConnection {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_websocket_connection_new_with_extensions(
 				stream.as_ref().to_glib_none().0,
@@ -318,10 +320,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"closed\0".as_ptr() as *const _,
@@ -339,10 +344,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"closing\0".as_ptr() as *const _,
@@ -366,13 +374,16 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(error),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"error\0".as_ptr() as *const _,
@@ -395,14 +406,17 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref(),
 				type_,
 				&from_glib_borrow(message),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"message\0".as_ptr() as *const _,
@@ -426,13 +440,16 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"pong\0".as_ptr() as *const _,
@@ -454,10 +471,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::keepalive-interval\0".as_ptr() as *const _,
@@ -484,10 +504,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::max-incoming-payload-size\0".as_ptr() as *const _,
@@ -508,10 +531,13 @@ impl<O:IsA<WebsocketConnection>> WebsocketConnectionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(WebsocketConnection::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::state\0".as_ptr() as *const _,

@@ -95,6 +95,7 @@ impl<O:IsA<AuthManager>> AuthManagerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				AuthManager::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(msg),
@@ -102,8 +103,10 @@ impl<O:IsA<AuthManager>> AuthManagerExt for O {
 				from_glib(retrying),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"authenticate\0".as_ptr() as *const _,

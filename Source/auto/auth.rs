@@ -26,6 +26,7 @@ impl Auth {
 	#[doc(alias = "soup_auth_new")]
 	pub fn new(type_:glib::types::Type, msg:&impl IsA<Message>, auth_header:&str) -> Option<Auth> {
 		crate::skip_assert_initialized!();
+
 		unsafe {
 			from_glib_full(ffi::soup_auth_new(
 				type_.into_glib(),
@@ -284,10 +285,13 @@ impl<O:IsA<Auth>> AuthExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::host\0".as_ptr() as *const _,
@@ -306,10 +310,13 @@ impl<O:IsA<Auth>> AuthExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-authenticated\0".as_ptr() as *const _,
@@ -328,10 +335,13 @@ impl<O:IsA<Auth>> AuthExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-for-proxy\0".as_ptr() as *const _,
@@ -350,10 +360,13 @@ impl<O:IsA<Auth>> AuthExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::realm\0".as_ptr() as *const _,
@@ -372,10 +385,13 @@ impl<O:IsA<Auth>> AuthExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Auth::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::scheme-name\0".as_ptr() as *const _,

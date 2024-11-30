@@ -41,6 +41,7 @@ impl CookieJarDB {
 	#[doc(alias = "soup_cookie_jar_db_new")]
 	pub fn new(filename:&str, read_only:bool) -> CookieJarDB {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			CookieJar::from_glib_full(ffi::soup_cookie_jar_db_new(
 				filename.to_glib_none().0,
@@ -61,11 +62,13 @@ impl<O:IsA<CookieJarDB>> CookieJarDBExt for O {
 	fn filename(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"filename\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `filename` getter")
 		}
 	}

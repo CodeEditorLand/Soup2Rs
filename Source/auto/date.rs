@@ -21,6 +21,7 @@ impl Date {
 	#[doc(alias = "soup_date_new")]
 	pub fn new(year:i32, month:i32, day:i32, hour:i32, minute:i32, second:i32) -> Date {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_date_new(year, month, day, hour, minute, second)) }
 	}
 
@@ -28,6 +29,7 @@ impl Date {
 	#[doc(alias = "new_from_now")]
 	pub fn from_now(offset_seconds:i32) -> Date {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_date_new_from_now(offset_seconds)) }
 	}
 
@@ -35,6 +37,7 @@ impl Date {
 	#[doc(alias = "new_from_string")]
 	pub fn from_string(date_string:&str) -> Option<Date> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_date_new_from_string(date_string.to_glib_none().0)) }
 	}
 
@@ -42,6 +45,7 @@ impl Date {
 	#[doc(alias = "new_from_time_t")]
 	pub fn from_time_t(when:libc::c_long) -> Date {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_date_new_from_time_t(when)) }
 	}
 

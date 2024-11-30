@@ -100,12 +100,14 @@ impl<O:IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 	) -> Result<glib::Bytes, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_websocket_extension_process_incoming_message(
 				self.as_ref().to_glib_none().0,
 				header,
 				payload.to_glib_full(),
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -123,12 +125,14 @@ impl<O:IsA<WebsocketExtension>> WebsocketExtensionExt for O {
 	) -> Result<glib::Bytes, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_websocket_extension_process_outgoing_message(
 				self.as_ref().to_glib_none().0,
 				header,
 				payload.to_glib_full(),
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {

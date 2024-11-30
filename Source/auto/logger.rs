@@ -54,6 +54,7 @@ impl Logger {
 	#[doc(alias = "soup_logger_new")]
 	pub fn new(level:LoggerLogLevel, max_body_size:i32) -> Logger {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_logger_new(level.into_glib(), max_body_size)) }
 	}
 }
@@ -140,6 +141,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 		request_filter:P,
 	) {
 		let request_filter_data:Box_<P> = Box_::new(request_filter);
+
 		unsafe extern fn request_filter_func<
 			P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
 		>(
@@ -148,19 +150,28 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			user_data:glib::ffi::gpointer,
 		) -> ffi::SoupLoggerLogLevel {
 			let logger = from_glib_borrow(logger);
+
 			let msg = from_glib_borrow(msg);
+
 			let callback:&P = &*(user_data as *mut _);
+
 			let res = (*callback)(&logger, &msg);
+
 			res.into_glib()
 		}
+
 		let request_filter = Some(request_filter_func::<P> as _);
+
 		unsafe extern fn destroy_func<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call3 = Some(destroy_func::<P> as _);
+
 		let super_callback0:Box_<P> = request_filter_data;
+
 		unsafe {
 			ffi::soup_logger_set_request_filter(
 				self.as_ref().to_glib_none().0,
@@ -176,6 +187,7 @@ impl<O:IsA<Logger>> LoggerExt for O {
 		response_filter:P,
 	) {
 		let response_filter_data:Box_<P> = Box_::new(response_filter);
+
 		unsafe extern fn response_filter_func<
 			P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static,
 		>(
@@ -184,19 +196,28 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			user_data:glib::ffi::gpointer,
 		) -> ffi::SoupLoggerLogLevel {
 			let logger = from_glib_borrow(logger);
+
 			let msg = from_glib_borrow(msg);
+
 			let callback:&P = &*(user_data as *mut _);
+
 			let res = (*callback)(&logger, &msg);
+
 			res.into_glib()
 		}
+
 		let response_filter = Some(response_filter_func::<P> as _);
+
 		unsafe extern fn destroy_func<P:Fn(&Logger, &Message) -> LoggerLogLevel + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call3 = Some(destroy_func::<P> as _);
+
 		let super_callback0:Box_<P> = response_filter_data;
+
 		unsafe {
 			ffi::soup_logger_set_response_filter(
 				self.as_ref().to_glib_none().0,
@@ -212,11 +233,13 @@ impl<O:IsA<Logger>> LoggerExt for O {
 	fn level(&self) -> LoggerLogLevel {
 		unsafe {
 			let mut value = glib::Value::from_type(<LoggerLogLevel as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"level\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `level` getter")
 		}
 	}
@@ -238,11 +261,13 @@ impl<O:IsA<Logger>> LoggerExt for O {
 	fn max_body_size(&self) -> i32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-body-size\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `max-body-size` getter")
 		}
 	}
@@ -268,10 +293,13 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Logger::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::level\0".as_ptr() as *const _,
@@ -292,10 +320,13 @@ impl<O:IsA<Logger>> LoggerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Logger::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::max-body-size\0".as_ptr() as *const _,

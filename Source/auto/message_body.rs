@@ -21,6 +21,7 @@ impl MessageBody {
 	#[doc(alias = "soup_message_body_new")]
 	pub fn new() -> MessageBody {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_message_body_new()) }
 	}
 
@@ -39,6 +40,7 @@ impl MessageBody {
 	#[doc(alias = "soup_message_body_append_take")]
 	pub fn append_take(&mut self, data:&[u8]) {
 		let length = data.len() as usize;
+
 		unsafe {
 			ffi::soup_message_body_append_take(
 				self.to_glib_none_mut().0,

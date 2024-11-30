@@ -32,6 +32,7 @@ impl MultipartInputStream {
 		base_stream:&impl IsA<gio::InputStream>,
 	) -> MultipartInputStream {
 		crate::skip_assert_initialized!();
+
 		unsafe {
 			from_glib_full(ffi::soup_multipart_input_stream_new(
 				msg.as_ref().to_glib_none().0,
@@ -80,11 +81,13 @@ impl<O:IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 	) -> Result<Option<gio::InputStream>, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_multipart_input_stream_next_part(
 				self.as_ref().to_glib_none().0,
 				cancellable.map(|p| p.as_ref()).to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -96,11 +99,13 @@ impl<O:IsA<MultipartInputStream>> MultipartInputStreamExt for O {
 	fn message(&self) -> Option<Message> {
 		unsafe {
 			let mut value = glib::Value::from_type(<Message as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"message\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `message` getter")
 		}
 	}

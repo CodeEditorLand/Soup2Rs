@@ -25,6 +25,7 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_new")]
 	pub fn new(type_:MessageHeadersType) -> MessageHeaders {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_message_headers_new(type_.into_glib())) }
 	}
 
@@ -58,18 +59,24 @@ impl MessageHeaders {
 	#[doc(alias = "soup_message_headers_foreach")]
 	pub fn foreach<P:FnMut(&str, &str)>(&mut self, func:P) {
 		let func_data:P = func;
+
 		unsafe extern fn func_func<P:FnMut(&str, &str)>(
 			name:*const libc::c_char,
 			value:*const libc::c_char,
 			user_data:glib::ffi::gpointer,
 		) {
 			let name:Borrowed<glib::GString> = from_glib_borrow(name);
+
 			let value:Borrowed<glib::GString> = from_glib_borrow(value);
+
 			let callback:*mut P = user_data as *const _ as usize as *mut P;
 			(*callback)(name.as_str(), value.as_str());
 		}
+
 		let func = Some(func_func::<P> as _);
+
 		let super_callback0:&P = &func_data;
+
 		unsafe {
 			ffi::soup_message_headers_foreach(
 				self.to_glib_none_mut().0,
@@ -117,17 +124,24 @@ impl MessageHeaders {
 	pub fn content_range(&mut self) -> Option<(i64, i64, i64)> {
 		unsafe {
 			let mut start = mem::MaybeUninit::uninit();
+
 			let mut end = mem::MaybeUninit::uninit();
+
 			let mut total_length = mem::MaybeUninit::uninit();
+
 			let ret = from_glib(ffi::soup_message_headers_get_content_range(
 				self.to_glib_none_mut().0,
 				start.as_mut_ptr(),
 				end.as_mut_ptr(),
 				total_length.as_mut_ptr(),
 			));
+
 			let start = start.assume_init();
+
 			let end = end.assume_init();
+
 			let total_length = total_length.assume_init();
+
 			if ret { Some((start, end, total_length)) } else { None }
 		}
 	}

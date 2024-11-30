@@ -21,7 +21,9 @@ impl Buffer {
 	#[doc(alias = "soup_buffer_new_take")]
 	pub fn new_take(data:&[u8]) -> Buffer {
 		crate::assert_initialized_main_thread!();
+
 		let length = data.len() as usize;
+
 		unsafe { from_glib_full(ffi::soup_buffer_new_take(data.to_glib_full(), length)) }
 	}
 

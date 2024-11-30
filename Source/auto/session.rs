@@ -47,6 +47,7 @@ impl Session {
 	#[doc(alias = "soup_session_new")]
 	pub fn new() -> Session {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_session_new()) }
 	}
 
@@ -682,19 +683,26 @@ impl<O:IsA<Session>> SessionExt for O {
 	) {
 		let callback_data:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> =
 			Box_::new(callback);
+
 		unsafe extern fn callback_func(
 			addr:*mut ffi::SoupAddress,
 			status:libc::c_uint,
 			user_data:glib::ffi::gpointer,
 		) {
 			let addr = from_glib_borrow(addr);
+
 			let callback:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> =
 				Box_::from_raw(user_data as *mut _);
+
 			let callback = (*callback).expect("cannot get closure...");
+
 			callback(&addr, status)
 		}
+
 		let callback = if callback_data.is_some() { Some(callback_func as _) } else { None };
+
 		let super_callback0:Box_<Option<Box_<dyn FnOnce(&Address, u32) + 'static>>> = callback_data;
+
 		unsafe {
 			ffi::soup_session_prefetch_dns(
 				self.as_ref().to_glib_none().0,
@@ -724,21 +732,29 @@ impl<O:IsA<Session>> SessionExt for O {
 	) {
 		let callback_data:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
 			Box_::new(callback);
+
 		unsafe extern fn callback_func(
 			session:*mut ffi::SoupSession,
 			msg:*mut ffi::SoupMessage,
 			user_data:glib::ffi::gpointer,
 		) {
 			let session = from_glib_borrow(session);
+
 			let msg = from_glib_borrow(msg);
+
 			let callback:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
 				Box_::from_raw(user_data as *mut _);
+
 			let callback = (*callback).expect("cannot get closure...");
+
 			callback(&session, &msg)
 		}
+
 		let callback = if callback_data.is_some() { Some(callback_func as _) } else { None };
+
 		let super_callback0:Box_<Option<Box_<dyn FnOnce(&Session, &Message) + 'static>>> =
 			callback_data;
+
 		unsafe {
 			ffi::soup_session_queue_message(
 				self.as_ref().to_glib_none().0,
@@ -787,11 +803,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn request(&self, uri_string:&str) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_request(
 				self.as_ref().to_glib_none().0,
 				uri_string.to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -805,12 +823,14 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn request_http(&self, method:&str, uri_string:&str) -> Result<RequestHTTP, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_request_http(
 				self.as_ref().to_glib_none().0,
 				method.to_glib_none().0,
 				uri_string.to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -824,12 +844,14 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn request_http_uri(&self, method:&str, uri:&mut URI) -> Result<RequestHTTP, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_request_http_uri(
 				self.as_ref().to_glib_none().0,
 				method.to_glib_none().0,
 				uri.to_glib_none_mut().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -843,11 +865,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn request_uri(&self, uri:&mut URI) -> Result<Request, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_request_uri(
 				self.as_ref().to_glib_none().0,
 				uri.to_glib_none_mut().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -874,12 +898,14 @@ impl<O:IsA<Session>> SessionExt for O {
 	) -> Result<gio::InputStream, glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_send(
 				self.as_ref().to_glib_none().0,
 				msg.as_ref().to_glib_none().0,
 				cancellable.map(|p| p.as_ref()).to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
@@ -897,6 +923,7 @@ impl<O:IsA<Session>> SessionExt for O {
 		callback:P,
 	) {
 		let user_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn send_async_trampoline<
 			P:FnOnce(Result<gio::InputStream, glib::Error>) + Send + 'static,
 		>(
@@ -905,16 +932,22 @@ impl<O:IsA<Session>> SessionExt for O {
 			user_data:glib::ffi::gpointer,
 		) {
 			let mut error = ptr::null_mut();
+
 			let ret = ffi::soup_session_send_finish(_source_object as *mut _, res, &mut error);
+
 			let result = if error.is_null() {
 				Ok(from_glib_full(ret))
 			} else {
 				Err(from_glib_full(error))
 			};
+
 			let callback:Box_<P> = Box_::from_raw(user_data as *mut _);
+
 			callback(result);
 		}
+
 		let callback = send_async_trampoline::<P>;
+
 		unsafe {
 			ffi::soup_session_send_async(
 				self.as_ref().to_glib_none().0,
@@ -934,6 +967,7 @@ impl<O:IsA<Session>> SessionExt for O {
 	) -> Pin<Box_<dyn std::future::Future<Output = Result<gio::InputStream, glib::Error>> + 'static>>
 	{
 		let msg = msg.clone();
+
 		Box_::pin(gio::GioFuture::new(self, move |obj, cancellable, send| {
 			obj.send_async(&msg, Some(cancellable), move |res| {
 				send.resolve(res);
@@ -986,11 +1020,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn accept_language(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"accept-language\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `accept-language` getter")
 		}
 	}
@@ -1012,11 +1048,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn accepts_language_auto(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"accept-language-auto\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `accept-language-auto` getter")
 		}
 	}
@@ -1063,11 +1101,13 @@ impl<O:IsA<Session>> SessionExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"http-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `http-aliases` getter")
 		}
 	}
@@ -1090,11 +1130,13 @@ impl<O:IsA<Session>> SessionExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"https-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `https-aliases` getter")
 		}
 	}
@@ -1116,11 +1158,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn idle_timeout(&self) -> u32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"idle-timeout\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `idle-timeout` getter")
 		}
 	}
@@ -1142,11 +1186,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn local_address(&self) -> Option<Address> {
 		unsafe {
 			let mut value = glib::Value::from_type(<Address as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"local-address\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `local-address` getter")
 		}
 	}
@@ -1154,11 +1200,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn max_conns(&self) -> i32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-conns\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `max-conns` getter")
 		}
 	}
@@ -1176,11 +1224,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn max_conns_per_host(&self) -> i32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<i32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"max-conns-per-host\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `max-conns-per-host` getter")
 		}
 	}
@@ -1201,11 +1251,13 @@ impl<O:IsA<Session>> SessionExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::ProxyResolver as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy-resolver\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `proxy-resolver` getter")
 		}
 	}
@@ -1225,11 +1277,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn proxy_uri(&self) -> Option<URI> {
 		unsafe {
 			let mut value = glib::Value::from_type(<URI as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy-uri\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `proxy-uri` getter")
 		}
 	}
@@ -1259,11 +1313,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn ssl_ca_file(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-ca-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-ca-file` getter")
 		}
 	}
@@ -1283,11 +1339,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn is_ssl_strict(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-strict\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-strict` getter")
 		}
 	}
@@ -1309,11 +1367,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn is_ssl_use_system_ca_file(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-use-system-ca-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-use-system-ca-file` getter")
 		}
 	}
@@ -1333,11 +1393,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn timeout(&self) -> u32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"timeout\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `timeout` getter")
 		}
 	}
@@ -1357,11 +1419,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn tls_database(&self) -> Option<gio::TlsDatabase> {
 		unsafe {
 			let mut value = glib::Value::from_type(<gio::TlsDatabase as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-database\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-database` getter")
 		}
 	}
@@ -1384,11 +1448,13 @@ impl<O:IsA<Session>> SessionExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsInteraction as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-interaction\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-interaction` getter")
 		}
 	}
@@ -1408,11 +1474,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn uses_ntlm(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"use-ntlm\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `use-ntlm` getter")
 		}
 	}
@@ -1432,11 +1500,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn uses_thread_context(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"use-thread-context\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `use-thread-context` getter")
 		}
 	}
@@ -1456,11 +1526,13 @@ impl<O:IsA<Session>> SessionExt for O {
 	fn user_agent(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"user-agent\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `user-agent` getter")
 		}
 	}
@@ -1490,6 +1562,7 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Session::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(msg),
@@ -1497,8 +1570,10 @@ impl<O:IsA<Session>> SessionExt for O {
 				from_glib(retrying),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"authenticate\0".as_ptr() as *const _,
@@ -1525,10 +1600,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(connection))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"connection-created\0".as_ptr() as *const _,
@@ -1549,10 +1627,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(msg))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-queued\0".as_ptr() as *const _,
@@ -1578,14 +1659,17 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Session::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(msg),
 				&from_glib_borrow(socket),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-started\0".as_ptr() as *const _,
@@ -1609,10 +1693,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(msg))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-unqueued\0".as_ptr() as *const _,
@@ -1633,10 +1720,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(connection))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"tunneling\0".as_ptr() as *const _,
@@ -1657,10 +1747,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::accept-language\0".as_ptr() as *const _,
@@ -1684,10 +1777,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::accept-language-auto\0".as_ptr() as *const _,
@@ -1708,10 +1804,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::add-feature\0".as_ptr() as *const _,
@@ -1735,10 +1834,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::add-feature-by-type\0".as_ptr() as *const _,
@@ -1759,10 +1861,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::http-aliases\0".as_ptr() as *const _,
@@ -1783,10 +1888,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::https-aliases\0".as_ptr() as *const _,
@@ -1807,10 +1915,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::idle-timeout\0".as_ptr() as *const _,
@@ -1829,10 +1940,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::max-conns\0".as_ptr() as *const _,
@@ -1854,10 +1968,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::max-conns-per-host\0".as_ptr() as *const _,
@@ -1878,10 +1995,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::proxy-resolver\0".as_ptr() as *const _,
@@ -1900,10 +2020,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::proxy-uri\0".as_ptr() as *const _,
@@ -1927,10 +2050,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::remove-feature-by-type\0".as_ptr() as *const _,
@@ -1949,10 +2075,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::ssl-ca-file\0".as_ptr() as *const _,
@@ -1973,10 +2102,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::ssl-strict\0".as_ptr() as *const _,
@@ -2000,10 +2132,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::ssl-use-system-ca-file\0".as_ptr() as *const _,
@@ -2022,10 +2157,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::timeout\0".as_ptr() as *const _,
@@ -2046,10 +2184,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-database\0".as_ptr() as *const _,
@@ -2070,10 +2211,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-interaction\0".as_ptr() as *const _,
@@ -2092,10 +2236,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::use-ntlm\0".as_ptr() as *const _,
@@ -2119,10 +2266,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::use-thread-context\0".as_ptr() as *const _,
@@ -2141,10 +2291,13 @@ impl<O:IsA<Session>> SessionExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Session::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::user-agent\0".as_ptr() as *const _,

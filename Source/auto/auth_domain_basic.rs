@@ -54,6 +54,7 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 		callback:P,
 	) {
 		let callback_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn callback_func<
 			P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static,
 		>(
@@ -64,14 +65,22 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 			user_data:glib::ffi::gpointer,
 		) -> glib::ffi::gboolean {
 			let domain = from_glib_borrow(domain);
+
 			let msg = from_glib_borrow(msg);
+
 			let username:Borrowed<glib::GString> = from_glib_borrow(username);
+
 			let password:Borrowed<glib::GString> = from_glib_borrow(password);
+
 			let callback:&P = &*(user_data as *mut _);
+
 			let res = (*callback)(&domain, &msg, username.as_str(), password.as_str());
+
 			res.into_glib()
 		}
+
 		let callback = Some(callback_func::<P> as _);
+
 		unsafe extern fn dnotify_func<
 			P:Fn(&AuthDomainBasic, &Message, &str, &str) -> bool + 'static,
 		>(
@@ -79,8 +88,11 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call3 = Some(dnotify_func::<P> as _);
+
 		let super_callback0:Box_<P> = callback_data;
+
 		unsafe {
 			ffi::soup_auth_domain_basic_set_auth_callback(
 				self.as_ref().to_glib_none().0,
@@ -115,10 +127,13 @@ impl<O:IsA<AuthDomainBasic>> AuthDomainBasicExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(AuthDomainBasic::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::auth-data\0".as_ptr() as *const _,

@@ -296,6 +296,7 @@ impl<O:IsA<Server>> ServerExt for O {
 	) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_accept_iostream(
 				self.as_ref().to_glib_none().0,
 				stream.as_ref().to_glib_none().0,
@@ -303,6 +304,7 @@ impl<O:IsA<Server>> ServerExt for O {
 				remote_addr.map(|p| p.as_ref()).to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -355,6 +357,7 @@ impl<O:IsA<Server>> ServerExt for O {
 		callback:P,
 	) {
 		let callback_data:Box_<P> = Box_::new(callback);
+
 		unsafe extern fn callback_func<
 			P:Fn(&Server, &WebsocketConnection, &str, &ClientContext) + 'static,
 		>(
@@ -365,13 +368,19 @@ impl<O:IsA<Server>> ServerExt for O {
 			user_data:glib::ffi::gpointer,
 		) {
 			let server = from_glib_borrow(server);
+
 			let connection = from_glib_borrow(connection);
+
 			let path:Borrowed<glib::GString> = from_glib_borrow(path);
+
 			let client = from_glib_borrow(client);
+
 			let callback:&P = &*(user_data as *mut _);
 			(*callback)(&server, &connection, path.as_str(), &client);
 		}
+
 		let callback = Some(callback_func::<P> as _);
+
 		unsafe extern fn destroy_func<
 			P:Fn(&Server, &WebsocketConnection, &str, &ClientContext) + 'static,
 		>(
@@ -379,8 +388,11 @@ impl<O:IsA<Server>> ServerExt for O {
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call6 = Some(destroy_func::<P> as _);
+
 		let super_callback0:Box_<P> = callback_data;
+
 		unsafe {
 			ffi::soup_server_add_websocket_handler(
 				self.as_ref().to_glib_none().0,
@@ -443,12 +455,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_listen(
 				self.as_ref().to_glib_none().0,
 				address.as_ref().to_glib_none().0,
 				options.into_glib(),
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -458,12 +472,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn listen_all(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_listen_all(
 				self.as_ref().to_glib_none().0,
 				port,
 				options.into_glib(),
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -473,12 +489,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn listen_fd(&self, fd:i32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_listen_fd(
 				self.as_ref().to_glib_none().0,
 				fd,
 				options.into_glib(),
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -488,12 +506,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn listen_local(&self, port:u32, options:ServerListenOptions) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_listen_local(
 				self.as_ref().to_glib_none().0,
 				port,
 				options.into_glib(),
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -507,12 +527,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_listen_socket(
 				self.as_ref().to_glib_none().0,
 				socket.as_ref().to_glib_none().0,
 				options.into_glib(),
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -575,12 +597,14 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn set_ssl_cert_file(&self, ssl_cert_file:&str, ssl_key_file:&str) -> Result<(), glib::Error> {
 		unsafe {
 			let mut error = ptr::null_mut();
+
 			let _ = ffi::soup_server_set_ssl_cert_file(
 				self.as_ref().to_glib_none().0,
 				ssl_cert_file.to_glib_none().0,
 				ssl_key_file.to_glib_none().0,
 				&mut error,
 			);
+
 			if error.is_null() { Ok(()) } else { Err(from_glib_full(error)) }
 		}
 	}
@@ -612,11 +636,13 @@ impl<O:IsA<Server>> ServerExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"http-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `http-aliases` getter")
 		}
 	}
@@ -639,11 +665,13 @@ impl<O:IsA<Server>> ServerExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<Vec<glib::GString> as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"https-aliases\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `https-aliases` getter")
 		}
 	}
@@ -663,11 +691,13 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn interface(&self) -> Option<Address> {
 		unsafe {
 			let mut value = glib::Value::from_type(<Address as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"interface\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `interface` getter")
 		}
 	}
@@ -675,11 +705,13 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn is_raw_paths(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"raw-paths\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `raw-paths` getter")
 		}
 	}
@@ -699,11 +731,13 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn server_header(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"server-header\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `server-header` getter")
 		}
 	}
@@ -721,11 +755,13 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn ssl_cert_file(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-cert-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-cert-file` getter")
 		}
 	}
@@ -733,11 +769,13 @@ impl<O:IsA<Server>> ServerExt for O {
 	fn ssl_key_file(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"ssl-key-file\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `ssl-key-file` getter")
 		}
 	}
@@ -748,11 +786,13 @@ impl<O:IsA<Server>> ServerExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-certificate` getter")
 		}
 	}
@@ -771,14 +811,17 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Server::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 				&from_glib_borrow(client),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-aborted\0".as_ptr() as *const _,
@@ -804,14 +847,17 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Server::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 				&from_glib_borrow(client),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-finished\0".as_ptr() as *const _,
@@ -837,14 +883,17 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Server::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 				&from_glib_borrow(client),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-read\0".as_ptr() as *const _,
@@ -870,14 +919,17 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Server::from_glib_borrow(this).unsafe_cast_ref(),
 				&from_glib_borrow(message),
 				&from_glib_borrow(client),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"request-started\0".as_ptr() as *const _,
@@ -904,10 +956,13 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Server::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::add-websocket-extension\0".as_ptr() as *const _,
@@ -928,10 +983,13 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Server::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::http-aliases\0".as_ptr() as *const _,
@@ -952,10 +1010,13 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Server::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::https-aliases\0".as_ptr() as *const _,
@@ -982,10 +1043,13 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Server::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::remove-websocket-extension\0".as_ptr() as *const _,
@@ -1004,10 +1068,13 @@ impl<O:IsA<Server>> ServerExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Server::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::server-header\0".as_ptr() as *const _,

@@ -48,6 +48,7 @@ impl Message {
 	#[doc(alias = "soup_message_new")]
 	pub fn new(method:&str, uri_string:&str) -> Option<Message> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_message_new(
 				method.to_glib_none().0,
@@ -60,6 +61,7 @@ impl Message {
 	#[doc(alias = "new_from_uri")]
 	pub fn from_uri(method:&str, uri:&mut URI) -> Message {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_message_new_from_uri(
 				method.to_glib_none().0,
@@ -474,13 +476,17 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn https_status(&self) -> Option<(gio::TlsCertificate, gio::TlsCertificateFlags)> {
 		unsafe {
 			let mut certificate = ptr::null_mut();
+
 			let mut errors = mem::MaybeUninit::uninit();
+
 			let ret = from_glib(ffi::soup_message_get_https_status(
 				self.as_ref().to_glib_none().0,
 				&mut certificate,
 				errors.as_mut_ptr(),
 			));
+
 			let errors = errors.assume_init();
+
 			if ret { Some((from_glib_none(certificate), from_glib(errors))) } else { None }
 		}
 	}
@@ -612,6 +618,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn set_request(&self, content_type:Option<&str>, req_use:MemoryUse, req_body:&[u8]) {
 		let req_length = req_body.len() as usize;
+
 		unsafe {
 			ffi::soup_message_set_request(
 				self.as_ref().to_glib_none().0,
@@ -625,6 +632,7 @@ impl<O:IsA<Message>> MessageExt for O {
 
 	fn set_response(&self, content_type:Option<&str>, resp_use:MemoryUse, resp_body:&[u8]) {
 		let resp_length = resp_body.len() as usize;
+
 		unsafe {
 			ffi::soup_message_set_response(
 				self.as_ref().to_glib_none().0,
@@ -700,11 +708,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn method(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"method\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `method` getter")
 		}
 	}
@@ -722,11 +732,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn get_property_priority(&self) -> MessagePriority {
 		unsafe {
 			let mut value = glib::Value::from_type(<MessagePriority as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"priority\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `priority` getter")
 		}
 	}
@@ -744,11 +756,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn reason_phrase(&self) -> Option<glib::GString> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::GString as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"reason-phrase\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `reason-phrase` getter")
 		}
 	}
@@ -766,11 +780,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn request_body(&self) -> Option<MessageBody> {
 		unsafe {
 			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `request-body` getter")
 		}
 	}
@@ -780,11 +796,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn request_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `request-body-data` getter")
 		}
 	}
@@ -792,11 +810,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn request_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
 			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"request-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `request-headers` getter")
 		}
 	}
@@ -804,11 +824,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn response_body(&self) -> Option<MessageBody> {
 		unsafe {
 			let mut value = glib::Value::from_type(<MessageBody as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `response-body` getter")
 		}
 	}
@@ -818,11 +840,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn response_body_data(&self) -> Option<glib::Bytes> {
 		unsafe {
 			let mut value = glib::Value::from_type(<glib::Bytes as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-body-data\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `response-body-data` getter")
 		}
 	}
@@ -830,11 +854,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn response_headers(&self) -> Option<MessageHeaders> {
 		unsafe {
 			let mut value = glib::Value::from_type(<MessageHeaders as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"response-headers\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `response-headers` getter")
 		}
 	}
@@ -842,11 +868,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn is_server_side(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"server-side\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `server-side` getter")
 		}
 	}
@@ -854,11 +882,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn site_for_cookies(&self) -> Option<URI> {
 		unsafe {
 			let mut value = glib::Value::from_type(<URI as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"site-for-cookies\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `site-for-cookies` getter")
 		}
 	}
@@ -876,11 +906,13 @@ impl<O:IsA<Message>> MessageExt for O {
 	fn status_code(&self) -> u32 {
 		unsafe {
 			let mut value = glib::Value::from_type(<u32 as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"status-code\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `status-code` getter")
 		}
 	}
@@ -901,11 +933,13 @@ impl<O:IsA<Message>> MessageExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsCertificate as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-certificate\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-certificate` getter")
 		}
 	}
@@ -928,11 +962,13 @@ impl<O:IsA<Message>> MessageExt for O {
 		unsafe {
 			let mut value =
 				glib::Value::from_type(<gio::TlsCertificateFlags as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"tls-errors\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `tls-errors` getter")
 		}
 	}
@@ -962,10 +998,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"finished\0".as_ptr() as *const _,
@@ -983,10 +1022,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-body\0".as_ptr() as *const _,
@@ -1005,10 +1047,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-chunk\0".as_ptr() as *const _,
@@ -1026,10 +1071,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-headers\0".as_ptr() as *const _,
@@ -1047,10 +1095,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"got-informational\0".as_ptr() as *const _,
@@ -1078,14 +1129,17 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(
 				Message::from_glib_borrow(this).unsafe_cast_ref(),
 				from_glib(event),
 				&from_glib_borrow(connection),
 			)
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"network-event\0".as_ptr() as *const _,
@@ -1103,10 +1157,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"restarted\0".as_ptr() as *const _,
@@ -1126,10 +1183,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"starting\0".as_ptr() as *const _,
@@ -1147,10 +1207,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-body\0".as_ptr() as *const _,
@@ -1171,10 +1234,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref(), &from_glib_borrow(chunk))
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-body-data\0".as_ptr() as *const _,
@@ -1192,10 +1258,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-chunk\0".as_ptr() as *const _,
@@ -1213,10 +1282,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-headers\0".as_ptr() as *const _,
@@ -1234,10 +1306,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"wrote-informational\0".as_ptr() as *const _,
@@ -1258,10 +1333,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::first-party\0".as_ptr() as *const _,
@@ -1280,10 +1358,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::flags\0".as_ptr() as *const _,
@@ -1302,10 +1383,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::http-version\0".as_ptr() as *const _,
@@ -1332,10 +1416,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::is-top-level-navigation\0".as_ptr() as *const _,
@@ -1354,10 +1441,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::method\0".as_ptr() as *const _,
@@ -1376,10 +1466,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::priority\0".as_ptr() as *const _,
@@ -1398,10 +1491,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::reason-phrase\0".as_ptr() as *const _,
@@ -1420,10 +1516,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-body\0".as_ptr() as *const _,
@@ -1444,10 +1543,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-body-data\0".as_ptr() as *const _,
@@ -1466,10 +1568,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::request-headers\0".as_ptr() as *const _,
@@ -1488,10 +1593,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-body\0".as_ptr() as *const _,
@@ -1515,10 +1623,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-body-data\0".as_ptr() as *const _,
@@ -1537,10 +1648,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::response-headers\0".as_ptr() as *const _,
@@ -1559,10 +1673,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::site-for-cookies\0".as_ptr() as *const _,
@@ -1581,10 +1698,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::status-code\0".as_ptr() as *const _,
@@ -1605,10 +1725,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-certificate\0".as_ptr() as *const _,
@@ -1629,10 +1752,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::tls-errors\0".as_ptr() as *const _,
@@ -1651,10 +1777,13 @@ impl<O:IsA<Message>> MessageExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(Message::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::uri\0".as_ptr() as *const _,

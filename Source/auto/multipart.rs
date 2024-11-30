@@ -23,6 +23,7 @@ impl Multipart {
 	#[doc(alias = "soup_multipart_new")]
 	pub fn new(mime_type:&str) -> Multipart {
 		crate::assert_initialized_main_thread!();
+
 		unsafe { from_glib_full(ffi::soup_multipart_new(mime_type.to_glib_none().0)) }
 	}
 
@@ -30,6 +31,7 @@ impl Multipart {
 	#[doc(alias = "new_from_message")]
 	pub fn from_message(headers:&mut MessageHeaders, body:&mut MessageBody) -> Option<Multipart> {
 		crate::assert_initialized_main_thread!();
+
 		unsafe {
 			from_glib_full(ffi::soup_multipart_new_from_message(
 				headers.to_glib_none_mut().0,
@@ -90,13 +92,16 @@ impl Multipart {
 	pub fn part(&mut self, part:i32) -> Option<(MessageHeaders, Buffer)> {
 		unsafe {
 			let mut headers = ptr::null_mut();
+
 			let mut body = ptr::null_mut();
+
 			let ret = from_glib(ffi::soup_multipart_get_part(
 				self.to_glib_none_mut().0,
 				part,
 				&mut headers,
 				&mut body,
 			));
+
 			if ret { Some((from_glib_none(headers), from_glib_none(body))) } else { None }
 		}
 	}

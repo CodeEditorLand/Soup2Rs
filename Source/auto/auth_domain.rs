@@ -155,25 +155,35 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 
 	fn set_filter<P:Fn(&AuthDomain, &Message) -> bool + 'static>(&self, filter:P) {
 		let filter_data:Box_<P> = Box_::new(filter);
+
 		unsafe extern fn filter_func<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
 			domain:*mut ffi::SoupAuthDomain,
 			msg:*mut ffi::SoupMessage,
 			user_data:glib::ffi::gpointer,
 		) -> glib::ffi::gboolean {
 			let domain = from_glib_borrow(domain);
+
 			let msg = from_glib_borrow(msg);
+
 			let callback:&P = &*(user_data as *mut _);
+
 			let res = (*callback)(&domain, &msg);
+
 			res.into_glib()
 		}
+
 		let filter = Some(filter_func::<P> as _);
+
 		unsafe extern fn dnotify_func<P:Fn(&AuthDomain, &Message) -> bool + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call3 = Some(dnotify_func::<P> as _);
+
 		let super_callback0:Box_<P> = filter_data;
+
 		unsafe {
 			ffi::soup_auth_domain_set_filter(
 				self.as_ref().to_glib_none().0,
@@ -189,6 +199,7 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 		auth_callback:P,
 	) {
 		let auth_callback_data:Box_<P> = Box_::new(auth_callback);
+
 		unsafe extern fn auth_callback_func<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 			domain:*mut ffi::SoupAuthDomain,
 			msg:*mut ffi::SoupMessage,
@@ -196,20 +207,30 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			user_data:glib::ffi::gpointer,
 		) -> glib::ffi::gboolean {
 			let domain = from_glib_borrow(domain);
+
 			let msg = from_glib_borrow(msg);
+
 			let username:Borrowed<glib::GString> = from_glib_borrow(username);
+
 			let callback:&P = &*(user_data as *mut _);
+
 			let res = (*callback)(&domain, &msg, username.as_str());
+
 			res.into_glib()
 		}
+
 		let auth_callback = Some(auth_callback_func::<P> as _);
+
 		unsafe extern fn dnotify_func<P:Fn(&AuthDomain, &Message, &str) -> bool + 'static>(
 			data:glib::ffi::gpointer,
 		) {
 			let _callback:Box_<P> = Box_::from_raw(data as *mut _);
 		}
+
 		let destroy_call3 = Some(dnotify_func::<P> as _);
+
 		let super_callback0:Box_<P> = auth_callback_data;
+
 		unsafe {
 			ffi::soup_auth_domain_set_generic_auth_callback(
 				self.as_ref().to_glib_none().0,
@@ -277,11 +298,13 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 	fn is_proxy(&self) -> bool {
 		unsafe {
 			let mut value = glib::Value::from_type(<bool as StaticType>::static_type());
+
 			glib::gobject_ffi::g_object_get_property(
 				self.to_glib_none().0 as *mut glib::gobject_ffi::GObject,
 				b"proxy\0".as_ptr() as *const _,
 				value.to_glib_none_mut().0,
 			);
+
 			value.get().expect("Return Value for property `proxy` getter")
 		}
 	}
@@ -303,10 +326,13 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(AuthDomain::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::add-path\0".as_ptr() as *const _,
@@ -325,10 +351,13 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(AuthDomain::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::filter-data\0".as_ptr() as *const _,
@@ -350,10 +379,13 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(AuthDomain::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::generic-auth-data\0".as_ptr() as *const _,
@@ -372,10 +404,13 @@ impl<O:IsA<AuthDomain>> AuthDomainExt for O {
 			f:glib::ffi::gpointer,
 		) {
 			let f:&F = &*(f as *const F);
+
 			f(AuthDomain::from_glib_borrow(this).unsafe_cast_ref())
 		}
+
 		unsafe {
 			let f:Box_<F> = Box_::new(f);
+
 			connect_raw(
 				self.as_ptr() as *mut _,
 				b"notify::remove-path\0".as_ptr() as *const _,
