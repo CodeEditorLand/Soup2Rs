@@ -1,7 +1,7 @@
 [package]
 build = "build.rs"
 description = "Soup FFI crate for Rust"
-license = "MIT"
+license-file = "LICENSE"
 links = "soup"
 name = "soup2-sys"
 version = "0.2.0"

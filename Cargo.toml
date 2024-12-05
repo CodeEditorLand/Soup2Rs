@@ -3,7 +3,7 @@ name = "soup"
 
 [package]
 description = "Soup2 crate for Rust"
-license = "MIT"
+license-file = "LICENSE"
 name = "soup2"
 version = "0.2.1"
 edition = "2021"
