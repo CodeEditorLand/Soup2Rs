@@ -13,11 +13,12 @@
 
 use gio_sys as gio;
 #[allow(unused_imports)]
-use glib::{gboolean, gconstpointer, gpointer, GType};
+use glib::{GType, gboolean, gconstpointer, gpointer};
 use glib_sys as glib;
 use gobject_sys as gobject;
 #[allow(unused_imports)]
 use libc::{
+	FILE,
 	c_char,
 	c_double,
 	c_float,
@@ -35,7 +36,6 @@ use libc::{
 	ssize_t,
 	time_t,
 	uintptr_t,
-	FILE,
 };
 
 // Enums

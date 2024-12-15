@@ -74,62 +74,62 @@ mod multipart_input_stream;
 pub use self::multipart_input_stream::{MultipartInputStream, NONE_MULTIPART_INPUT_STREAM};
 
 mod proxy_resolver_default;
-pub use self::proxy_resolver_default::{ProxyResolverDefault, NONE_PROXY_RESOLVER_DEFAULT};
+pub use self::proxy_resolver_default::{NONE_PROXY_RESOLVER_DEFAULT, ProxyResolverDefault};
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 mod request;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-pub use self::request::{Request, NONE_REQUEST};
+pub use self::request::{NONE_REQUEST, Request};
 
 mod request_data;
-pub use self::request_data::{RequestData, NONE_REQUEST_DATA};
+pub use self::request_data::{NONE_REQUEST_DATA, RequestData};
 
 mod request_file;
-pub use self::request_file::{RequestFile, NONE_REQUEST_FILE};
+pub use self::request_file::{NONE_REQUEST_FILE, RequestFile};
 
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
 mod request_http;
 #[cfg(any(feature = "v2_42", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_42")))]
-pub use self::request_http::{RequestHTTP, NONE_REQUEST_HTTP};
+pub use self::request_http::{NONE_REQUEST_HTTP, RequestHTTP};
 
 mod requester;
-pub use self::requester::{Requester, NONE_REQUESTER};
+pub use self::requester::{NONE_REQUESTER, Requester};
 
 mod server;
-pub use self::server::{Server, NONE_SERVER};
+pub use self::server::{NONE_SERVER, Server};
 
 mod session;
-pub use self::session::{Session, NONE_SESSION};
+pub use self::session::{NONE_SESSION, Session};
 
 mod session_async;
-pub use self::session_async::{SessionAsync, NONE_SESSION_ASYNC};
+pub use self::session_async::{NONE_SESSION_ASYNC, SessionAsync};
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 mod session_feature;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
-pub use self::session_feature::{SessionFeature, NONE_SESSION_FEATURE};
+pub use self::session_feature::{NONE_SESSION_FEATURE, SessionFeature};
 
 mod session_sync;
-pub use self::session_sync::{SessionSync, NONE_SESSION_SYNC};
+pub use self::session_sync::{NONE_SESSION_SYNC, SessionSync};
 
 mod socket;
-pub use self::socket::{Socket, NONE_SOCKET};
+pub use self::socket::{NONE_SOCKET, Socket};
 
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 mod websocket_connection;
 #[cfg(any(feature = "v2_50", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
-pub use self::websocket_connection::{WebsocketConnection, NONE_WEBSOCKET_CONNECTION};
+pub use self::websocket_connection::{NONE_WEBSOCKET_CONNECTION, WebsocketConnection};
 
 mod websocket_extension;
-pub use self::websocket_extension::{WebsocketExtension, NONE_WEBSOCKET_EXTENSION};
+pub use self::websocket_extension::{NONE_WEBSOCKET_EXTENSION, WebsocketExtension};
 
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
@@ -137,14 +137,14 @@ mod websocket_extension_deflate;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 pub use self::websocket_extension_deflate::{
-	WebsocketExtensionDeflate,
 	NONE_WEBSOCKET_EXTENSION_DEFLATE,
+	WebsocketExtensionDeflate,
 };
 
 mod websocket_extension_manager;
 pub use self::websocket_extension_manager::{
-	WebsocketExtensionManager,
 	NONE_WEBSOCKET_EXTENSION_MANAGER,
+	WebsocketExtensionManager,
 };
 
 mod buffer;
@@ -289,10 +289,10 @@ pub use self::constants::REQUEST_URI;
 pub use self::constants::SERVER_ADD_WEBSOCKET_EXTENSION;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-pub use self::constants::SERVER_HTTPS_ALIASES;
+pub use self::constants::SERVER_HTTP_ALIASES;
 #[cfg(any(feature = "v2_44", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_44")))]
-pub use self::constants::SERVER_HTTP_ALIASES;
+pub use self::constants::SERVER_HTTPS_ALIASES;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 pub use self::constants::SERVER_REMOVE_WEBSOCKET_EXTENSION;
@@ -313,10 +313,10 @@ pub use self::constants::SESSION_ADD_FEATURE;
 pub use self::constants::SESSION_ADD_FEATURE_BY_TYPE;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-pub use self::constants::SESSION_HTTPS_ALIASES;
+pub use self::constants::SESSION_HTTP_ALIASES;
 #[cfg(any(feature = "v2_38", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_38")))]
-pub use self::constants::SESSION_HTTP_ALIASES;
+pub use self::constants::SESSION_HTTPS_ALIASES;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_24")))]
 pub use self::constants::SESSION_IDLE_TIMEOUT;
@@ -405,8 +405,8 @@ pub use self::constants::{
 	SESSION_PROXY_URI,
 	SESSION_SSL_CA_FILE,
 	SESSION_TIMEOUT,
-	SESSION_USER_AGENT,
 	SESSION_USE_NTLM,
+	SESSION_USER_AGENT,
 	SOCKET_ASYNC_CONTEXT,
 	SOCKET_FLAG_NONBLOCKING,
 	SOCKET_IS_SERVER,
@@ -439,7 +439,6 @@ pub mod traits {
 	#[cfg(any(feature = "v2_50", feature = "dox"))]
 	#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_50")))]
 	pub use super::websocket_connection::WebsocketConnectionExt;
-
 	pub use super::{
 		address::AddressExt,
 		auth::AuthExt,

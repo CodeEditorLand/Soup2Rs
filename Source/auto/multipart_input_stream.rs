@@ -7,7 +7,7 @@ use std::fmt;
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_40")))]
 use std::ptr;
 
-use glib::{object::IsA, translate::*, StaticType};
+use glib::{StaticType, object::IsA, translate::*};
 
 use crate::Message;
 #[cfg(any(feature = "v2_40", feature = "dox"))]

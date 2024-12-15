@@ -9,19 +9,19 @@ use std::{boxed::Box as Box_, fmt};
 
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-use glib::object::Cast;
+use glib::StaticType;
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-use glib::signal::connect_raw;
+use glib::ToValue;
+#[cfg(any(feature = "v2_56", feature = "dox"))]
+#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
+use glib::object::Cast;
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
 use glib::signal::SignalHandlerId;
 #[cfg(any(feature = "v2_56", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-use glib::StaticType;
-#[cfg(any(feature = "v2_56", feature = "dox"))]
-#[cfg_attr(feature = "dox", doc(cfg(feature = "v2_56")))]
-use glib::ToValue;
+use glib::signal::connect_raw;
 use glib::{object::IsA, translate::*};
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]

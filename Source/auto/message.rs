@@ -11,11 +11,11 @@ use std::ptr;
 use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 use glib::{
-	object::{Cast, IsA},
-	signal::{connect_raw, SignalHandlerId},
-	translate::*,
 	StaticType,
 	ToValue,
+	object::{Cast, IsA},
+	signal::{SignalHandlerId, connect_raw},
+	translate::*,
 };
 
 #[cfg(any(feature = "v2_26", feature = "dox"))]

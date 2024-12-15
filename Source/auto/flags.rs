@@ -6,10 +6,10 @@ use std::fmt;
 
 use bitflags::bitflags;
 use glib::{
-	translate::*,
-	value::{FromValue, ToValue},
 	StaticType,
 	Type,
+	translate::*,
+	value::{FromValue, ToValue},
 };
 
 bitflags! {

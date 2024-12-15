@@ -5,10 +5,10 @@
 use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 use glib::{
-	object::{Cast, IsA},
-	signal::{connect_raw, SignalHandlerId},
-	translate::*,
 	ToValue,
+	object::{Cast, IsA},
+	signal::{SignalHandlerId, connect_raw},
+	translate::*,
 };
 
 #[cfg(any(feature = "v2_24", feature = "dox"))]

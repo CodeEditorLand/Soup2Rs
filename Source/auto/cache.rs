@@ -4,7 +4,7 @@
 
 use std::fmt;
 
-use glib::{object::IsA, translate::*, StaticType};
+use glib::{StaticType, object::IsA, translate::*};
 
 use crate::CacheType;
 #[cfg(any(feature = "v2_24", feature = "dox"))]

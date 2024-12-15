@@ -5,12 +5,12 @@
 use std::fmt;
 
 use glib::{
-	error::ErrorDomain,
-	translate::*,
-	value::{FromValue, ToValue},
 	Quark,
 	StaticType,
 	Type,
+	error::ErrorDomain,
+	translate::*,
+	value::{FromValue, ToValue},
 };
 
 #[derive(Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Clone, Copy)]

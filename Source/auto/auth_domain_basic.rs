@@ -6,7 +6,7 @@ use std::{boxed::Box as Box_, fmt, mem::transmute};
 
 use glib::{
 	object::{Cast, IsA},
-	signal::{connect_raw, SignalHandlerId},
+	signal::{SignalHandlerId, connect_raw},
 	translate::*,
 };
 

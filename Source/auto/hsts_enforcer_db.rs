@@ -7,7 +7,7 @@ use std::fmt;
 #[cfg(any(feature = "v2_68", feature = "dox"))]
 #[cfg_attr(feature = "dox", doc(cfg(feature = "v2_68")))]
 use glib::object::Cast;
-use glib::{object::IsA, translate::*, StaticType};
+use glib::{StaticType, object::IsA, translate::*};
 
 use crate::HSTSEnforcer;
 #[cfg(any(feature = "v2_24", feature = "dox"))]
