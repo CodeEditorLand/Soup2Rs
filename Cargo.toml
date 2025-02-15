@@ -1,19 +1,9 @@
-[lib]
-name = "soup"
-
-[package]
-description = "Soup2 crate for Rust"
-license = "MIT"
-name = "soup2"
-version = "0.2.1"
-edition = "2021"
-
 [dependencies]
-libc = "0.2"
 bitflags = "1.2"
-once_cell = "1.9"
-glib = "0.15"
 gio = "0.15"
+glib = "0.15"
+libc = "0.2"
+once_cell = "1.9"
 
 [dependencies.ffi]
 package = "soup2-sys"
@@ -47,6 +37,21 @@ v2_62 = ["v2_60", "ffi/v2_62"]
 v2_66 = ["v2_62", "ffi/v2_66"]
 v2_68 = ["v2_66", "ffi/v2_68"]
 v2_70 = ["v2_68", "ffi/v2_70"]
+
+[lib]
+name = "soup"
+path = "Source/lib.rs"
+
+[package]
+description = "Soup2 crate for Rust"
+edition = "2021"
+license-file = "LICENSE"
+name = "soup2"
+version = "0.2.1"
+
+[package.metadata]
+
+[package.metadata.docs]
 
 [package.metadata.docs.rs]
 features = ["dox"]
