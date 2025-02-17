@@ -1,15 +1,15 @@
 [build-dependencies]
-system-deps = "5"
+system-deps = "7"
 
 [dependencies]
-bitflags = "1.0"
-gio-sys = "0.15"
-glib-sys = "0.15"
-gobject-sys = "0.15"
+bitflags = "2.8"
+gio-sys = "0.20"
+glib-sys = "0.20"
+gobject-sys = "0.20"
 libc = "0.2"
 
 [dev-dependencies]
-shell-words = "1.0.0"
+shell-words = "1.1.0"
 tempfile = "3"
 
 [features]
@@ -47,7 +47,7 @@ path = "Source/lib.rs"
 [package]
 build = "build.rs"
 description = "Soup FFI crate for Rust"
-edition = "2021"
+edition = "2024"
 license-file = "LICENSE"
 links = "soup"
 name = "soup2-sys"
